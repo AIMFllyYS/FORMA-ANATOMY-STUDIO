@@ -96,7 +96,11 @@
   - `rule` TR-5.3：鉴权失败/错误 Origin/2MB 体限/健康检查既有行为不回归；证据：server_http_test.py 通过。
 
 ## Task 6: 七系统 GLB 节点语料提取与覆盖率基线
-- **Status**: in_progress
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-6.1（rule）通过：tools/extract_node_corpus.py 七系统全部下载解析，输出 tools/data/node_corpus.json；网格节点 skeletal 277 / joints 413 / muscles 683 / nerves 581 / organs 119 / vessels 676 / lymph 163，合计 2912。
+  - TR-6.2（rule）通过：肌肉节点为完整英文 TA 名（External abdominal oblique muscle.l、Internal abdominal oblique muscle.l…），内脏含 Oesophagus/Jejunum/Bile duct/Bronchi 等；带 .l/.r 后缀节点侧别解析 0 失败；无侧别肌肉仅 6 个中轴结构（白线、膈、斜角肌等），符合解剖。
+  - 原始 GLB 缓存于 tools/data/cache（已 gitignore），语料 JSON 入库（494KB）。
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -108,7 +112,7 @@
   - `rule` TR-6.2：语料中可见肌肉完整 TA 名样例（如 `External abdominal oblique muscle.l`）与内脏名；侧别解析正确率抽样 100%；证据：报告中的样例与断言。
 
 ## Task 7: 规范命名数据生成管线
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: Task 6
 - **Description**:

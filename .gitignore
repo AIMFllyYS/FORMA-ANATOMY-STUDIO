@@ -13,6 +13,13 @@ models/**/*.stl
 # 构建产物（由 python tools/build.py 重新生成）
 dist/
 
+# 命名管线缓存的原始 GLB/词表大文件（生成物可复现）
+tools/data/cache/
+models/source/
+models/source-export/
+models/balanced/
+models/hd/
+
 # 日志与系统文件
 *.log
 .DS_Store
