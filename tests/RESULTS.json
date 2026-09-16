@@ -63,6 +63,8 @@
   "agent_config_migrates_v3": true,
   "agent_max_turns_enforced": true,
   "agent_max_tool_calls_per_turn_enforced": true,
+  "schema_validation_all_tools": true,
+  "schema_invalid_blocks_execution": true,
   "export_excludes_api_key": true,
   "export_includes_model_payload": true,
   "offline_reopen_source_models": true,

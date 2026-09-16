@@ -58,7 +58,11 @@
   - `rubric` TR-3.2：视觉一致性；1–5；1＝风格割裂不可用，3＝功能可用但粗糙，5＝与现有设计系统完全统一；阈值 ≥4；证据：浅/深/窄屏走查截图。
 
 ## Task 4: 浏览器侧统一工具参数校验器
-- **Status**: in_progress
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-4.1（rule）通过：browser_test schema_validation_all_tools 对 10 个工具各 1 非法 1 合法用例（未知字段/错类型/缺必填/越界/枚举非法/数组空）全部识别；schema_invalid_blocks_execution 全链路断言：非法 focus_structures 不弹审批、卡片 is-error、错误回送后模型自纠一轮即止。
+  - TR-4.2（rule）通过：_verify_agent ALL PASSED、browser_test exit 0（含既有多步工具 agent_multistep_tools），合法参数行为不回归；hold_seconds 在执行前即钳制为用户上限。
+  - 实现：agent.js validateSchema/validateArgs（type/enum/range/length/items/required/additionalProperties），位于审批与 executeTool 之前；导出供测试。
 - **Priority**: high
 - **Depends On**: Task 1
 - **Description**:
@@ -71,7 +75,7 @@
   - `rule` TR-4.2：合法参数用例全部通过且行为与重构前一致（回归）；证据：tests/_verify_agent.py 系列通过。
 
 ## Task 5: agent-server 协议加固与依赖锁定
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: Task 1
 - **Description**:

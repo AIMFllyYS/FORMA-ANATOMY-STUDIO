@@ -196,6 +196,31 @@ try:
   test('agent_max_tool_calls_per_turn_enforced',len(over_calls)==1 and '单轮工具请求过多' in page.locator('.agent-turn.error').last.inner_text() and page.locator('#tool-approval').is_hidden())
   page.unroute('https://agent.example.test/**')
   page.evaluate('__studio.agent.configureForTest({limits:FormaAgentConfig.defaultLimits()})')
+  # 统一 JSON Schema 校验：每个工具一条非法 + 合法用例（TR-4.1/4.2）
+  schema_cases=page.evaluate('''()=>{
+    const bad={get_scene:{extra:1},search_structures:{query:123},get_structure_info:{},focus_structures:{ids:[]},isolate_structures:{ids:[1],hold_seconds:999},highlight_structures:{ids:["x"]},set_layer:{category:"bones"},set_explode:{amount:2},set_view:{view:"front"},start_practice:{mode:"point"}};
+    const good={get_scene:{},search_structures:{query:"肱骨"},get_structure_info:{id:0},focus_structures:{ids:[0]},isolate_structures:{ids:[0],hold_seconds:5},highlight_structures:{ids:[0]},set_layer:{category:"muscles",visible:false,opacity:.5},set_explode:{amount:.5},set_view:{view:"z"},start_practice:{mode:"theory"}};
+    const out={};
+    for(const d of FormaAgent.DEFINITIONS){const [name,,schema]=d;out[name]=[FormaAgent.validateArgs(schema,bad[name]).length>0, FormaAgent.validateArgs(schema,good[name]).length===0];}
+    return out;
+  }''')
+  test('schema_validation_all_tools', all(v==[True,True] for v in schema_cases.values()))
+  # 全链路：非法参数不触发审批、不触碰画布，错误回送模型
+  bad_flow=[]
+  def bad_flow_route(route):
+   bad_flow.append(1)
+   if len(bad_flow)==1:
+    c={'role':'assistant','content':None,'tool_calls':[{'id':'bad1','type':'function','function':{'name':'focus_structures','arguments':'{"ids":[0],"evil":true}'}}]}
+    finish='tool_calls'
+   else:
+    c={'role':'assistant','content':'收到错误，停止操作。'};finish='stop'
+   route.fulfill(status=200,content_type='application/json',body=json.dumps({'choices':[{'message':c,'finish_reason':finish}]}),headers={'Access-Control-Allow-Origin':'*'})
+  page.route('https://agent.example.test/**',bad_flow_route)
+  page.evaluate('__studio.agent.clear();__studio.agent.configureForTest({permissionMode:"smart",limits:FormaAgentConfig.defaultLimits()})')
+  page.locator('#chat-input').fill('非法参数测试');page.locator('#chat-send').click()
+  page.wait_for_function('!__studio.agent.busy',timeout=20000)
+  test('schema_invalid_blocks_execution', len(bad_flow)==2 and page.locator('#tool-approval').is_hidden() and '校验未通过' in page.locator('.tool-card.is-error .tool-out').first.text_content())
+  page.unroute('https://agent.example.test/**')
   # Export actual in-memory fixture bytes and load with external network blocked.
   with page.expect_download() as dl:page.evaluate('__studio.exportOffline()')
   offline=OUT/'TEST_ONLY_exported.html';dl.value.save_as(str(offline));text=offline.read_text()
