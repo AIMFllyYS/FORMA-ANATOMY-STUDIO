@@ -62,7 +62,7 @@ HTML 内的 Agent 会话
    → 返回实际工具结果到下一回合
 ```
 
-工具不在服务器直接执行：真实模型存在浏览器中。`tool-definitions.json` 保持与 `web/agent.js` 一致。服务用 `stopWhen: stepCountIs(1)` 完成一次模型回合；前端管理外层有界循环和工具批准。不能在后台“假执行”画布工具然后告诉用户已经聚焦。
+工具不在服务器直接执行：真实模型存在浏览器中。工具定义只有一份事实源 `../web/agent-tools.json`（浏览器经构建器内嵌为 `#agent-tools-data`，服务端直接读取，`tools-sync.test.mjs` 断言两端一致）。服务用 `stopWhen: stepCountIs(1)` 完成一次模型回合；前端管理外层有界循环和工具批准。不能在后台“假执行”画布工具然后告诉用户已经聚焦。
 
 ## 安全和运行边界
 

@@ -3,7 +3,11 @@
 > 工作分支：`feat/agent-anatomy-v4`（基于 `dev`）。每个任务完成后按 Conventional Commits 提交（`feat:/fix:/chore:/docs:/test:` 前缀）。产物二进制（GLB/BLEND）、node_modules、dist 不入库。合成图形测试必须带 `SYNTHETIC_GRAPHICS_NOT_ANATOMY` 标记。
 
 ## Task 1: 工具定义单一事实源重构
-- **Status**: pending
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-1.1（rule）通过：新增 `agent-server/tools-sync.test.mjs`，`node --test` 8/8 通过，断言共享清单与 ALLOWED_NAMES 完全一致、schema 完整、读写分组正确、旧 tool-definitions.json 已删除。
+  - TR-1.2（rule）通过：`python tools/build.py` 构建成功（552,911 字节），占位符 `/*AGENT_TOOLS*/` 零残留；12 项 test_build.py 全过。
+  - 变更：新增 web/agent-tools.json 与 #agent-tools-data 插槽；agent.js 改为内嵌 JSON 加载；server.mjs 改读同一文件；删除 agent-server/tool-definitions.json；提交 8721847 之后的 refactor commit。
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -18,7 +22,7 @@
 - **Notes**: 新工具在 Task 20 增量进入该清单；本任务只搬迁、不改行为。
 
 ## Task 2: Agent 行为限额配置模型与循环强制
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: None
 - **Description**:

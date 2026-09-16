@@ -58,7 +58,8 @@ def build(output: Path, pack: dict | None=None):
     pack=clean_payload(pack or {})
     template=(ROOT/'web/shell.html').read_text(encoding='utf-8')
     values={'/*STYLE*/':(ROOT/'web/style.css').read_text(), '<!--ICONS-->':(ROOT/'web/icons.svg').read_text(),
-      '/*KNOWLEDGE*/':json.dumps(json.loads((ROOT/'web/knowledge.json').read_text()),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')}
+      '/*KNOWLEDGE*/':json.dumps(json.loads((ROOT/'web/knowledge.json').read_text()),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
+      '/*AGENT_TOOLS*/':json.dumps(json.loads((ROOT/'web/agent-tools.json').read_text()),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')}
     for marker,name in [('/*ENGINE*/','mesh-engine.js'),('/*CORE*/','core.js'),('/*PINYIN*/','pinyin-data.js'),('/*KNOWLEDGE_LOGIC*/','knowledge.js'),('/*MARKDOWN*/','markdown.js'),('/*AGENT*/','agent.js'),('/*APP*/','app.js')]:
         values[marker]=(ROOT/'web'/name).read_text().replace('</script','<\\/script')
     for marker,value in values.items():
