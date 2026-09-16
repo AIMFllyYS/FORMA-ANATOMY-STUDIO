@@ -45,7 +45,7 @@
     },
     {
       "name": "focus_structures",
-      "description": "聚焦实际已加载的一个或多个对象；不新增结构。讲解该视角时请设置 hold_seconds（0–12），以便停留画面并继续说明。",
+      "description": "聚焦实际已加载的一个或多个对象；不新增结构。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 12），以便停留画面并继续说明。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -58,8 +58,8 @@
           "hold_seconds": {
             "type": "number",
             "minimum": 0,
-            "maximum": 12,
-            "description": "操作完成后在该视角停留的秒数（0–12）。讲解某一结构或方向时传入，停留期间继续用文字说明；下一次会改画面的工具会等到停留结束。"
+            "maximum": 60,
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。讲解某一结构或方向时传入，停留期间继续用文字说明；下一次会改画面的工具会等到停留结束。"
           }
         },
         "additionalProperties": false,
@@ -71,7 +71,7 @@
     },
     {
       "name": "isolate_structures",
-      "description": "单独显示实际对象，其他对象隐藏在本次视图之外。讲解该视角时请设置 hold_seconds（0–12）。",
+      "description": "单独显示实际对象，其他对象隐藏在本次视图之外。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 12）。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -84,8 +84,8 @@
           "hold_seconds": {
             "type": "number",
             "minimum": 0,
-            "maximum": 12,
-            "description": "操作完成后在该视角停留的秒数（0–12）。"
+            "maximum": 60,
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
           }
         },
         "additionalProperties": false,
@@ -97,7 +97,7 @@
     },
     {
       "name": "highlight_structures",
-      "description": "高亮实际源对象；不是给骨内部未标注的切迹自动划界。讲解该视角时请设置 hold_seconds（0–12）。",
+      "description": "高亮实际源对象；不是给骨内部未标注的切迹自动划界。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 12）。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -110,8 +110,8 @@
           "hold_seconds": {
             "type": "number",
             "minimum": 0,
-            "maximum": 12,
-            "description": "操作完成后在该视角停留的秒数（0–12）。"
+            "maximum": 60,
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
           }
         },
         "additionalProperties": false,
@@ -160,8 +160,8 @@
           "hold_seconds": {
             "type": "number",
             "minimum": 0,
-            "maximum": 12,
-            "description": "操作完成后在该视角停留的秒数（0–12）。"
+            "maximum": 60,
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
           }
         },
         "additionalProperties": false,
@@ -173,7 +173,7 @@
     },
     {
       "name": "set_view",
-      "description": "切换源坐标观察方向；未校准时不能声称解剖学前后左右。讲解该方向时请设置 hold_seconds（0–12）。",
+      "description": "切换源坐标观察方向；未校准时不能声称解剖学前后左右。讲解该方向时请设置 hold_seconds（0–60，受设置上限约束，默认 12）。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -184,8 +184,8 @@
           "hold_seconds": {
             "type": "number",
             "minimum": 0,
-            "maximum": 12,
-            "description": "操作完成后在该视角停留的秒数（0–12）。"
+            "maximum": 60,
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
           }
         },
         "additionalProperties": false,

@@ -1,6 +1,6 @@
 /* Forma Agent: streaming Chat Completions, reasoning chain, Markdown. MIT. */
 (()=>{'use strict';
-const C=FormaCore,{$,esc,icon,toast}=C,MD=window.FormaMarkdown;
+const C=FormaCore,{$,esc,icon,toast}=C,MD=window.FormaMarkdown,CFG=window.FormaAgentConfig;
 const VIEW_HOLD=new Set(['focus_structures','isolate_structures','highlight_structures','set_view','set_explode']);
 const PERM_MODES=['smart','allow','ask'];
 // 单一事实源：web/agent-tools.json 由构建器内嵌到 #agent-tools-data，
@@ -17,28 +17,19 @@ const SYSTEM=`你是 Forma 解剖学习工作台的助教。使用中文。你�
 用 Markdown 组织回答：分级标题、列表、表格、加粗、行内代码。对比易混结构时用表格。公式使用 $...$ 或 $$...$$。需要提示时用 GitHub 提示块（> [!NOTE]、> [!TIP]、> [!WARNING]）。回答应逐段展开，不要把全部内容挤成一行。
 带学生观察某一结构或方向时，在 focus_structures、isolate_structures、highlight_structures、set_view 中传入 hold_seconds（0–12）。应用会先改画面，再让你继续讲解；下一次会改画面的工具会等到停留结束。停留期间用文字讲解当前画面，不要连续快速切换。`;
 function endpoint(raw){let u;try{u=new URL(raw.trim());}catch{throw Error('请输入完整的接口 URL（例如 https://…/v1）');}if(u.username||u.password)throw Error('URL 中不能包含用户名或密码');if(u.protocol!=='https:'&&!(u.protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(u.hostname)))throw Error('使用 HTTPS；仅本机 localhost 允许 HTTP');u.hash='';if(!/\/chat\/completions\/?$/.test(u.pathname)&&!u.pathname.endsWith('/agent'))u.pathname=u.pathname.replace(/\/$/,'')+'/chat/completions';return u.href;}
-const AGENT_STORE='forma-agent-config-v3';
-function emptyConfig(){return{url:'',key:'',model:'',consent:false,proxy:false,permissionMode:'smart'};}
-function normalizePerm(mode){return PERM_MODES.includes(mode)?mode:'smart';}
-function clampHold(v){const n=Number(v);if(!Number.isFinite(n)||n<=0)return 0;return Math.min(12,Math.round(n*10)/10);}
+const AGENT_STORE=CFG.V4_KEY;
+function emptyConfig(){return CFG.emptyConfig();}
+function normalizePerm(mode){return CFG.normalizePerm(mode);}
+function clampHold(v,cap=CFG.LIMIT_SPECS.maxHoldSeconds.def){const n=Number(v);if(!Number.isFinite(n)||n<=0)return 0;return Math.min(cap,Math.round(n*10)/10);}
 function loadConfig(){
- try{
-  const raw=JSON.parse(localStorage.getItem(AGENT_STORE)||'{}');
-  if(!raw||typeof raw!=='object')return emptyConfig();
-  const model=typeof raw.model==='string'?raw.model.trim().slice(0,200):'';
-  const key=typeof raw.key==='string'?raw.key.slice(0,8000):'';
-  let url='';if(typeof raw.url==='string'&&raw.url.trim())url=endpoint(raw.url);
-  const consent=raw.consent===true&&!!url&&!!model;
-  return{url,key,model,consent,proxy:false,permissionMode:normalizePerm(raw.permissionMode)};
- }catch{return emptyConfig();}
+ // 纯模块完成 v3→v4 迁移、字段钳制与越界防护；这里只额外做 URL 形态校验。
+ // file/about:blank 等环境可能直接拒绝访问 localStorage 属性，回落到内存默认值。
+ let cfg;try{cfg=CFG.load(globalThis.localStorage);}catch{return emptyConfig();}
+ if(cfg.url){try{cfg.url=endpoint(cfg.url);}catch{cfg.url='';cfg.consent=false;}}
+ return cfg;
 }
-function persistConfig(cfg){
- try{
-  localStorage.setItem(AGENT_STORE,JSON.stringify({version:1,url:cfg.url||'',key:cfg.key||'',model:cfg.model||'',consent:!!cfg.consent,permissionMode:normalizePerm(cfg.permissionMode)}));
-  return true;
- }catch{return false;}
-}
-function forgetConfig(){try{localStorage.removeItem(AGENT_STORE);}catch{}}
+function persistConfig(cfg){try{return CFG.save(globalThis.localStorage,cfg)!==null;}catch{return false;}}
+function forgetConfig(){try{CFG.forget(globalThis.localStorage);}catch{}}
 function deltaText(d){if(!d)return'';if(typeof d.content==='string')return d.content;if(Array.isArray(d.content))return d.content.map(p=>p?.text||p?.content||(typeof p==='string'?p:'')).join('');return'';}
 function deltaReason(d,m){return d?.reasoning_content||d?.reasoning||d?.thinking||m?.reasoning_content||m?.reasoning||'';}
 function mergeTools(bucket,calls){for(const c of calls||[]){const i=Number.isInteger(c.index)?c.index:bucket.length;if(!bucket[i])bucket[i]={id:'',type:'function',function:{name:'',arguments:''}};if(c.id)bucket[i].id=c.id;if(c.type)bucket[i].type=c.type;if(c.function?.name)bucket[i].function.name+=c.function.name;if(typeof c.function?.arguments==='string')bucket[i].function.arguments+=c.function.arguments;}}
@@ -53,6 +44,8 @@ function welcomeHTML(){return `<div class="agent-welcome"><span class="agent-ava
 class Agent{
  constructor(app){this.app=app;this.config=loadConfig();this.messages=[];this.busy=false;this.allowSession=false;this.pendingApproval=null;this.controller=null;this.turns=0;this.paintTimer=0;this.startedAt=0;this.viewHoldUntil=0;this._lastLive=0;this.bind();this.status();}
  restoreConfig(){this.config=loadConfig();this.syncPermission();this.status();return this.config;}
+ limits(){return CFG.normalizeLimits(this.config?.limits);}
+ clampHold(v){return clampHold(v,this.limits().maxHoldSeconds);}
  permissionMode(){return normalizePerm(this.config.permissionMode);}
  needsApproval(write){if(this.allowSession||this.permissionMode()==='allow')return false;if(this.permissionMode()==='ask')return true;return!!write;}
  setPermission(mode){mode=normalizePerm(mode);this.config.permissionMode=mode;if(mode!=='allow')this.allowSession=false;persistConfig(this.config);this.syncPermission();}
@@ -85,7 +78,7 @@ class Agent{
   });
  }
  settings(){if(this.busy){toast('请先停止当前生成，再修改连接设置');return;}const cfg=this.config;this.app.modal('Agent 连接设置',`<div class="info-callout">独立 HTML 使用兼容 OpenAI 的 Chat Completions 工具协议，并请求流式输出。浏览器直连需要服务端允许 CORS。公开部署请使用工程包中的服务器代理，密钥留在服务器。</div><div class="form-grid"><label class="form-field full"><span>接口 URL</span><input id="agent-url" type="url" spellcheck="false" placeholder="https://your-endpoint.example/v1" value="${esc(cfg.url)}"><small>支持 /v1 基地址、完整 /chat/completions，或本机代理 /agent。优先流式；若接口返回整段 JSON 会自动回退。</small></label><label class="form-field full"><span>API Key / 代理访问令牌</span><input id="agent-key" type="password" autocomplete="off" spellcheck="false" placeholder="${cfg.key?'已保存在本机，留空则保持原密钥':'本地无鉴权服务可留空'}" value=""><small>${cfg.key?'密钥已保存在本机浏览器。留空保持不变；“清除配置”可删除。':'将保存在本机浏览器，不会写入导出的 HTML 或学习记录。'}</small></label><label class="form-field full"><span>Model ID</span><input id="agent-model" spellcheck="false" placeholder="填写服务商提供的模型 ID" value="${esc(cfg.model)}"></label></div><label class="check-row"><input id="agent-consent" type="checkbox" ${cfg.consent?'checked':''}>我同意将对话、已选结构名称和所请求的本地学习内容发送到上述地址。网格、笔记及测验记录不会自动发送。</label><p class="subtle-note">配置保存在当前浏览器。导出的离线 HTML 和学习记录不含密钥。设置新地址后会清空旧会话和画布操作授权。</p>`, `<button class="btn" data-action="agent-forget">清除配置</button><span class="grow"></span><button class="btn primary" data-action="agent-save">保存配置</button>`);$('agent-url').addEventListener('input',()=>{$('agent-consent').checked=false;});}
- saveSettings(){const raw=$('agent-url').value.trim(),url=endpoint(raw),model=$('agent-model').value.trim();if(!model)throw Error('请填写 Model ID');if(model.length>200)throw Error('Model ID 过长');if(!$('agent-consent').checked)throw Error('请先确认发送目标与数据范围');const typed=$('agent-key').value.trim();const sameOrigin=this.config.url&&(()=>{try{return new URL(this.config.url).origin===new URL(url).origin;}catch{return false;}})();const changed=this.config.url!==url||this.config.model!==model;this.config={url,key:typed||(sameOrigin?this.config.key:''),model,consent:true,proxy:false,permissionMode:this.permissionMode()};if(changed){this.stop();this.messages=[];this.allowSession=false;this.clearLog();}const ok=persistConfig(this.config);this.app.closeModal();this.status();toast(ok?'连接配置已保存在本机浏览器':'本机存储不可用，本次会话仍可使用');}
+ saveSettings(){const raw=$('agent-url').value.trim(),url=endpoint(raw),model=$('agent-model').value.trim();if(!model)throw Error('请填写 Model ID');if(model.length>200)throw Error('Model ID 过长');if(!$('agent-consent').checked)throw Error('请先确认发送目标与数据范围');const typed=$('agent-key').value.trim();const sameOrigin=this.config.url&&(()=>{try{return new URL(this.config.url).origin===new URL(url).origin;}catch{return false;}})();const changed=this.config.url!==url||this.config.model!==model;this.config={url,key:typed||(sameOrigin?this.config.key:''),model,consent:true,proxy:false,permissionMode:this.permissionMode(),limits:this.limits()};if(changed){this.stop();this.messages=[];this.allowSession=false;this.clearLog();}const saved=persistConfig(this.config);this.config=saved||this.config;this.app.closeModal();this.status();toast(saved?'连接配置已保存在本机浏览器':'本机存储不可用，本次会话仍可使用');}
  configureForTest(cfg){this.config={...this.config,...cfg};if(cfg.permissionMode)this.syncPermission();this.status();}
  forget(){this.stop();forgetConfig();this.config=emptyConfig();this.messages=[];this.allowSession=false;this.viewHoldUntil=0;this.clearLog();this.syncPermission();this.app.closeModal();this.status();toast('本机配置、密钥、对话与授权已清除');}
  status(){const configured=!!(this.config.url&&this.config.model&&this.config.consent),sel=this.app.selectedObject?.();$('agent-context').innerHTML=`<span class="status-dot ${configured?'':'muted'}"></span><span>${configured?esc(new URL(this.config.url).host)+' · '+esc(this.config.model):'尚未配置模型'}${sel?' / '+esc(FormaKnowledge.title(sel)):''}</span><button data-action="agent-settings">设置</button>`;}
@@ -97,7 +90,7 @@ class Agent{
  clear(){if(this.busy){toast('请先停止当前生成');return;}this.messages=[];this.turns=0;this.allowSession=false;this.viewHoldUntil=0;this.clearLog();}
  stop(){this.controller?.abort();this.viewHoldUntil=0;this.flushPaint();if(this.pendingApproval){this.pendingApproval(false);this.pendingApproval=null;$('tool-approval').hidden=true;}}
  sleep(ms,signal){return new Promise(resolve=>{if(ms<=0||signal?.aborted){resolve();return;}const t=setTimeout(done,ms);function done(){signal?.removeEventListener('abort',onAbort);clearTimeout(t);resolve();}function onAbort(){done();}signal?.addEventListener('abort',onAbort,{once:true});});}
- async respectHold(signal){const left=Math.min(12000,(this.viewHoldUntil||0)-Date.now());if(left>20){this.setBusy(true,'画面停留中…');await this.sleep(left,signal);}}
+ async respectHold(signal){const left=Math.min(this.limits().maxHoldSeconds*1000,(this.viewHoldUntil||0)-Date.now());if(left>20){this.setBusy(true,'画面停留中…');await this.sleep(left,signal);}}
  redact(s){return this.config.key?String(s).split(this.config.key).join('[密钥已隐藏]'):String(s);}
  ensureThread(){const w=this.log().querySelector('.agent-welcome');if(w)w.remove();}
  addUser(text){this.ensureThread();const el=document.createElement('article');el.className='agent-turn user';el.innerHTML=`<div class="user-bubble"></div>`;el.querySelector('.user-bubble').textContent=text;this.log().append(el);this.scroll(true);}
@@ -125,7 +118,7 @@ class Agent{
  }
  finishTool(ref,output){
   const ok=!output?.error&&!output?.denied&&!output?.cancelled;
-  const hold=clampHold(output?.hold_seconds);
+  const hold=this.clampHold(output?.hold_seconds);
   ref.card.className='tool-card '+(output?.denied?'is-denied':output?.cancelled?'is-cancel':ok?'is-done':'is-error');
   ref.card.querySelector('.tool-flag').textContent=output?.denied?'未授权':output?.cancelled?'已取消':ok?(hold?'观察 '+hold+'s':'完成'):'失败';
   const out=ref.card.querySelector('.tool-out');out.hidden=false;out.textContent=this.redact(fmtResult(output));
@@ -174,7 +167,7 @@ class Agent{
  }
 
  async request(messages,signal,hooks){
-  const cfg=this.config,timer=setTimeout(()=>this.controller?.abort(),120000);
+  const cfg=this.config,timer=setTimeout(()=>this.controller?.abort(),this.limits().requestTimeoutSeconds*1000);
   try{
    const res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json',...(cfg.key?{Authorization:'Bearer '+cfg.key}:{})},body:JSON.stringify({model:cfg.model,messages,tools:DEFINITIONS.map(([name,description,parameters])=>({type:'function',function:{name,description,parameters}})),tool_choice:'auto',stream:true}),signal,credentials:'omit',referrerPolicy:'no-referrer'});
    const ct=(res.headers.get('content-type')||'').toLowerCase();
@@ -200,7 +193,8 @@ class Agent{
   const turn=this.beginTurn();
   try{
    let done=false;
-   for(let step=0;step<8;step++){
+   const maxTurns=this.limits().maxTurns,maxCalls=this.limits().maxToolCallsPerTurn;
+   for(let step=0;step<maxTurns;step++){
     if(abortSignal.aborted)throw new DOMException('Stopped','AbortError');
     this.setBusy(true,step?'正在根据工具结果继续推理…':'正在请求 '+new URL(this.config.url).host+'…');
     this.setState(turn,step?'整理工具结果':'推理中');
@@ -214,7 +208,7 @@ class Agent{
     this.flushPaint();
     accContent=result.content||accContent;accReason=result.reasoning||accReason;
     const calls=result.tool_calls||[];
-    if(calls.length>6)throw Error('单轮工具请求过多，已停止');
+    if(calls.length>maxCalls)throw Error('单轮工具请求过多（上限 '+maxCalls+' 个），已停止');
     this.paintThink(turn,this.redact(accReason),false);
     this.paintAnswer(turn,this.redact(accContent),false);
     if(!calls.length){
@@ -239,21 +233,21 @@ class Agent{
       if(this.needsApproval(def[3])&&!await this.approval(def[0],args,def[3]))output={denied:true,message:'用户未授权该操作。请继续讲解，不要绕过。'};
       else if(abortSignal.aborted)output={cancelled:true};
       else output=await this.app.executeTool(def[0],args);
-      const hold=clampHold(args.hold_seconds);
+      const hold=this.clampHold(args.hold_seconds);
       if(hold&&output&&!output.error&&!output.denied&&!output.cancelled){this.viewHoldUntil=Date.now()+hold*1000;output={...output,hold_seconds:hold};}
      }catch(e){output={error:this.redact(e.message)};}
      this.finishTool(ref,output);
      this.messages.push({role:'tool',tool_call_id:tc.id,content:JSON.stringify(output)});
     }
    }
-   if(!done){this.addError('已达到 8 轮工具调用上限，本轮停止。可以继续提问，不会自动无限操作画布。');this.setState(turn,'已达上限');}
+   if(!done){this.addError('已达到 '+maxTurns+' 轮工具调用上限，本轮停止。可在设置中调整上限，或继续提问；不会自动无限操作画布。');this.setState(turn,'已达上限');}
    else this.finishTurn(turn,true);
   }catch(e){
    this.finishTurn(turn,false);
-   this.addError(e.name==='AbortError'?'本次生成已停止（或请求超过 120 秒）。':this.redact(e.message));
+   this.addError(e.name==='AbortError'?'本次生成已停止（或请求超过 '+this.limits().requestTimeoutSeconds+' 秒）。':this.redact(e.message));
    const last=this.messages[this.messages.length-1];if(last?.role==='assistant'&&last.tool_calls)for(const t of last.tool_calls)this.messages.push({role:'tool',tool_call_id:t.id,content:'{"cancelled":true}'});
   }finally{this.pendingApproval=null;$('tool-approval').hidden=true;this.controller=null;this.setBusy(false);this.status();}
  }
 }
-window.FormaAgent={Agent,endpoint,DEFINITIONS,loadConfig,persistConfig,forgetConfig,AGENT_STORE,clampHold,normalizePerm};
+window.FormaAgent={Agent,endpoint,DEFINITIONS,loadConfig,persistConfig,forgetConfig,AGENT_STORE,clampHold,normalizePerm,config:CFG};
 })();

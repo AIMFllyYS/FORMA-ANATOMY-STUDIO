@@ -164,11 +164,38 @@ try:
   test('no_key_in_persisted_records',page.evaluate('!JSON.stringify(__studio.recordPack()).includes("TEST_SECRET_DO_NOT_EXPORT_49")'))
   ls_ok=page.evaluate('()=>{try{const k="forma-ls-probe";localStorage.setItem(k,"1");localStorage.removeItem(k);return true;}catch{return false;}}')
   if ls_ok:
-   test('agent_config_saved_locally',page.evaluate('''()=>{const s=JSON.parse(localStorage.getItem("forma-agent-config-v3")||"{}");return s.model==="test-model"&&s.key==="TEST_SECRET_DO_NOT_EXPORT_49"&&s.consent===true&&String(s.url).includes("agent.example.test");}'''))
+   test('agent_config_saved_locally',page.evaluate('''()=>{const s=JSON.parse(localStorage.getItem("forma-agent-config-v4")||"{}");return s.version===4&&s.model==="test-model"&&s.key==="TEST_SECRET_DO_NOT_EXPORT_49"&&s.consent===true&&String(s.url).includes("agent.example.test")&&s.limits&&s.limits.maxTurns===8;}'''))
    test('agent_config_rehydrates',page.evaluate('''()=>{const prev={...__studio.agent.config};__studio.agent.config={url:"",key:"",model:"",consent:false};__studio.agent.restoreConfig();return __studio.agent.config.key===prev.key&&__studio.agent.config.model===prev.model&&__studio.agent.config.consent===true;}'''))
+   test('agent_config_migrates_v3',page.evaluate('''()=>{localStorage.removeItem("forma-agent-config-v4");localStorage.setItem("forma-agent-config-v3",JSON.stringify({version:1,url:"https://agent.example.test/v1",key:"OLD",model:"legacy-model",consent:true,permissionMode:"ask"}));__studio.agent.restoreConfig();const ok=__studio.agent.config.model==="legacy-model"&&__studio.agent.permissionMode()==="ask"&&__studio.agent.limits().maxTurns===8;return ok;}'''))
   else:
    test('agent_config_saved_locally',True)
    test('agent_config_rehydrates',True)
+   test('agent_config_migrates_v3',True)
+  # Configurable loop/tool caps are enforced (TR-2.2).
+  page.unroute('https://agent.example.test/**')
+  cap_calls=[]
+  def cap_route(route):
+   cap_calls.append(1)
+   c={'role':'assistant','content':None,'tool_calls':[{'id':'cap%d'%len(cap_calls),'type':'function','function':{'name':'search_structures','arguments':'{"query":"x"}'}}]}
+   route.fulfill(status=200,content_type='application/json',body=json.dumps({'choices':[{'message':c}]}),headers={'Access-Control-Allow-Origin':'*'})
+  page.route('https://agent.example.test/**',cap_route)
+  page.evaluate('__studio.agent.configureForTest({limits:{maxTurns:2,maxToolCallsPerTurn:1}})')
+  page.locator('#chat-input').fill('测试轮次上限');page.locator('#chat-send').click()
+  page.wait_for_function('!__studio.agent.busy',timeout=20000)
+  test('agent_max_turns_enforced',len(cap_calls)==2 and '2 轮工具调用上限' in page.locator('.agent-turn.error').last.inner_text())
+  page.unroute('https://agent.example.test/**')
+  over_calls=[]
+  def over_route(route):
+   over_calls.append(1)
+   c={'role':'assistant','content':None,'tool_calls':[{'id':'o1','type':'function','function':{'name':'search_structures','arguments':'{"query":"x"}'}},{'id':'o2','type':'function','function':{'name':'focus_structures','arguments':'{"ids":[0]}'}}]}
+   route.fulfill(status=200,content_type='application/json',body=json.dumps({'choices':[{'message':c}]}),headers={'Access-Control-Allow-Origin':'*'})
+  page.route('https://agent.example.test/**',over_route)
+  page.evaluate('__studio.agent.clear();__studio.agent.configureForTest({limits:{maxTurns:4,maxToolCallsPerTurn:1}})')
+  page.locator('#chat-input').fill('测试单轮工具上限');page.locator('#chat-send').click()
+  page.wait_for_function('!__studio.agent.busy',timeout=20000)
+  test('agent_max_tool_calls_per_turn_enforced',len(over_calls)==1 and '单轮工具请求过多' in page.locator('.agent-turn.error').last.inner_text() and page.locator('#tool-approval').is_hidden())
+  page.unroute('https://agent.example.test/**')
+  page.evaluate('__studio.agent.configureForTest({limits:FormaAgentConfig.defaultLimits()})')
   # Export actual in-memory fixture bytes and load with external network blocked.
   with page.expect_download() as dl:page.evaluate('__studio.exportOffline()')
   offline=OUT/'TEST_ONLY_exported.html';dl.value.save_as(str(offline));text=offline.read_text()

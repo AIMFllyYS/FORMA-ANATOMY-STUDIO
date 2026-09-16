@@ -22,7 +22,11 @@
 - **Notes**: 新工具在 Task 20 增量进入该清单；本任务只搬迁、不改行为。
 
 ## Task 2: Agent 行为限额配置模型与循环强制
-- **Status**: in_progress
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-2.1（rule）通过：新增纯模块 web/agent-config.js（无 DOM 依赖，可注入 storage）与 agent-server/agent-config.test.mjs（6 用例：默认值/钳制/权限归一/v3 迁移/v4 优先/save+forget/consent），`node --test` 14/14。
+  - TR-2.2（rule）通过：tests/browser_test.py 新增并通过 agent_max_turns_enforced（2 轮硬停＋"2 轮工具调用上限"提示）、agent_max_tool_calls_per_turn_enforced（超单轮上限整轮拒绝、无审批弹窗）、agent_config_migrates_v3；_verify_agent.py ALL PASSED；server_http_test.py 9/9。
+  - 限额：maxTurns 1–20 默认 8、maxToolCallsPerTurn 1–12 默认 6、maxHoldSeconds 0–60 默认 12（工具 schema 硬边界放宽至 60，行为受用户值钳制）、requestTimeoutSeconds 30–300 默认 120、animationBudgetSeconds 0–180 默认 60；存储键升级 forma-agent-config-v4 并自动迁移 v3。
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -36,7 +40,7 @@
   - `rule` TR-2.2：循环在配置为 2 轮时第 2 轮后必然停止并出现上限提示；单轮工具数超配置时整轮拒绝且不执行写工具；证据：浏览器夹具测试（模拟兼容服务）。
 
 ## Task 3: 设置中心与"助教设计"快捷条
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: Task 2
 - **Description**:

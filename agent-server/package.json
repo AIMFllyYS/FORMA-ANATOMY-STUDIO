@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node --env-file=.env server.mjs",
     "check": "node --check server.mjs && node --check protocol.mjs",
-    "test": "node --test protocol.test.mjs tools-sync.test.mjs"
+    "test": "node --test protocol.test.mjs tools-sync.test.mjs agent-config.test.mjs"
   },
   "dependencies": {
     "ai": "^6.0.0",
