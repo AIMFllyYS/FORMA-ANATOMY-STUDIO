@@ -21,10 +21,11 @@ with sync_playwright() as p:
     page.locator('#agent-consent').check()
     page.locator('[data-action="agent-save"]').click()
     page.wait_for_timeout(80)
-    stored = page.evaluate('JSON.parse(localStorage.getItem("forma-agent-config-v3"))')
-    assert stored['key'] == 'LOCAL_KEY_SHOULD_PERSIST', stored
+    stored = page.evaluate('JSON.parse(localStorage.getItem("forma-agent-config-v4"))')
+    assert stored['version'] == 4 and stored['key'] == 'LOCAL_KEY_SHOULD_PERSIST', stored
     assert stored['model'] == 'keep-me'
     assert stored.get('permissionMode', 'smart') == 'smart'
+    assert stored['limits']['maxTurns'] == 8
     page2 = ctx.new_page()
     open_html(page2)
     restored = page2.evaluate('({model:__studio.agent.config.model,key:__studio.agent.config.key,consent:__studio.agent.config.consent,url:__studio.agent.config.url})')

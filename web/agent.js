@@ -51,7 +51,7 @@ class Agent{
  setPermission(mode){mode=normalizePerm(mode);this.config.permissionMode=mode;if(mode!=='allow')this.allowSession=false;persistConfig(this.config);this.syncPermission();}
  syncPermission(){
   const mode=this.permissionMode();
-  for(const b of document.querySelectorAll('#chat-form [data-perm]')){
+  for(const b of document.querySelectorAll('[data-perm]')){
    const on=b.dataset.perm===mode;
    b.classList.toggle('active',on);
    b.setAttribute('aria-checked',on?'true':'false');
@@ -72,12 +72,68 @@ class Agent{
   document.addEventListener('click',e=>{
    const copy=e.target.closest('[data-copy-code]');
    if(copy){const code=copy.closest('.md-pre')?.querySelector('code')?.textContent||'';navigator.clipboard?.writeText(code).then(()=>{copy.textContent='已复制';setTimeout(()=>copy.textContent='复制',1200);}).catch(()=>{});return;}
-   const perm=e.target.closest('#chat-form [data-perm]');if(perm){this.setPermission(perm.dataset.perm);return;}
+   const tab=e.target.closest('[data-settings-tab]');if(tab){this.switchSettingsTab(tab.dataset.settingsTab);return;}
+   if(e.target.closest('[data-action="agent-limits-default"]')){this.resetLimitInputs();return;}
+   const perm=e.target.closest('[data-perm]');if(perm){this.setPermission(perm.dataset.perm);return;}
    const p=e.target.closest('[data-prompt]');if(p){this.app.setTab('agent');$('chat-input').value=p.dataset.prompt;this.resizeComposer();this.send(p.dataset.prompt);return;}
    const a=e.target.closest('[data-agent-approval]');if(a&&this.pendingApproval){if(a.dataset.agentApproval==='session')this.allowSession=true;const ok=a.dataset.agentApproval!=='deny';this.pendingApproval(ok);this.pendingApproval=null;$('tool-approval').hidden=true;}
   });
+  document.addEventListener('input',e=>{
+   const inp=e.target.closest?.('[data-limit]');if(!inp)return;
+   const key=inp.dataset.limit,spec=CFG.LIMIT_SPECS[key];if(!spec)return;
+   const n=CFG.clampSpec(inp.value,spec);inp.value=n;
+   this.config.limits=CFG.normalizeLimits({...this.limits(),[key]:n});
+   persistConfig(this.config);
+   for(const x of document.querySelectorAll(`[data-limit="${CSS.escape(key)}"]`))x.value=n;
+   for(const o of document.querySelectorAll(`[data-limit-out="${CSS.escape(key)}"]`))o.textContent=n+this.limitUnit(key);
+  });
  }
- settings(){if(this.busy){toast('请先停止当前生成，再修改连接设置');return;}const cfg=this.config;this.app.modal('Agent 连接设置',`<div class="info-callout">独立 HTML 使用兼容 OpenAI 的 Chat Completions 工具协议，并请求流式输出。浏览器直连需要服务端允许 CORS。公开部署请使用工程包中的服务器代理，密钥留在服务器。</div><div class="form-grid"><label class="form-field full"><span>接口 URL</span><input id="agent-url" type="url" spellcheck="false" placeholder="https://your-endpoint.example/v1" value="${esc(cfg.url)}"><small>支持 /v1 基地址、完整 /chat/completions，或本机代理 /agent。优先流式；若接口返回整段 JSON 会自动回退。</small></label><label class="form-field full"><span>API Key / 代理访问令牌</span><input id="agent-key" type="password" autocomplete="off" spellcheck="false" placeholder="${cfg.key?'已保存在本机，留空则保持原密钥':'本地无鉴权服务可留空'}" value=""><small>${cfg.key?'密钥已保存在本机浏览器。留空保持不变；“清除配置”可删除。':'将保存在本机浏览器，不会写入导出的 HTML 或学习记录。'}</small></label><label class="form-field full"><span>Model ID</span><input id="agent-model" spellcheck="false" placeholder="填写服务商提供的模型 ID" value="${esc(cfg.model)}"></label></div><label class="check-row"><input id="agent-consent" type="checkbox" ${cfg.consent?'checked':''}>我同意将对话、已选结构名称和所请求的本地学习内容发送到上述地址。网格、笔记及测验记录不会自动发送。</label><p class="subtle-note">配置保存在当前浏览器。导出的离线 HTML 和学习记录不含密钥。设置新地址后会清空旧会话和画布操作授权。</p>`, `<button class="btn" data-action="agent-forget">清除配置</button><span class="grow"></span><button class="btn primary" data-action="agent-save">保存配置</button>`);$('agent-url').addEventListener('input',()=>{$('agent-consent').checked=false;});}
+ limitUnit(key){return key==='maxTurns'?' 轮':key==='maxToolCallsPerTurn'?' 个/轮':' 秒';}
+ limitRow(key,label,hint){const cur=this.limits(),spec=CFG.LIMIT_SPECS[key];const step=key==='animationBudgetSeconds'?5:1;return`<label class="limit-row"><span><b>${label}</b><small>${hint}</small></span><input type="range" min="${spec.min}" max="${spec.max}" step="${step}" value="${cur[key]}" data-limit="${key}" aria-label="${label}"><output data-limit-out="${key}">${cur[key]+this.limitUnit(key)}</output></label>`;}
+ setLimitValues(){for(const[key,spec]of Object.entries(CFG.LIMIT_SPECS)){const n=this.limits()[key];for(const x of document.querySelectorAll(`[data-limit="${CSS.escape(key)}"]`))x.value=n;for(const o of document.querySelectorAll(`[data-limit-out="${CSS.escape(key)}"]`))o.textContent=n+this.limitUnit(key);}}
+ resetLimitInputs(){this.config.limits=CFG.defaultLimits();persistConfig(this.config);this.setLimitValues();toast('已恢复默认行为限额');}
+ switchSettingsTab(name){
+  for(const b of document.querySelectorAll('[data-settings-tab]'))b.classList.toggle('active',b.dataset.settingsTab===name);
+  for(const s of document.querySelectorAll('[data-settings-panel]'))s.hidden=s.dataset.settingsPanel!==name;
+ }
+ designPopover(btn){
+  const rows=[['maxTurns','工具轮次','一轮回答内的工具→模型循环数'],['maxToolCallsPerTurn','单轮工具数','一次模型回复可并行的工具请求'],['maxHoldSeconds','画面停留','单次视角停留的最长秒数']].map(([k,l,h])=>this.limitRow(k,l,h)).join('');
+  this.app.popover(`<div class="menu-title">助教行为设计</div><div class="design-pop">${rows}</div><div class="perm-seg" role="radiogroup" aria-label="工具权限">${CFG.PERM_MODES.map(m=>`<button type="button" role="radio" data-perm="${m}" aria-checked="false" class="${this.permissionMode()===m?'active':''}">${{smart:'智能批准',allow:'所有权限',ask:'请求批准'}[m]}</button>`).join('')}</div><p class="micro-note">即改即存。超时、动画总时长与模型连接在<button type="button" class="text-btn" data-action="agent-settings">设置中心</button>调整。</p>`,btn);
+  this.setLimitValues();this.syncPermission();
+ }
+ settings(tab='connection'){if(this.busy){toast('请先停止当前生成，再修改连接设置');return;}const cfg=this.config;
+  const TABS=[['connection','助教连接'],['limits','行为限额'],['sources','模型源'],['display','显示'],['about','关于与许可']];
+  const nav=`<div class="settings-tabs" role="tablist">${TABS.map(([id,zh],i)=>`<button type="button" role="tab" data-settings-tab="${id}" class="${i===0?'active':''}">${zh}</button>`).join('')}</div>`;
+  const connection=`<div data-settings-panel="connection">
+   <div class="info-callout">独立 HTML 使用兼容 OpenAI 的 Chat Completions 工具协议，并请求流式输出。浏览器直连需要服务端允许 CORS。公开部署请使用工程包中的服务器代理，密钥留在服务器。</div>
+   <div class="form-grid"><label class="form-field full"><span>接口 URL</span><input id="agent-url" type="url" spellcheck="false" placeholder="https://your-endpoint.example/v1" value="${esc(cfg.url)}"><small>支持 /v1 基地址、完整 /chat/completions，或本机代理 /agent。优先流式；若接口返回整段 JSON 会自动回退。</small></label>
+   <label class="form-field full"><span>API Key / 代理访问令牌</span><input id="agent-key" type="password" autocomplete="off" spellcheck="false" placeholder="${cfg.key?'已保存在本机，留空则保持原密钥':'本地无鉴权服务可留空'}" value=""><small>${cfg.key?'密钥已保存在本机浏览器。留空保持不变；“清除配置”可删除。':'将保存在本机浏览器，不会写入导出的 HTML 或学习记录。'}</small></label>
+   <label class="form-field full"><span>Model ID</span><input id="agent-model" spellcheck="false" placeholder="填写服务商提供的模型 ID" value="${esc(cfg.model)}"></label></div>
+   <label class="check-row"><input id="agent-consent" type="checkbox" ${cfg.consent?'checked':''}>我同意将对话、已选结构名称和所请求的本地学习内容发送到上述地址。网格、笔记及测验记录不会自动发送。</label>
+   <div class="row wrap"><button class="btn primary" data-action="agent-save">保存连接</button></div>
+   <p class="subtle-note">配置保存在当前浏览器（forma-agent-config-v4）。导出的离线 HTML 和学习记录不含密钥。设置新地址后会清空旧会话和画布操作授权。</p></div>`;
+  const limits=`<div data-settings-panel="limits" hidden>
+   <p class="subtle-note">上限用于防止 Agent 无限循环或长时间占用。越界值会被钳制在安全区间；调小上限立即对下一轮对话生效。</p>
+   <div class="limit-list">
+    ${this.limitRow('maxTurns','最大工具轮次','一次提问内“调用工具→模型继续”的循环次数；到达后自动停止')}
+    ${this.limitRow('maxToolCallsPerTurn','单轮工具调用数','模型一次回复可请求的并行工具数上限')}
+    ${this.limitRow('maxHoldSeconds','画面停留上限','工具申请 hold_seconds 时实际允许的最长停留秒数')}
+    ${this.limitRow('requestTimeoutSeconds','单次请求超时','等待模型单次回复的最长秒数，超时自动中止')}
+    ${this.limitRow('animationBudgetSeconds','动画总时长预算','教学组装/运动动画一次连续播放的总秒数上限，0 表示只呈现终态')}
+   </div>
+   <div class="row wrap"><button class="btn" data-action="agent-limits-default">恢复默认限额</button></div></div>`;
+  const sources=`<div data-settings-panel="sources" hidden>
+   <p class="subtle-note">模型来源与分辨率档位（标准 / balanced / HD）在“模型资源”中选择；不同档位按文件 SHA-256 独立缓存，不会串用。</p>
+   <div class="row wrap"><button class="btn" data-action="agent-open-resources">${icon('folder')}打开模型资源</button><button class="btn" data-action="agent-open-licenses">${icon('book')}来源与许可</button></div></div>`;
+  const display=`<div data-settings-panel="display" hidden>
+   <section class="article-section"><h3>主题</h3><div class="row wrap"><button class="btn" data-action="theme">切换浅色 / 深色</button></div></section>
+   <section class="article-section"><h3>默认画布权限</h3><div class="perm-seg settings-perm" role="radiogroup">${CFG.PERM_MODES.map(m=>`<button type="button" role="radio" data-perm="${m}" class="${this.permissionMode()===m?'active':''}">${{smart:'智能批准',allow:'所有权限',ask:'请求批准'}[m]}</button>`).join('')}</div><p class="micro-note">智能批准：只读工具自动执行、改画面需确认；所有权限：本轮自动允许全部工具；请求批准：每次调用都询问。</p></section></div>`;
+  const about=`<div data-settings-panel="about" hidden>
+   <section class="article-section"><h3>Forma · 解剖学习工作台</h3><p class="subtle-note">真实源网格驱动的本地学习工作台。模型源自 BodyParts3D / Z-Anatomy 等开放数据（CC BY / CC BY-SA），代码 MIT；教学演示不构成医学诊断依据。</p><div class="row wrap"><button class="btn" data-action="agent-open-licenses">${icon('book')}来源与许可</button><button class="btn" data-action="agent-forget">清除 Agent 配置</button></div></section></div>`;
+  this.app.modal('设置中心',nav+connection+limits+sources+display+about,`<span class="grow"></span><button class="btn primary" data-action="modal-close">完成</button>`,true);
+  this.switchSettingsTab(tab);this.setLimitValues();this.syncPermission();
+  $('agent-url')?.addEventListener('input',()=>{$('agent-consent').checked=false;});
+ }
  saveSettings(){const raw=$('agent-url').value.trim(),url=endpoint(raw),model=$('agent-model').value.trim();if(!model)throw Error('请填写 Model ID');if(model.length>200)throw Error('Model ID 过长');if(!$('agent-consent').checked)throw Error('请先确认发送目标与数据范围');const typed=$('agent-key').value.trim();const sameOrigin=this.config.url&&(()=>{try{return new URL(this.config.url).origin===new URL(url).origin;}catch{return false;}})();const changed=this.config.url!==url||this.config.model!==model;this.config={url,key:typed||(sameOrigin?this.config.key:''),model,consent:true,proxy:false,permissionMode:this.permissionMode(),limits:this.limits()};if(changed){this.stop();this.messages=[];this.allowSession=false;this.clearLog();}const saved=persistConfig(this.config);this.config=saved||this.config;this.app.closeModal();this.status();toast(saved?'连接配置已保存在本机浏览器':'本机存储不可用，本次会话仍可使用');}
  configureForTest(cfg){this.config={...this.config,...cfg};if(cfg.permissionMode)this.syncPermission();this.status();}
  forget(){this.stop();forgetConfig();this.config=emptyConfig();this.messages=[];this.allowSession=false;this.viewHoldUntil=0;this.clearLog();this.syncPermission();this.app.closeModal();this.status();toast('本机配置、密钥、对话与授权已清除');}

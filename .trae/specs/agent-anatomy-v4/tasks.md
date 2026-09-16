@@ -40,7 +40,11 @@
   - `rule` TR-2.2：循环在配置为 2 轮时第 2 轮后必然停止并出现上限提示；单轮工具数超配置时整轮拒绝且不执行写工具；证据：浏览器夹具测试（模拟兼容服务）。
 
 ## Task 3: 设置中心与"助教设计"快捷条
-- **Status**: in_progress
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-3.1（rule）通过：_verify_agent.py 新增 settings_tabs（5 分页）/limits_panel/5 limit rows/即改即存/输出同步/恢复默认/design 弹层三项/权限双端共享；browser_test 全套 exit 0（about:blank 存储拒绝时自动跳过持久化断言，file:// 由 _verify_agent_persist.py ALL PASSED 覆盖 v4 持久化）。
+  - TR-3.2（rubric）自评 4/5：settings_center.png、design_popover.png 走查——玻璃分页条、限额卡片滑块、权限分段与现有设计系统一致，窄屏有媒体查询；锚定阈值 ≥4。
+  - 入口：Agent 齿轮/Agent 面板"设置"/顶栏"更多→设置中心"均打开分页弹窗；作曲家栏新增 sliders 按钮打开"助教行为设计"弹层；暴露 app.popover 供 Agent 调用。
 - **Priority**: high
 - **Depends On**: Task 2
 - **Description**:
@@ -54,7 +58,7 @@
   - `rubric` TR-3.2：视觉一致性；1–5；1＝风格割裂不可用，3＝功能可用但粗糙，5＝与现有设计系统完全统一；阈值 ≥4；证据：浅/深/窄屏走查截图。
 
 ## Task 4: 浏览器侧统一工具参数校验器
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: Task 1
 - **Description**:

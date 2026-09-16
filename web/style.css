@@ -53,3 +53,22 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .md-live-tail{opacity:.92}
 .reason-shell.is-live .reason-chain{display:block}
 @media(max-width:700px){.composer-pill{border-radius:18px;padding:4px 4px 4px 12px}.perm-seg{max-width:100%}.perm-seg button{padding:4px 6px;font-size:8px}.chat-compose{padding:8px 10px 10px}.composer-bar>#chat-state{flex-basis:100%;order:3}}
+/* 设置中心：分页、限额滑块与助教设计弹层（iOS 玻璃感，沿用设计变量） */
+.settings-tabs{display:flex;gap:4px;padding:4px;margin:0 0 14px;border-radius:14px;background:var(--panel2);border:1px solid var(--border);position:sticky;top:0;z-index:2;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-x:auto}
+.settings-tabs button{flex:1;min-width:72px;padding:8px 10px;border-radius:10px;font-size:12px;color:var(--muted);white-space:nowrap;transition:color .18s,background .18s}
+.settings-tabs button:hover{color:var(--text)}
+.settings-tabs button.active{background:var(--panel);color:var(--text);box-shadow:0 1px 4px #102b1714}
+[data-settings-panel]{animation:settings-fade .18s ease}
+@keyframes settings-fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.limit-list{display:flex;flex-direction:column;gap:12px;margin:12px 0}
+.limit-row{display:grid;grid-template-columns:minmax(0,1fr) 150px 58px;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--panel2);border:1px solid var(--border)}
+.limit-row span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.limit-row b{font-size:13px;font-weight:600;color:var(--text)}
+.limit-row small{font-size:11px;color:var(--muted);line-height:1.5}
+.limit-row input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
+.limit-row output{font-size:12px;color:var(--accent);text-align:right;font-variant-numeric:tabular-nums}
+.settings-perm{display:inline-flex;padding:3px}
+.design-pop{display:flex;flex-direction:column;gap:8px;min-width:280px;padding:4px 2px}
+.design-pop .limit-row{grid-template-columns:minmax(0,1fr) 96px 48px;padding:8px 10px;gap:8px}
+.design-pop .perm-seg{margin:2px 0 0}
+@media(max-width:700px){.limit-row{grid-template-columns:1fr 120px 52px}.settings-tabs button{font-size:11px;padding:7px 6px}.design-pop{min-width:min(82vw,300px)}}
