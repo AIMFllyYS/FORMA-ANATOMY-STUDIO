@@ -1,23 +1,50 @@
 /* Wire conversion with no SDK dependency; testable independently. MIT. */
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {resolve,dirname} from 'node:path';
+import {createRequire} from 'node:module';
+import Ajv from 'ajv';
+const HERE=dirname(fileURLToPath(import.meta.url));
+const require=createRequire(import.meta.url);
+// 浏览器端默认限额是工具调用数的单一事实源（纯 CJS/UMD 模块，可被 require）。
+const {LIMIT_SPECS}=require('../web/agent-config.js');
+const manifest=JSON.parse(readFileSync(resolve(HERE,'../web/agent-tools.json'),'utf8'));
 export const MAX_MESSAGES = 120;
-export const ALLOWED_NAMES = new Set(['get_scene','search_structures','get_structure_info','focus_structures','isolate_structures','highlight_structures','set_layer','set_explode','set_view','start_practice']);
+// 服务端只接受当前清单中的工具；浏览器循环的默认单轮上限来自共享配置。
+export const MAX_TOOL_CALLS = LIMIT_SPECS.maxToolCallsPerTurn.def;
+export const ALLOWED_NAMES = new Set(manifest.tools.map(t=>t.name));
+const ajv=new Ajv({allErrors:true,strict:false});
+const validators=new Map();
+for(const t of manifest.tools){
+ validators.set(t.name,ajv.compile(t.parameters));
+}
+export function validateToolInput(name,input){
+ if(!ALLOWED_NAMES.has(name))throw new Error('Unknown tool: '+name);
+ const v=validators.get(name);
+ if(!v(input))throw new Error('Invalid tool input for '+name+': '+v.errors.map(e=>e.instancePath+' '+e.message).join('; '));
+ return true;
+}
 export function toModelMessages(messages) {
   if (!Array.isArray(messages) || !messages.length || messages.length > MAX_MESSAGES) throw new Error('Invalid message count');
   const out = [], callNames = new Map();
   for (const m of messages) {
     if (!m || typeof m !== 'object') throw new Error('Invalid message');
-    if (['system','user'].includes(m.role)) {
+    // 安全边界：浏览器永远不能提供 system 角色；系统指令只来自服务端 ToolLoopAgent instructions。
+    if (m.role==='system') continue;
+    if (m.role==='user') {
       if (typeof m.content !== 'string' || m.content.length > 100000) throw new Error('Only bounded text messages are supported');
-      out.push({role:m.role,content:m.content});
+      out.push({role:'user',content:m.content});
     } else if (m.role === 'assistant') {
       const content = [];
       if (typeof m.content === 'string' && m.content) content.push({type:'text',text:m.content});
       if (m.tool_calls) {
-        if (!Array.isArray(m.tool_calls) || m.tool_calls.length > 6) throw new Error('Too many tool calls');
+        if (!Array.isArray(m.tool_calls) || m.tool_calls.length > MAX_TOOL_CALLS) throw new Error('Too many tool calls');
         for (const c of m.tool_calls) {
           if (!c.id || !ALLOWED_NAMES.has(c.function?.name)) throw new Error('Unknown tool');
-          const input = JSON.parse(c.function.arguments || '{}');
-          if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('Invalid tool input');
+          let input;
+          try {input = JSON.parse(c.function.arguments || '{}');}
+          catch {throw new Error('Tool arguments are not valid JSON');}
+          validateToolInput(c.function.name,input);
           callNames.set(c.id,c.function.name);
           content.push({type:'tool-call',toolCallId:c.id,toolName:c.function.name,input});
         }

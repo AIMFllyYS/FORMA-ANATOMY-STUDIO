@@ -47,7 +47,9 @@ const server=http.createServer(async(req,res)=>{
  active++;const abort=new AbortController();const timeout=setTimeout(()=>abort.abort(),65000);res.on('close',()=>{if(!res.writableEnded)abort.abort();});
  try{
   const body=await readBody(req);const model=body.model||MODEL;if(!MODELS.has(model))return json(res,400,{error:{message:'Model is not in server ALLOWED_MODELS'}},origin);
-  const messages=toModelMessages(body.messages);
+  // 客户端可控历史是不可信输入：system 剥离、工具参数 JSON Schema 校验在此完成，失败即 400。
+  let messages;try{messages=toModelMessages(body.messages);}
+  catch(e){return json(res,400,{error:{message:String(e.message||'Invalid messages').slice(0,500)}},origin);}
   const definitions=JSON.parse(await readFile(resolve(HERE,'../web/agent-tools.json'),'utf8'));
   const [{ToolLoopAgent,tool,jsonSchema,stepCountIs},{createOpenAICompatible}]=await sdk();
   const provider=createOpenAICompatible({name:'forma-compatible',baseURL:BASE,apiKey:KEY||undefined});

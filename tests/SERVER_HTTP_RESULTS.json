@@ -8,8 +8,15 @@
     "origin_rejected": true,
     "model_allowlist": true,
     "invalid_messages_rejected": true,
+    "unknown_tool_rejected_400": true,
+    "invalid_tool_args_rejected_400": true,
+    "extra_tool_args_rejected_400": true,
+    "bad_tool_json_rejected_400": true,
+    "tool_call_cap_rejected_400": true,
+    "system_dropped_before_validation": true,
     "explicit_cors_preflight": true
   },
   "provider_contacted": false,
-  "sdk_installed": false
+  "sdk_installed": true,
+  "note": "仅未联系提供方；SDK 已按 package-lock 精确版本安装"
 }

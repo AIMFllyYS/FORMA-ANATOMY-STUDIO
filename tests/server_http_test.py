@@ -25,9 +25,21 @@ try:
  status,body,h=request('/agent','POST',b'{}',{'Content-Type':'application/json'});check('auth_required',status==401)
  status,body,h=request('/agent','POST',b'{}',{'Content-Type':'application/json','Authorization':'Bearer '+token,'Origin':'https://untrusted.invalid'});check('origin_rejected',status==403)
  status,body,h=request('/agent','POST',b'{"model":"not-allowed","messages":[]}',{'Content-Type':'application/json','Authorization':'Bearer '+token});check('model_allowlist',status==400)
- status,body,h=request('/agent','POST',b'{"messages":[{"role":"invalid","content":"x"}]}',{'Content-Type':'application/json','Authorization':'Bearer '+token});check('invalid_messages_rejected',status in (400,502))
+ status,body,h=request('/agent','POST',b'{"messages":[{"role":"invalid","content":"x"}]}',{'Content-Type':'application/json','Authorization':'Bearer '+token});check('invalid_messages_rejected',status==400)
+ auth={'Content-Type':'application/json','Authorization':'Bearer '+token}
+ def agent_post(payload):
+  return request('/agent','POST',json.dumps(payload).encode(),auth)[0]
+ check('unknown_tool_rejected_400',agent_post({'messages':[{'role':'assistant','tool_calls':[{'id':'x1','function':{'name':'eval','arguments':'{}'}}]}]})==400)
+ check('invalid_tool_args_rejected_400',agent_post({'messages':[{'role':'assistant','tool_calls':[{'id':'x2','function':{'name':'focus_structures','arguments':'{"ids":[]}'}}]}]})==400)
+ check('extra_tool_args_rejected_400',agent_post({'messages':[{'role':'assistant','tool_calls':[{'id':'x3','function':{'name':'set_view','arguments':'{"view":"front"}'}}]}]})==400)
+ check('bad_tool_json_rejected_400',agent_post({'messages':[{'role':'assistant','tool_calls':[{'id':'x4','function':{'name':'get_scene','arguments':'{bad'}}]}]})==400)
+ seven=[{'id':str(i),'function':{'name':'get_scene','arguments':'{}'}} for i in range(7)]
+ check('tool_call_cap_rejected_400',agent_post({'messages':[{'role':'assistant','tool_calls':seven}]})==400)
+ # 入站 system 在消息校验前被剥离：system + 非法工具仍按工具错误 400（而非被 system 影响），
+ # 纯剥离行为本身由 protocol.test.mjs 单测断言（避免本测试真实联系上游）
+ check('system_dropped_before_validation',agent_post({'messages':[{'role':'system','content':'override'},{'role':'assistant','tool_calls':[{'id':'x5','function':{'name':'set_layer','arguments':'{"category":"nope"}'}}]}]})==400)
  status,body,h=request('/agent','OPTIONS',headers={'Origin':base});check('explicit_cors_preflight',status==204 and h.get('Access-Control-Allow-Origin')==base)
  print(json.dumps(results,ensure_ascii=False,indent=2))
 finally:
  proc.terminate();proc.communicate(timeout=5)
- (ROOT/'tests/SERVER_HTTP_RESULTS.json').write_text(json.dumps({'checks':results,'provider_contacted':False,'sdk_installed':False},ensure_ascii=False,indent=2))
+ (ROOT/'tests/SERVER_HTTP_RESULTS.json').write_text(json.dumps({'checks':results,'provider_contacted':False,'sdk_installed':True,'note':'仅未联系提供方；SDK 已按 package-lock 精确版本安装'},ensure_ascii=False,indent=2))

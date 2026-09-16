@@ -68,9 +68,11 @@ HTML 内的 Agent 会话
 
 - 提供方 Key 只从环境变量读取；HTML 只持有本次会话的代理令牌。
 - 固定工具白名单，没有 eval、shell、文件读取、任意 URL 抓取工具。
+- **入站消息视为不可信**：浏览器侧 `system` 角色一律剥离（系统指令只来自服务端 `instructions`）；每条入站 tool_call 的 arguments 用共享 JSON Schema（Ajv）校验，失败返回 400，不进入模型回合；单轮工具数上限取自浏览器共享配置（默认 6）。
 - 来源白名单、模型白名单、Bearer 认证、2MB 请求限制、每 IP 限流、并发与超时限制。
 - 不输出 prompt、Key 或私人笔记日志；异常文本尝试擦除密钥。
 - 不提供任意文件静态服务器；仅 `/` 返回固定构建 HTML。
+- 依赖精确锁定并提交 `package-lock.json`（`npm ci` 可复现）：`ai@6.0.283`、`@ai-sdk/openai-compatible@2.0.75`、`ajv@8.20.0`。计划后续迁移 AI SDK 7（`stepCountIs`→`isStepCount`、`usage` 字段、system 策略变化）。
 - 不默认具备多人账户、用户隔离、持久配额和企业认证。公开部署前需补这些能力，并配置 HTTPS、反向代理、请求审计与依赖更新。
 - Chat Completions 兼容不保证每个模型都支持 tools；不支持的服务会返回错误，不假装完成。
 

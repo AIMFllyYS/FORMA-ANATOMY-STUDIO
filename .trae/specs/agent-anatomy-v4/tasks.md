@@ -75,7 +75,12 @@
   - `rule` TR-4.2：合法参数用例全部通过且行为与重构前一致（回归）；证据：tests/_verify_agent.py 系列通过。
 
 ## Task 5: agent-server 协议加固与依赖锁定
-- **Status**: in_progress
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-5.1（rule）通过：protocol.test.mjs 16/16（system 剥离断言、Ajv 参数校验合法/非法、坏 JSON、单轮上限）；server_http_test.py 15/15（5 类新 400：未知工具/参数越界/枚举非法/坏 JSON/7 调用超限；鉴权/Origin/CORS/任意文件不回归）。
+  - TR-5.2（rule）通过：package.json 精确锁定 ai@6.0.283、@ai-sdk/openai-compatible@2.0.75、ajv@8.20.0，package-lock.json 已入库；`npm ci` exit 0、`npm audit` 0 漏洞、`npm run check` 通过。
+  - TR-5.3（rule）通过：HTTP 回归全过（auth_required/origin_rejected/model_allowlist/no_arbitrary_file_read/健康检查）；入站消息转换错误改 400，上游错误仍 502/504。
+  - 实现：protocol.mjs 白名单由共享清单派生、MAX_TOOL_CALLS 取共享默认、剥离 system、Ajv 编译缓存；README 更新安全边界与 v7 迁移备注。
 - **Priority**: high
 - **Depends On**: Task 1
 - **Description**:
@@ -91,7 +96,7 @@
   - `rule` TR-5.3：鉴权失败/错误 Origin/2MB 体限/健康检查既有行为不回归；证据：server_http_test.py 通过。
 
 ## Task 6: 七系统 GLB 节点语料提取与覆盖率基线
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
