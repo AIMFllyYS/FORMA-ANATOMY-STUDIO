@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+tests/_runtime/
+node_modules/
+.env
+.env.*
+!.env.example
+models/**/*.glb
+models/**/*.blend
+models/**/*.obj
+models/**/*.stl
+
+# 构建产物（由 python tools/build.py 重新生成）
+dist/
+
+# 日志与系统文件
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini

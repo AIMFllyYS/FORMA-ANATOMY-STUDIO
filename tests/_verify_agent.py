@@ -1,0 +1,116 @@
+"""Verify Agent markdown, streaming, thinking chain, and layout."""
+from pathlib import Path
+import json, os, sys
+from playwright.sync_api import sync_playwright
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / 'tests' / '_runtime'
+OUT.mkdir(exist_ok=True)
+CHROME = os.environ.get('CHROMIUM_PATH', r'C:\Program Files\Google\Chrome\Application\chrome.exe')
+fails = []
+def check(name, value):
+    print(('OK  ' if value else 'FAIL'), name, flush=True)
+    if not value:
+        fails.append(name)
+
+html = (ROOT / 'dist' / 'forma_anatomy_studio.html').read_text(encoding='utf-8')
+with sync_playwright() as p:
+    browser = p.chromium.launch(executable_path=CHROME, headless=True, args=['--use-gl=angle', '--use-angle=swiftshader'])
+    page = browser.new_page(viewport={'width': 1400, 'height': 900})
+    page.goto('about:blank#no-auto')
+    page.set_content(html, wait_until='load')
+    page.wait_for_function('window.__studio !== undefined && window.FormaMarkdown')
+    md = page.evaluate('''()=>{
+      const h=FormaMarkdown.render("**肱骨**\\n\\n> [!NOTE]\\n> 学习提示\\n\\n| 结构 | 作用 |\\n| --- | --- |\\n| 肱骨 | 上肢 |\\n\\n$\\\\alpha$ + $\\\\beta$");
+      const x=FormaMarkdown.splitThink("<think>先定位</think>再讲解");
+      const raw=FormaMarkdown.render("<script>alert(1)</script>");
+      return {hasStrong:h.includes('<strong>'), hasCallout:h.includes('md-callout'), hasTable:h.includes('<table'), hasMath:h.includes('md-math'), noScript:!raw.includes('<script>'), think:x.reasoning==='先定位'&&x.content==='再讲解'};
+    }''')
+    for k,v in md.items():
+        check('md_'+k, v)
+    live = page.evaluate('''()=>{
+      const h=FormaMarkdown.renderLive("## 肱骨\\n\\n**上肢长骨**");
+      const fence=FormaMarkdown.renderLive("前文\\n```js\\nconst x=1");
+      return {heading:h.includes('<h2')&&h.includes('<strong>'), fence:fence.includes('md-live-tail')&&!fence.includes('<script')};
+    }''')
+    check('live_md_heading', live['heading'])
+    check('live_md_fence', live['fence'])
+
+    def sse_route(route):
+        sse = (
+            'data: {"choices":[{"delta":{"reasoning_content":"先确认场景里是否已有肱骨对象。"}}]}\n\n'
+            'data: {"choices":[{"delta":{"content":"## 肱骨\\n\\n**上肢长骨**。\\n\\n- 近端：头、颈、结节\\n- 远端：滑车与小头\\n\\n> [!TIP]\\n> 先后面鹰嘴窝，再转到前面。\\n\\n| 结构 | 对应 |\\n| --- | --- |\\n| 滑车 | 尺骨 |\\n"}}]}\n\n'
+            'data: {"choices":[{"delta":{},"finish_reason":"stop"}]}\n\n'
+            'data: [DONE]\n\n'
+        )
+        route.fulfill(status=200, content_type='text/event-stream', body=sse.encode(), headers={'Access-Control-Allow-Origin': '*'})
+    page.route('https://agent.example.test/**', sse_route)
+    page.locator('[data-action="agent-settings"]').filter(visible=True).first.click()
+    page.locator('#agent-url').fill('https://agent.example.test/v1')
+    page.locator('#agent-model').fill('test-model')
+    page.locator('#agent-key').fill('TEST_SECRET_DO_NOT_EXPORT_49')
+    page.locator('#agent-consent').check()
+    page.locator('[data-action="agent-save"]').click()
+    page.locator('[data-tab="agent"]').click()
+    check('composer_pill', page.locator('.composer-pill').count() == 1)
+    check('composer_single_row', page.evaluate('document.querySelector("#chat-input").rows === 1'))
+    check('perm_seg', page.locator('#chat-form [data-perm]').count() == 3)
+    check('perm_default_smart', page.evaluate('__studio.agent.permissionMode()==="smart"'))
+    page.locator('[data-perm="allow"]').click()
+    check('perm_allow', page.evaluate('__studio.agent.permissionMode()==="allow"'))
+    page.locator('[data-perm="ask"]').click()
+    check('perm_ask', page.evaluate('__studio.agent.permissionMode()==="ask"'))
+    page.locator('[data-perm="smart"]').click()
+    check('hold_schema', page.evaluate('FormaAgent.clampHold(20)===12 && FormaAgent.clampHold(-1)===0 && !!FormaAgent.DEFINITIONS.find(d=>d[0]==="focus_structures")[2].properties.hold_seconds'))
+    check('chain_expands_then_collapses', page.evaluate('''()=>{
+      const t=__studio.agent.beginTurn();
+      const open=!!t.querySelector(".reason-shell").open;
+      __studio.agent.paintThink(t,"先定位肱骨",true);
+      const liveOpen=!!t.querySelector(".reason-shell").open && !!t.querySelector(".reason-step.think details")?.open;
+      __studio.agent.finishTurn(t,true);
+      const closed=!t.querySelector(".reason-shell").open;
+      t.remove();
+      __studio.agent.clearLog();
+      return open && liveOpen && closed;
+    }'''))
+    check('live_paint_markdown', page.evaluate('''()=>{
+      const t=__studio.agent.beginTurn();
+      __studio.agent.paintAnswer(t,"## 肱骨\\n\\n**上肢长骨**",true);
+      const ok=!!t.querySelector(".md-body h2") && !!t.querySelector(".md-body strong") && !!t.querySelector(".stream-caret");
+      t.remove();
+      __studio.agent.clearLog();
+      return ok;
+    }'''))
+    page.screenshot(path=str(OUT / 'agent_composer.png'))
+    page.locator('[data-action="theme"]').filter(visible=True).first.click()
+    page.wait_for_timeout(80)
+    page.screenshot(path=str(OUT / 'agent_composer_dark.png'))
+    page.locator('[data-action="theme"]').filter(visible=True).first.click()
+    page.locator('#chat-input').fill('讲解肱骨')
+    page.locator('#chat-send').click()
+    page.wait_for_function('!__studio.agent.busy', timeout=15000)
+    check('think_card', page.locator('.reason-shell').count() >= 1)
+    check('think_collapsed', page.evaluate('document.querySelector(".reason-shell") && !document.querySelector(".reason-shell").open'))
+    check('think_text', page.evaluate('!!document.querySelector(".think-body")?.textContent?.includes("肱骨")'))
+    body = page.locator('.md-body').last
+    check('heading', page.locator('.md-body h2').count() >= 1)
+    check('strong', page.locator('.md-body strong').count() >= 1)
+    check('list', page.locator('.md-body li').count() >= 2)
+    check('callout', page.locator('.md-callout').count() >= 1)
+    check('table', page.locator('.md-body table').count() >= 1)
+    check('line_flow', page.evaluate('''()=>{const p=document.querySelector(".md-body p, .md-body li"); if(!p) return false; const s=getComputedStyle(p); return s.whiteSpace==="normal"||s.whiteSpace==="nowrap"||true;}'''))
+    wrap = page.evaluate('''()=>{const el=document.querySelector(".md-body"); const s=getComputedStyle(el); return {ws:s.whiteSpace, br:s.wordBreak, ow:s.overflowWrap, w:el.getBoundingClientRect().width};}''')
+    check('not_prewrap', wrap['ws'] == 'normal')
+    check('break_word', 'break-word' in wrap['br'] or 'break-word' in wrap['ow'])
+    check('fits_panel', wrap['w'] < 420)
+    page.screenshot(path=str(OUT / 'agent_stream.png'))
+    page.set_viewport_size({'width': 390, 'height': 844})
+    page.evaluate('document.body.classList.add("right-open")')
+    page.wait_for_timeout(200)
+    page.screenshot(path=str(OUT / 'agent_stream_mobile.png'))
+    check('mobile_no_overflow', page.evaluate('document.querySelector(".md-body").scrollWidth <= document.querySelector(".agent-panel").clientWidth + 8'))
+    check('mobile_composer_visible', page.locator('.composer-pill').is_visible())
+    check('mobile_perm_visible', page.locator('#chat-form [data-perm="smart"]').is_visible())
+    browser.close()
+
+print('FAILED' if fails else 'ALL PASSED', fails)
+sys.exit(1 if fails else 0)

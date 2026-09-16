@@ -1,0 +1,35 @@
+{
+  "release": "Forma 3.0",
+  "validated_at": "2026-09-10",
+  "browser": {
+    "passed_checks": 60,
+    "page_errors": [],
+    "engine": "Chromium / actual WebGL2 via ANGLE SwiftShader",
+    "native_fullscreen_granted": true,
+    "denied_api_fallback": "simulated rejection tested",
+    "fixture": "SYNTHETIC_GRAPHICS_NOT_ANATOMY, never shipped as anatomy"
+  },
+  "python_packaging": {
+    "passed": 10
+  },
+  "proxy_http": {
+    "passed": 9,
+    "sdk_imported": false,
+    "provider_contacted": false
+  },
+  "protocol_adapter": {
+    "passed": 4
+  },
+  "not_verified": [
+    "Real upstream GLB download and end-to-end compatibility in this new build",
+    "Source .blend end-to-end export",
+    "Full-body high-detail runtime performance across actual user devices",
+    "npm-installed Vercel AI SDK 6 + real model provider end-to-end",
+    "Expert review of all anatomy content and region boundaries",
+    "Anatomically calibrated motion axes, physiological ROM, collision constraints",
+    "Patient-specific scale, internal CT/MRI volume data"
+  ],
+  "shipping_assets": 0,
+  "online_model_urls": "same public upstream as previous workbench",
+  "api_key_exported": false
+}

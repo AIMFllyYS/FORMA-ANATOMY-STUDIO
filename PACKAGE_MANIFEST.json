@@ -1,0 +1,190 @@
+{
+  "release": "Forma 3.0",
+  "compiled_html": {
+    "name": "forma_anatomy_studio.html",
+    "bytes": 475511,
+    "sha256": "684cf81ed784a818d99c34bd0e47de64e25c0f4ffd97b3367959e43f7c63b9dc"
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 141,
+      "sha256": "678e16cfa1aecb40906d57ac4fdeee4afc96ff5eebdb3a10d4997c11ee5c62d6"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "bytes": 4726,
+      "sha256": "e64efc1cb4659b0f873408ca7f037a3fc1ca4db08cf33337145c644d34e2e2d0"
+    },
+    {
+      "path": "README_中文.md",
+      "bytes": 13188,
+      "sha256": "3e0f694fc3f0b258ef9b66c829e701ff6b0e186fb9ee32778c4d1ae79019d01f"
+    },
+    {
+      "path": "RELEASE_NOTES.md",
+      "bytes": 2098,
+      "sha256": "46585aec7cb4f48c2af491f0d3e25391f0ee0288e07635f9ce3b8962063d28c4"
+    },
+    {
+      "path": "agent-server/.env.example",
+      "bytes": 796,
+      "sha256": "23dfc2e124a3057c9dbc74b4f22d094a48171141ea046f22d227d752a02f87bf"
+    },
+    {
+      "path": "agent-server/.gitignore",
+      "bytes": 25,
+      "sha256": "9c72e304c63bff641f2e96131cb4c75d71726ffcb49a6a7af2741ff361ff2249"
+    },
+    {
+      "path": "agent-server/README_中文.md",
+      "bytes": 4201,
+      "sha256": "03846b615c3ff831bf6ceed70e090287e020fbe3f3fa99d25e3061c0153e5cb2"
+    },
+    {
+      "path": "agent-server/package.json",
+      "bytes": 525,
+      "sha256": "471be50b5c7cc154d39919afe965b67cc851808a5b2db5493214938a85a49b12"
+    },
+    {
+      "path": "agent-server/protocol.mjs",
+      "bytes": 2755,
+      "sha256": "df4f3fd6acdd963f0a551b62019f843cab2c41a31d9a2f75ff4706897b40059e"
+    },
+    {
+      "path": "agent-server/protocol.test.mjs",
+      "bytes": 1388,
+      "sha256": "cb2f97eb25ade79c9054824504fca657f883a28158c047b9692ab2468797264a"
+    },
+    {
+      "path": "agent-server/server.mjs",
+      "bytes": 6455,
+      "sha256": "33e48148c513e8392671c85577502787ce6ccb47c8d006d3fb645d779a6876ae"
+    },
+    {
+      "path": "agent-server/tool-definitions.json",
+      "bytes": 4814,
+      "sha256": "efe965f0c37e72896da7a40b932792990a7e18dc8ffcfcf2afbb8b78acc50a4d"
+    },
+    {
+      "path": "dist/forma_anatomy_studio.build.json",
+      "bytes": 238,
+      "sha256": "ec11ca5cb3a819ea1a5cf6224437094cfbf49fcfcfa8512bb8a76d6ba7264f11"
+    },
+    {
+      "path": "dist/forma_anatomy_studio.html",
+      "bytes": 475511,
+      "sha256": "684cf81ed784a818d99c34bd0e47de64e25c0f4ffd97b3367959e43f7c63b9dc"
+    },
+    {
+      "path": "licenses/LICENSE_CODE_MIT.txt",
+      "bytes": 1304,
+      "sha256": "40947c432229f247b9df30d5f47ce7fee974da42c29be3b1b3f767c7d3f4577b"
+    },
+    {
+      "path": "licenses/SOURCE_NOTICES.md",
+      "bytes": 3911,
+      "sha256": "af30fc2895f7c8940adf24cbfdfe6a1341c00013545940ae04c7b2a7e84e9b6c"
+    },
+    {
+      "path": "models/README.md",
+      "bytes": 732,
+      "sha256": "bd0b4cdfefc5c5fc062933ee7184400f791d59cf2478cbb58c5811baf3ee2189"
+    },
+    {
+      "path": "tests/RESULTS.json",
+      "bytes": 2216,
+      "sha256": "501d14e2e6027ec7095c7147da495a0bc46b7fe09b0fed2bd8f5d7e780f0a34a"
+    },
+    {
+      "path": "tests/SERVER_HTTP_RESULTS.json",
+      "bytes": 369,
+      "sha256": "140f90fc8591be63dea0e1847c153b1428f1fb91e4ccb2c1095e782e4f511951"
+    },
+    {
+      "path": "tests/VALIDATION_SUMMARY.json",
+      "bytes": 1174,
+      "sha256": "bbb4d1aef7c36db594cedac2ecc54da25f04623f569b44cc4c0ef807f945a504"
+    },
+    {
+      "path": "tests/browser_test.py",
+      "bytes": 19525,
+      "sha256": "65638c918461eb7bd24408389944406f9ae775101470de745f82eede7e1b04d0"
+    },
+    {
+      "path": "tests/fixture.py",
+      "bytes": 1865,
+      "sha256": "23d359861703b78c9059a883733628b6ceccadb164b767341cd5d619d3c60e1e"
+    },
+    {
+      "path": "tests/requirements.txt",
+      "bytes": 20,
+      "sha256": "2745adf9133752c7da71c396a64aa5f714006aad210e313347cf94ee83bd22ea"
+    },
+    {
+      "path": "tests/server_http_test.py",
+      "bytes": 2677,
+      "sha256": "f7127fede81d77e66146af4a6ae3fa07255a24b2b186f2633e8ab3d86672e494"
+    },
+    {
+      "path": "tests/test_build.py",
+      "bytes": 3401,
+      "sha256": "5dc80946b003297355cfee4295c6edb409cc7757bee283b74c9cfd2d721a6efd"
+    },
+    {
+      "path": "tools/build.py",
+      "bytes": 6914,
+      "sha256": "c66dacae4a0884ec8cb73ccb8c7906207ce2b61173387da8e349d10e5595fb7e"
+    },
+    {
+      "path": "tools/export_blender.py",
+      "bytes": 15458,
+      "sha256": "d020c65f6cfcd4cbe8560b2888b02493978bd0a64d0db826f6f5c3b82c02c680"
+    },
+    {
+      "path": "web/agent.js",
+      "bytes": 15434,
+      "sha256": "f2c1097e8c530464fb38f4c86c80c0b38017c4b748c556276f0f981486d0c486"
+    },
+    {
+      "path": "web/app.js",
+      "bytes": 91143,
+      "sha256": "ba5912b5f2284641daad94ebb2c1ef57556e0214ba770cf5b5e550dfd7548b25"
+    },
+    {
+      "path": "web/core.js",
+      "bytes": 13778,
+      "sha256": "475ec00c9eb9f3ed1f26a04b7a4faf55e3150b69f00a8a6f321afdaf79c3cc91"
+    },
+    {
+      "path": "web/icons.svg",
+      "bytes": 6249,
+      "sha256": "a8a2cca98eaef31ed544c52364cff4e3fbcaf7b030a1bddb99fd48357f701a5a"
+    },
+    {
+      "path": "web/knowledge.js",
+      "bytes": 21921,
+      "sha256": "5bf7d9150da9a5516d90d06423ce3ccc1dfc3cbd1f6379bf07b8f82cf6087cbe"
+    },
+    {
+      "path": "web/knowledge.json",
+      "bytes": 226847,
+      "sha256": "5945a782ae06ccb43ce4577af9a6c8c9f916d08eec826382cbd2de48e2f6152c"
+    },
+    {
+      "path": "web/mesh-engine.js",
+      "bytes": 28586,
+      "sha256": "394b901a6e0186fa2965f649bd5acd4ebb90a3121dacc24e34530e9780e0eafb"
+    },
+    {
+      "path": "web/shell.html",
+      "bytes": 14900,
+      "sha256": "a0317a9cfea6c76ff9e85ee1c6ae2d4f0a8eb8508522c37ddf800a2e3e2aaed5"
+    },
+    {
+      "path": "web/style.css",
+      "bytes": 56764,
+      "sha256": "bc7105c98fe43780c33458ff77d1aaae221282eb9a8e4df90b54d958e0aa9bfd"
+    }
+  ]
+}

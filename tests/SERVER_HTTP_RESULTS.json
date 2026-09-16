@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "health_route": true,
+    "health_no_key": true,
+    "serves_one_compiled_artifact": true,
+    "no_arbitrary_file_read": true,
+    "auth_required": true,
+    "origin_rejected": true,
+    "model_allowlist": true,
+    "invalid_messages_rejected": true,
+    "explicit_cors_preflight": true
+  },
+  "provider_contacted": false,
+  "sdk_installed": false
+}
