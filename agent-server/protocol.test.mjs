@@ -24,9 +24,15 @@ test('validates inbound tool call arguments against the shared schema',()=>{
  assert.throws(()=>toModelMessages([{role:'assistant',tool_calls:[{id:'b2',function:{name:'search_structures',arguments:'{bad json'}}]}]));
 });
 test('centralized per-turn tool call cap',()=>{
- assert.equal(MAX_TOOL_CALLS,6);
+ assert.equal(MAX_TOOL_CALLS,128);
  const calls=Array.from({length:MAX_TOOL_CALLS+1},(_,i)=>({id:'x'+i,function:{name:'get_scene',arguments:'{}'}}));
  assert.throws(()=>toModelMessages([{role:'assistant',tool_calls:calls}]),/Too many tool calls/);
+});
+test('proxy accepts paired histories at the new scale',()=>{
+ const tools=[],calls=[];
+ for(let i=0;i<64;i++){calls.push({id:'s'+i,function:{name:'get_scene',arguments:'{}'}});tools.push({role:'tool',tool_call_id:'s'+i,content:'{"done":true}'});}
+ const out=toModelMessages([{role:'user',content:'go'}, {role:'assistant',content:null,tool_calls:calls},...tools]);
+ assert.equal(out.filter(m=>m.role==='tool').length,64);
 });
 test('normalizes result to OpenAI-compatible choices',()=>{
  const out=toChatCompletion({text:'',toolCalls:[{toolCallId:'f1',toolName:'focus_structures',input:{ids:[2]}}]},'test');

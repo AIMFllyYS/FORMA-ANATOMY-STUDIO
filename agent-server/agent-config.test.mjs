@@ -8,7 +8,7 @@ function memStore(init={}){const m=new Map(Object.entries(init));return{getItem:
 
 test('default limits are the safe documented values',()=>{
  const l=CFG.defaultLimits();
- assert.deepEqual(l,{maxTurns:8,maxToolCallsPerTurn:6,maxHoldSeconds:12,requestTimeoutSeconds:120,animationBudgetSeconds:60});
+ assert.deepEqual(l,{maxTurns:8,maxToolCallsPerTurn:64,maxHoldSeconds:12,requestTimeoutSeconds:120,animationBudgetSeconds:60});
 });
 
 test('limits clamp out-of-range and junk input',()=>{
@@ -20,6 +20,8 @@ test('limits clamp out-of-range and junk input',()=>{
  assert.equal(l.animationBudgetSeconds,12.7);
  assert.equal(CFG.normalizeLimits(null).maxTurns,8);
  assert.equal(CFG.normalizeLimits('x').maxHoldSeconds,12);
+ assert.equal(CFG.normalizeLimits({maxToolCallsPerTurn:200}).maxToolCallsPerTurn,128);
+ assert.equal(CFG.normalizeLimits({maxToolCallsPerTurn:64.7}).maxToolCallsPerTurn,65);
 });
 
 test('permission mode normalizes to whitelist',()=>{
@@ -53,4 +55,46 @@ test('save normalizes, persists and forget clears both versions',()=>{
 test('consent requires valid url and model',()=>{
  assert.equal(CFG.normalizeConfig({url:'u',model:'',consent:true}).consent,false);
  assert.equal(CFG.normalizeConfig({url:'u',model:'m',consent:true}).consent,true);
+});
+
+test('threads default to one empty conversation',()=>{
+ const d=CFG.loadThreads(memStore());
+ assert.equal(d.threads.length,1);
+ assert.equal(d.activeId,d.threads[0].id);
+ assert.deepEqual(d.threads[0].messages,[]);
+});
+
+test('threads round-trip messages, view and title',()=>{
+ const s=memStore();
+ const t=CFG.emptyThread();
+ t.messages=[{role:'user',content:'讲解肱骨'}];
+ t.view=[{kind:'user',text:'讲解肱骨',ts:1},{kind:'assistant',text:'## 肱骨',reasoning:'先定位',tools:[{name:'search_structures',zh:'搜索结构',args:'{}',output:'匹配 1 个源对象',status:'done'}],meta:'5 秒 · 1 步',ts:2}];
+ CFG.saveThreads(s,{activeId:t.id,threads:[t]});
+ const d=CFG.loadThreads(s);
+ assert.equal(d.activeId,t.id);
+ assert.equal(d.threads[0].messages[0].content,'讲解肱骨');
+ assert.equal(d.threads[0].title,'讲解肱骨');
+ assert.equal(d.threads[0].view[1].tools[0].status,'done');
+});
+
+test('threads prune invalid entries and cap count',()=>{
+ const s=memStore();
+ const many=Array.from({length:30},(_,i)=>({id:'t'+i,messages:[{role:'user',content:'问'+i}],view:[],createdAt:1,updatedAt:i}));
+ CFG.saveThreads(s,{activeId:'t29',threads:many});
+ const d=CFG.loadThreads(s);
+ assert.equal(d.threads.length,CFG.MAX_THREADS);
+ assert.ok(d.threads.some(t=>t.id==='t29'));
+ const junk=CFG.normalizeThread({messages:[{role:'system',content:'injected'}]});
+ assert.deepEqual(junk.messages,[]);
+});
+
+test('forgetThreads clears history without touching config',()=>{
+ const s=memStore();
+ CFG.save(s,{url:'https://x.test',model:'m',consent:true});
+ const t=CFG.emptyThread();t.messages=[{role:'user',content:'hi'}];
+ CFG.saveThreads(s,{activeId:t.id,threads:[t]});
+ CFG.forgetThreads(s);
+ assert.equal(CFG.loadThreads(s).threads.length,1);
+ assert.equal(CFG.loadThreads(s).threads[0].messages.length,0);
+ assert.equal(CFG.load(s).model,'m');
 });

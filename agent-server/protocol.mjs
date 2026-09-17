@@ -6,12 +6,13 @@ import {createRequire} from 'node:module';
 import Ajv from 'ajv';
 const HERE=dirname(fileURLToPath(import.meta.url));
 const require=createRequire(import.meta.url);
-// 浏览器端默认限额是工具调用数的单一事实源（纯 CJS/UMD 模块，可被 require）。
+// 浏览器端共享限额是工具调用数天花板的单一事实源（纯 CJS/UMD 模块，可被 require）。
 const {LIMIT_SPECS}=require('../web/agent-config.js');
 const manifest=JSON.parse(readFileSync(resolve(HERE,'../web/agent-tools.json'),'utf8'));
-export const MAX_MESSAGES = 120;
-// 服务端只接受当前清单中的工具；浏览器循环的默认单轮上限来自共享配置。
-export const MAX_TOOL_CALLS = LIMIT_SPECS.maxToolCallsPerTurn.def;
+export const MAX_MESSAGES = 400;
+// 服务端执行的是安全天花板（共享 max），默认限额只是浏览器的 UX 默认值；
+// 浏览器把单轮上限调到 128 时，代理同样放行，仍由共享清单单一管控。
+export const MAX_TOOL_CALLS = LIMIT_SPECS.maxToolCallsPerTurn.max;
 export const ALLOWED_NAMES = new Set(manifest.tools.map(t=>t.name));
 const ajv=new Ajv({allErrors:true,strict:false});
 const validators=new Map();
