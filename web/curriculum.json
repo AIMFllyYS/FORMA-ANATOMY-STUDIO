@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "generatedWith": "hand-authored (Task 18); structural ids reference web/nomenclature.json",
+  "schema": {
+    "lesson": {
+      "id": "stable lesson id",
+      "joint": "matches knowledge.js JOINTS id",
+      "complete": "true only when assembly + motions + parts are fully authored",
+      "assembly": "ordered [{step, zh, en, system, ids[]}]; ids are nomenclature ids",
+      "motions": "[{id, zh, en, anchorRule, startAngle, endAngle, movingIds[], agonistIds[], antagonistIds[]}]",
+      "anchorRule": "{basis:'bounds', anchorIds:[ids whose union bounds define the joint center], axisVector:[x,y,z] in SOURCE coordinates, axisNameZh, requiresCalibration:bool}"
+    },
+    "honesty": "Axes are geometric teaching approximations computed from loaded bounds; never physiological ROM or biomechanical certification. Anatomical direction words require orientation calibration."
+  },
+  "orientation": {
+    "calibrated": false,
+    "default": "unverified",
+    "note": "源模型未做解剖方位校准。anchorRule.axisVector 为源坐标方向；校准前界面使用‘源轴近似’措辞，不自称冠状轴/矢状轴。"
+  },
+  "lessons": [
+    {
+      "id": "wrist",
+      "joint": "wrist",
+      "zh": "桡腕关节 · 系统课程",
+      "en": "Radiocarpal joint",
+      "region": "upper",
+      "complete": true,
+      "warning": "教学近似轴 + 肌肉刚性成组演示；非生理活动度测量，非生物力学认证。源模型朝向未校准前，轴方向以源坐标描述。",
+      "assembly": [
+        {"step": 1, "zh": "前臂骨远端（桡骨、尺骨）", "en": "Distal radius and ulna", "system": "skeletal", "ids": ["radius", "ulna"]},
+        {"step": 2, "zh": "近排腕骨：舟、月、三角、豆", "en": "Proximal carpal row", "system": "skeletal", "ids": ["scaphoid_bone", "lunate_bone", "triquetrum_bone", "pisiform_bone"]},
+        {"step": 3, "zh": "远排腕骨：大、小多角、头状、钩", "en": "Distal carpal row", "system": "skeletal", "ids": ["trapezium_bone", "trapezoid_bone", "capitate_bone", "hamate_bone"]},
+        {"step": 4, "zh": "第 1–5 掌骨底", "en": "Metacarpal bases", "system": "skeletal", "ids": ["first_metacarpal_bone", "second_metacarpal_bone", "third_metacarpal_bone", "fourth_metacarpal_bone", "fifth_metacarpal_bone"]},
+        {"step": 5, "zh": "关节盘与腕韧带（名称待规范）", "en": "Articular disc and carpal ligaments", "system": "joints", "ids": ["articular_disc_of_distal_radio_ulnar_joint", "radial_collateral_ligament_of_wrist_joint", "ulnar_collateral_ligament_of_wrist_joint", "dorsal_radiocarpal_ligament", "radiate_carpal_ligament", "dorsal_intercarpal_ligaments", "palmar_carpometacarpal_ligaments"], "namesPending": true},
+        {"step": 6, "zh": "跨腕屈肌群（前臂前群）", "en": "Flexor group crossing the wrist", "system": "muscles", "ids": ["flexor_carpi_radialis", "palmaris_longus_muscle", "humeral_head_of_flexor_carpi_ulnaris", "ulnar_head_of_flexor_carpi_ulnaris", "radial_head_of_flexor_digitorum_superficialis", "humero_ulnar_head_of_flexor_digitorum_superficialis", "flexor_digitorum_profundus", "flexor_pollicis_longus"]},
+        {"step": 7, "zh": "跨腕伸肌群（前臂后群）", "en": "Extensor group crossing the wrist", "system": "muscles", "ids": ["extensor_carpi_radialis_longus", "extensor_carpi_radialis_brevis", "extensor_digitorum", "extensor_digiti_minimi", "extensor_indicis", "humeral_head_of_extensor_carpi_ulnaris", "ulnar_head_of_extensor_carpi_ulnaris", "abductor_pollicis_longus", "extensor_pollicis_brevis", "extensor_pollicis_longus"]}
+      ],
+      "motions": [
+        {
+          "id": "flexion_extension",
+          "zh": "屈 / 伸（教学近似）",
+          "en": "Flexion / extension",
+          "anchorRule": {
+            "basis": "bounds",
+            "anchorIds": ["capitate_bone", "lunate_bone"],
+            "axisVector": [1, 0, 0],
+            "axisNameZh": "过头状骨/月骨区的内外侧近似轴（冠状轴方向，源坐标 X）",
+            "requiresCalibration": false,
+            "calibratedName": "冠状轴（内外侧方向）"
+          },
+          "startAngle": -30,
+          "endAngle": 30,
+          "movingIds": ["scaphoid_bone", "lunate_bone", "triquetrum_bone", "pisiform_bone", "trapezium_bone", "trapezoid_bone", "capitate_bone", "hamate_bone", "first_metacarpal_bone", "second_metacarpal_bone", "third_metacarpal_bone", "fourth_metacarpal_bone", "fifth_metacarpal_bone"],
+          "agonistIds": ["humeral_head_of_flexor_carpi_ulnaris", "ulnar_head_of_flexor_carpi_ulnaris", "flexor_carpi_radialis", "palmaris_longus_muscle"],
+          "antagonistIds": ["extensor_carpi_radialis_longus", "extensor_carpi_radialis_brevis", "humeral_head_of_extensor_carpi_ulnaris", "ulnar_head_of_extensor_carpi_ulnaris", "extensor_digitorum"]
+        },
+        {
+          "id": "radial_ulnar_deviation",
+          "zh": "桡偏 / 尺偏（教学近似）",
+          "en": "Radial / ulnar deviation",
+          "anchorRule": {
+            "basis": "bounds",
+            "anchorIds": ["capitate_bone", "lunate_bone"],
+            "axisVector": [0, 0, 1],
+            "axisNameZh": "过头状骨/月骨区的前后近似轴（矢状轴方向，源坐标 Z）",
+            "requiresCalibration": false,
+            "calibratedName": "矢状轴（前后方向）"
+          },
+          "startAngle": -15,
+          "endAngle": 15,
+          "movingIds": ["scaphoid_bone", "lunate_bone", "triquetrum_bone", "pisiform_bone", "trapezium_bone", "trapezoid_bone", "capitate_bone", "hamate_bone", "first_metacarpal_bone", "second_metacarpal_bone", "third_metacarpal_bone", "fourth_metacarpal_bone", "fifth_metacarpal_bone"],
+          "agonistIds": ["flexor_carpi_radialis", "extensor_carpi_radialis_longus", "extensor_carpi_radialis_brevis"],
+          "antagonistIds": ["humeral_head_of_flexor_carpi_ulnaris", "ulnar_head_of_flexor_carpi_ulnaris", "humeral_head_of_extensor_carpi_ulnaris", "ulnar_head_of_extensor_carpi_ulnaris"]
+        }
+      ],
+      "views": [
+        {"id": "palmar", "zh": "掌面观（源轴）", "view": "nz"},
+        {"id": "dorsal", "zh": "背面观（源轴）", "view": "z"},
+        {"id": "radial", "zh": "桡侧面观（源轴）", "view": "nx"},
+        {"id": "ulnar", "zh": "尺侧面观（源轴）", "view": "x"},
+        {"id": "iso", "zh": "斜位整体观", "view": "iso"}
+      ]
+    },
+    {"id": "shoulder", "joint": "shoulder", "zh": "肩关节", "en": "Glenohumeral joint", "region": "upper", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；组装顺序与运动轴待后续课程补全。"},
+    {"id": "elbow", "joint": "elbow", "zh": "肘关节", "en": "Elbow joint", "region": "upper", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；屈伸/旋转轴待补全。"},
+    {"id": "radioulnar", "joint": "radioulnar", "zh": "桡尺关节", "en": "Radioulnar joints", "region": "upper", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；旋前旋后轴待补全。"},
+    {"id": "hip", "joint": "hip", "zh": "髋关节", "en": "Hip joint", "region": "pelvis", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；三轴运动待补全。"},
+    {"id": "knee", "joint": "knee", "zh": "膝关节", "en": "Knee joint", "region": "lower", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；屈伸轴待补全。"},
+    {"id": "ankle", "joint": "ankle", "zh": "距小腿关节", "en": "Talocrural joint", "region": "lower", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；背屈跖屈轴待补全。"},
+    {"id": "spine", "joint": "spine", "zh": "椎间连接", "en": "Intervertebral connections", "region": "spine", "complete": false, "missingFields": ["assembly", "motions", "anchorRule"], "note": "已迁移基本信息；多节段运动待补全。"}
+  ]
+}
