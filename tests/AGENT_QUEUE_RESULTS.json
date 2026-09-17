@@ -1,0 +1,22 @@
+{
+  "first_request_held": true,
+  "stop_visible_while_busy": true,
+  "send_enabled_while_busy": true,
+  "two_queued_bubbles": true,
+  "queue_badge_shows_2": true,
+  "only_one_inflight_request": true,
+  "queued_text_shown": true,
+  "undo_removes_bubble": true,
+  "queue_badge_shows_1": true,
+  "queued_auto_sent_in_order": true,
+  "cancelled_never_sent": true,
+  "queue_cleared_after_drain": true,
+  "both_answers_rendered": true,
+  "stop_hidden_when_idle": true,
+  "stopped_message_shown": true,
+  "queue_discarded_on_stop": true,
+  "held_answer_not_rendered": true,
+  "resume_after_stop_works": true,
+  "no_page_errors": true,
+  "page_errors": []
+}
