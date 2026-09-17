@@ -142,6 +142,8 @@ class Agent{
  constructor(app){
   this.app=app;this.config=loadConfig();this.messages=[];this.view=[];
   this.busy=false;this.allowSession=false;this.pendingApproval=null;this.controller=null;this.turns=0;this.paintTimer=0;this.startedAt=0;this.viewHoldUntil=0;this._lastLive=0;
+  // 教学跟随条：操作画布前预告动作、播放/停留可暂停快进跳过（纯展示控制）。
+  this.follow=window.FormaFollow?new window.FormaFollow.Follow({timeline:()=>this.app.timeline}):null;
   // 生成进行中发送的消息进入 FIFO 队列，当前轮次结束后自动依次执行；可随时撤销。
   this.queue=[];this._running=false;
   // 对话线程：本机持久化，默认恢复上次；从不进入学习记录与离线导出。
@@ -418,6 +420,7 @@ class Agent{
   this._aborted=true;
   this.app.stopAnimation?.();
   this.controller?.abort();this.viewHoldUntil=0;this.animUntil=0;this.flushPaint();
+  this.follow?.hide();
   if(this.pendingApproval){this.pendingApproval(false);this.pendingApproval=null;$('tool-approval').hidden=true;}
  }
  sleep(ms,signal){return new Promise(resolve=>{if(ms<=0||signal?.aborted){resolve();return;}const t=setTimeout(done,ms);function done(){signal?.removeEventListener('abort',onAbort);clearTimeout(t);resolve();}function onAbort(){done();}signal?.addEventListener('abort',onAbort,{once:true});});}
@@ -470,8 +473,28 @@ class Agent{
  }
  setState(turn,label){const t=turn.querySelector('.reason-title');if(t&&turn.classList.contains('is-live'))t.textContent=label;}
  reasonMeta(turn,text){const m=turn.querySelector('.reason-meta');if(m)m.textContent=text||'';}
- ensureThinkStep(turn){let step=turn.querySelector('.reason-step.think');if(step)return step;step=document.createElement('li');step.className='reason-step think';step.innerHTML=`<details open><summary>思考</summary><div class="think-body"></div></details>`;turn.querySelector('.reason-chain').append(step);return step;}
- paintThink(turn,text,live){if(!text)return;const shell=turn.querySelector('.reason-shell');if(!shell)return;const running=turn.classList.contains('is-live');shell.classList.toggle('is-live',running);if(running)shell.open=true;const preview=lastLine(text);this.setState(turn,running?(preview?'推理 · '+preview:'正在推理'):'已推理');const inner=this.ensureThinkStep(turn).querySelector('details');if(inner&&running)inner.open=true;this.ensureThinkStep(turn).querySelector('.think-body').textContent=text.length>MAX_STREAM?text.slice(0,MAX_STREAM)+'…':text;this.scroll();}
+ ensureThinkStep(turn){
+  let step=turn.querySelector('.reason-step.think');if(step)return step;
+  step=document.createElement('li');step.className='reason-step think';
+  step.innerHTML=`<details class="think-details"><summary><span class="think-label">思考</span><span class="think-more">展开</span></summary><div class="think-body"></div></details>`;
+  const d=step.querySelector('details');
+  // 用户首次手动展开后，本轮不再强制两行钳制。
+  d.addEventListener('toggle',()=>{if(d.open){d.dataset.expanded='1';d.classList.remove('is-clamped');}});
+  turn.querySelector('.reason-chain').append(step);return step;
+ }
+ paintThink(turn,text,live){
+  if(!text)return;const shell=turn.querySelector('.reason-shell');if(!shell)return;
+  const running=turn.classList.contains('is-live');
+  shell.classList.toggle('is-live',running);if(running)shell.open=true;
+  const preview=lastLine(text);
+  this.setState(turn,running?(preview?'推理 · '+preview:'正在推理'):'已推理');
+  const step=this.ensureThinkStep(turn),inner=step.querySelector('details'),body=step.querySelector('.think-body');
+  // 流式中默认只露出两行，后续内容折叠；用户展开过则给全文。
+  if(running&&!inner.dataset.expanded){inner.open=true;inner.classList.add('is-clamped');}
+  else if(!running){inner.classList.remove('is-clamped');}
+  body.textContent=text.length>MAX_STREAM?text.slice(0,MAX_STREAM)+'…':text;
+  this.scroll();
+ }
  paintAnswer(turn,text,live){
   const slot=turn.querySelector('.answer-slot');if(!slot)return;
   if(!text){if(!live){slot.innerHTML='';slot.classList.add('is-empty');}return;}
@@ -480,14 +503,31 @@ class Agent{
   else{slot.classList.remove('is-stream');slot.innerHTML=MD.render(this.redact(text));}
   this.scroll();
  }
+ // 同名工具在渲染层合并为一个 chip；每次调用仍是独立的 .tool-card（存档/测试不变）。
+ toolGroup(turn,tc,meta){
+  const chain=turn.querySelector('.reason-chain');
+  let group=chain.querySelector(`.tool-group[data-tool="${CSS.escape(tc.function.name)}"]`);
+  if(group)return group;
+  group=document.createElement('li');group.className='reason-step tool-group';group.dataset.tool=tc.function.name;
+  group.innerHTML=`<div class="tool-chip"><span class="tool-ico">${icon(meta.ico)}</span><span class="tool-chip-name">${esc(meta.zh)}</span><span class="tool-count odo" data-count="0">×0</span><span class="tool-chip-flag"></span></div><details class="tool-calls-details"><summary class="tool-calls-summary">调用详情</summary><div class="tool-calls"></div></details>`;
+  chain.append(group);return group;
+ }
  addToolCard(turn,tc,silent){
   const meta=TOOL[tc.function.name]||{zh:tc.function.name,ico:'cube'};
   let args={};try{args=JSON.parse(tc.function.arguments||'{}');}catch{args={raw:tc.function.arguments};}
-  const item=document.createElement('li');item.className='reason-step';
+  const group=this.toolGroup(turn,tc,meta);
+  const calls=group.querySelector('.tool-calls');
   const card=document.createElement('details');card.className='tool-card is-pending';card.dataset.toolId=tc.id;
-  card.innerHTML=`<summary class="tool-summary"><span class="tool-ico">${icon(meta.ico)}</span><span class="tool-copy"><b>${esc(meta.zh)}</b><small>${esc(tc.function.name)}</small></span><em class="tool-flag">准备调用</em></summary><div class="tool-detail"><div class="tool-args">${fmtArgs(args)||'<span class="muted">无参数</span>'}</div><pre class="tool-out" hidden></pre></div>`;
-  card.open=true;item.append(card);turn.querySelector('.reason-chain').append(item);const shell=turn.querySelector('.reason-shell');if(shell&&turn.classList.contains('is-live'))shell.open=true;
-  if(!silent){this.setState(turn,'工具 · '+meta.zh);this.reasonMeta(turn,meta.zh);}this.scroll();return{card,args,meta};
+  card.innerHTML=`<summary class="tool-summary"><span class="tool-copy"><b>${esc(meta.zh)}</b><small>${esc(tc.function.name)}</small></span><em class="tool-flag">准备调用</em></summary><div class="tool-detail"><div class="tool-args">${fmtArgs(args)||'<span class="muted">无参数</span>'}</div><pre class="tool-out" hidden></pre></div>`;
+  calls.append(card);
+  const chip=group.querySelector('.tool-chip'),chipFlag=group.querySelector('.tool-chip-flag');
+  chip.classList.add('is-active');chipFlag.textContent='准备调用';
+  const countEl=group.querySelector('.tool-count');
+  const n=calls.querySelectorAll('.tool-card').length;
+  if(window.FormaFollow?.odometer)window.FormaFollow.odometer(countEl,n);else countEl.textContent='×'+n;
+  const shell=turn.querySelector('.reason-shell');if(shell&&turn.classList.contains('is-live'))shell.open=true;
+  if(!silent){this.setState(turn,'工具 · '+meta.zh);this.reasonMeta(turn,meta.zh);}this.scroll();
+  return{card,args,meta,group,chip};
  }
  toolStatusOf(output){
   if(output?.denied)return'denied';if(output?.cancelled)return'cancelled';
@@ -497,7 +537,15 @@ class Agent{
   const ok=!output?.error&&!output?.denied&&!output?.cancelled;
   const hold=this.clampHold(output?.hold_seconds);
   ref.card.className='tool-card '+(output?.denied?'is-denied':output?.cancelled?'is-cancel':ok?'is-done':'is-error');
-  ref.card.querySelector('.tool-flag').textContent=output?.denied?'未授权':output?.cancelled?'已取消':ok?(hold?'观察 '+hold+'s':'完成'):'失败';
+  const label=output?.denied?'未授权':output?.cancelled?'已取消':ok?(hold?'观察 '+hold+'s':'完成'):'失败';
+  ref.card.querySelector('.tool-flag').textContent=label;
+  // chip 反映最近一次调用状态；整组出现失败时高亮，否则保持中性。
+  if(ref.chip){
+   ref.chip.classList.remove('is-active');
+   ref.chip.classList.toggle('is-error',!!output?.error);
+   ref.chip.classList.toggle('is-denied',!!output?.denied);
+   const f=ref.group?.querySelector('.tool-chip-flag');if(f)f.textContent=label;
+  }
   const out=ref.card.querySelector('.tool-out');out.hidden=false;
   const text=output?._text!==undefined?String(output._text):this.redact(fmtResult(output));
   out.textContent=text;
@@ -509,20 +557,63 @@ class Agent{
   const shell=turn.querySelector('.reason-shell');
   if(shell){
    shell.classList.remove('is-live');shell.open=false;
-   const n=shell.querySelectorAll('.reason-step').length;
-   const tools=[...shell.querySelectorAll('.tool-card b')].map(b=>b.textContent).filter(Boolean);
+   const calls=shell.querySelectorAll('.tool-card').length;
+   const hasThink=!!shell.querySelector('.reason-step.think');
+   const steps=calls+(hasThink?1:0);
+   const tools=[...shell.querySelectorAll('.tool-chip-name')].map(b=>b.textContent).filter(Boolean);
    const sec=Math.max(1,Math.round((Date.now()-(this.startedAt||Date.now()))/1000));
-   const title=turn.querySelector('.reason-title');if(title)title.textContent=ok?(n?'已推理':'已完成'):'已停止';
+   const title=turn.querySelector('.reason-title');if(title)title.textContent=ok?(steps?'已推理':'已完成'):'已停止';
    // 历史恢复沿用存档 meta，不用本次秒数覆盖。
-   if(!silent)this.reasonMeta(turn,(n?sec+' 秒 · '+n+' 步':'')+(tools.length?' · '+tools.join('、'):''));
-   if(!n)shell.hidden=true;
+   if(!silent)this.reasonMeta(turn,(steps?sec+' 秒 · '+steps+' 步':'')+(tools.length?' · '+tools.join('、'):''));
+   if(!steps)shell.hidden=true;
   }
  }
  addError(text,silent){
   this.ensureThread();const el=document.createElement('article');el.className='agent-turn error';el.innerHTML=`<div class="error-card">${icon('close')}<span></span></div>`;el.querySelector('span').textContent=text;this.log().append(el);this.scroll(true);
   if(!silent){this.view.push({kind:'error',text:String(text).slice(0,4000),ts:Date.now()});this.persistThreads();}
  }
- async approval(name,args,write){if(!this.needsApproval(write))return true;const meta=TOOL[name]||{zh:name};const ids=Array.isArray(args.ids)?args.ids:[];const names=ids.map(i=>this.app.object(i)).filter(Boolean).map(FormaKnowledge.title).join('、');$('tool-approval').innerHTML=`<strong>Agent 请求${esc(meta.zh)}</strong><p>${esc(names||JSON.stringify(args))}</p><div><button data-agent-approval="deny" class="btn">拒绝</button><button data-agent-approval="approve" class="btn primary">允许一次</button></div><button data-agent-approval="session" class="text-btn">仅本次会话自动允许这些工具</button>`;$('tool-approval').hidden=false;this.setBusy(true,'等待工具授权');return new Promise(resolve=>this.pendingApproval=resolve);}
+ // 跟随条/授权卡共用的一句话参数说明：只给用户看得懂的目标，不给原始 JSON。
+ toolDetail(name,a){
+  const names=ids=>(Array.isArray(ids)?ids:[]).map(i=>this.app.object(i)).filter(Boolean).slice(0,3).map(FormaKnowledge.title).join('、');
+  switch(name){
+   case 'focus_structures':case'isolate_structures':case'highlight_structures':{const n=names(a.ids);const more=Array.isArray(a.ids)&&a.ids.length>3?' 等':'';return n||'';}
+   case 'set_view':return({iso:'斜视图',x:'源坐标 +X 面',nx:'源坐标 −X 面',y:'源坐标 +Y 面',ny:'源坐标 −Y 面',z:'源坐标 +Z 面',nz:'源坐标 −Z 面'})[a.view]||a.view||'';
+   case 'set_explode':return'拆分程度 '+Math.round((Number(a.amount)||0)*100)+'%';
+   case 'set_layer':return(a.category||'')+(a.visible===false?' · 隐藏':a.visible?' · 显示':'');
+   case 'set_highlight':return(Array.isArray(a.ids)?a.ids.length:0)+' 个结构 · '+String(a.state||'');
+   case 'camera_tour':return(Array.isArray(a.views)?a.views.length:0)+' 个视点';
+   case 'play_assembly':return(a.joint?a.joint+' · ':'')+(Array.isArray(a.steps)?a.steps.length:0)+' 步组装';
+   case 'play_joint_motion':return String(a.motion||a.joint||'');
+   case 'start_practice':return a.mode==='identify'?'指认结构练习':'理论回忆练习';
+   default:return'';
+  }
+ }
+ shortErr(e){return String(e?.message||e||'').slice(0,42);}
+ // 画布类工具：先给一个极短“预告”把视线引向中央，再执行，再进入播放/观察。
+ async runCanvasTool(def,args,meta,detail,signal){
+  if(this.follow)await this.follow.lead(520,meta,detail,signal);
+  if(signal.aborted)return{cancelled:true};
+  this.follow?.running(meta,detail);
+  return await this.app.executeTool(def[0],args);
+ }
+ // 工具执行后的可中断播放/观察等待；无跟随条（测试/旧壳）时退化为普通 sleep。
+ async followAfterTool(def,args,meta,detail,output,ref,signal){
+  const hold=this.clampHold(args.hold_seconds);
+  let waitMs=0,kind='hold';
+  if(hold&&output&&!output.error&&!output.denied&&!output.cancelled){this.viewHoldUntil=Date.now()+hold*1000;output.hold_seconds=hold;waitMs=hold*1000;}
+  if(ANIM_TOOLS.has(def[0])&&output&&!output.error&&!output.denied&&!output.cancelled&&Number.isFinite(output.wait_seconds)){
+   const w=Math.min(this.limits().animationBudgetSeconds,output.wait_seconds);
+   if(w>0){waitMs=Math.round(w*1000);kind='anim';this.animUntil=Date.now()+waitMs;}
+  }
+  if(waitMs>20&&!output.error&&!output.denied&&!output.cancelled){
+   ref.card.querySelector('.tool-flag').textContent=kind==='anim'?'动画播放 '+(waitMs/1000)+'s':(hold?'观察 '+hold+'s':'播放中');
+   if(this.follow){
+    await this.follow.wait(waitMs,{kind,timeline:this.app.timeline,ico:meta.ico,title:(kind==='anim'?'播放 · ':'观察 · ')+meta.zh,detail,signal});
+   }else{await this.sleep(waitMs,signal);}
+   this.viewHoldUntil=0;this.animUntil=0;
+  }
+ }
+ async approval(name,args,write){if(!this.needsApproval(write))return true;const meta=TOOL[name]||{zh:name,ico:'cube'};const ids=Array.isArray(args.ids)?args.ids:[];const names=ids.map(i=>this.app.object(i)).filter(Boolean).map(FormaKnowledge.title).join('、');const box=$('tool-approval');box.innerHTML=`<strong>Agent 请求${esc(meta.zh)}</strong><p>${esc(names||JSON.stringify(args))}</p><div><button data-agent-approval="deny" class="btn">拒绝</button><button data-agent-approval="approve" class="btn primary">允许一次</button></div><button data-agent-approval="session" class="text-btn">仅本次会话自动允许这些工具</button>`;box.hidden=false;this.setBusy(true,'等待工具授权');return await new Promise(resolve=>{const settle=ok=>{this.pendingApproval=null;box.hidden=true;this.follow?.endAsking();resolve(ok);};this.pendingApproval=settle;this.follow?.asking(meta,this.toolDetail(name,args)||names,settle);});}
  setBusy(b,label='正在推理…'){
   this.busy=b;
   // 生成中也允许发送：消息进入队列，当前轮次结束后自动处理；停止按钮始终可点。
@@ -663,19 +754,30 @@ class Agent{
       // 模型可申请 0–60s 停留，实际生效值受用户设置上限钳制。
       if(typeof args.hold_seconds==='number')args.hold_seconds=this.clampHold(args.hold_seconds);
       if(VIEW_HOLD.has(def[0]))await this.respectHold(abortSignal);
+      const meta=TOOL[def[0]]||{zh:def[0],ico:'cube'};
+      const detail=this.toolDetail(def[0],args);
+      const canvasTool=!!def[3]||VIEW_HOLD.has(def[0])||ANIM_TOOLS.has(def[0]);
       ref.card.classList.add('is-running');ref.card.querySelector('.tool-flag').textContent=this.needsApproval(def[3])?'等待授权':'执行中';
-      if(this.needsApproval(def[3])&&!await this.approval(def[0],args,def[3]))output={denied:true,message:'用户未授权该操作。请继续讲解，不要绕过。'};
-      else if(abortSignal.aborted)output={cancelled:true};
-      else output=await this.app.executeTool(def[0],args);
-      const hold=this.clampHold(args.hold_seconds);
-      if(hold&&output&&!output.error&&!output.denied&&!output.cancelled){this.viewHoldUntil=Date.now()+hold*1000;output={...output,hold_seconds:hold};}
-      // Animation primitives return wait_seconds; wait (interruptibly) so the
-      // model narrates while the clip plays instead of immediately switching.
-      if(ANIM_TOOLS.has(def[0])&&output&&!output.error&&!output.denied&&!output.cancelled&&Number.isFinite(output.wait_seconds)){
-       const w=Math.min(this.limits().animationBudgetSeconds,output.wait_seconds);
-       if(w>0){this.animUntil=Date.now()+w*1000;ref.card.querySelector('.tool-flag').textContent='动画播放 '+w+'s';await this.sleep(w*1000,abortSignal);this.animUntil=0;}
+      if(this.needsApproval(def[3])&&!await this.approval(def[0],args,def[3])){
+       output={denied:true,message:'用户未授权该操作。请继续讲解，不要绕过。'};
+       this.follow?.done(meta,{denied:true,detail});
+      }else if(abortSignal.aborted){
+       output={cancelled:true};this.follow?.done(meta,{cancelled:true,detail});
+      }else{
+       try{
+        if(canvasTool){
+         output=await this.runCanvasTool(def,args,meta,detail,abortSignal);
+         await this.followAfterTool(def,args,meta,detail,output,ref,abortSignal);
+         this.follow?.done(meta,{
+          error:!!output?.error,denied:!!output?.denied,cancelled:!!output?.cancelled,
+          detail:output?.error?this.shortErr(output.error):(output?.denied?'':detail)});
+        }else{
+         // 只读工具：不占用跟随条（推理链中的工具 chip 已展示调用与次数）。
+         output=await this.app.executeTool(def[0],args);
+        }
+       }catch(e){output={error:this.redact(e.message)};if(canvasTool)this.follow?.done(meta,{error:true,detail:this.shortErr(e)});}
       }
-     }catch(e){output={error:this.redact(e.message)};}
+     }catch(e){output={error:this.redact(e.message)};if(this.follow&&(DEFINITIONS.find(d=>d[0]===tc.function.name)?.[3]||ANIM_TOOLS.has(tc.function.name)))this.follow.done(TOOL[tc.function.name]||{ico:'cube'},{error:true,detail:this.shortErr(e)});}
      this.finishTool(ref,output);
      const outText=ref.card.querySelector('.tool-out')?.textContent||'';
      pendingTools.push({name:tc.function.name,zh:toolZh,argsText:String(argsText).slice(0,2000),outText:String(outText).slice(0,2000),status:this.toolStatusOf(output)});

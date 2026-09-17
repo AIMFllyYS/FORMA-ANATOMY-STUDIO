@@ -57,11 +57,14 @@ def clean_payload(pack: dict) -> dict:
 def build(output: Path, pack: dict | None=None):
     pack=clean_payload(pack or {})
     template=(ROOT/'web/shell.html').read_text(encoding='utf-8')
-    values={'/*STYLE*/':(ROOT/'web/style.css').read_text(), '<!--ICONS-->':(ROOT/'web/icons.svg').read_text(),
-      '/*KNOWLEDGE*/':json.dumps(json.loads((ROOT/'web/knowledge.json').read_text()),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
-      '/*AGENT_TOOLS*/':json.dumps(json.loads((ROOT/'web/agent-tools.json').read_text()),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')}
-    for marker,name in [('/*ENGINE*/','mesh-engine.js'),('/*CORE*/','core.js'),('/*PINYIN*/','pinyin-data.js'),('/*KNOWLEDGE_LOGIC*/','knowledge.js'),('/*MARKDOWN*/','markdown.js'),('/*AGENT_CONFIG*/','agent-config.js'),('/*AGENT*/','agent.js'),('/*APP*/','app.js')]:
-        values[marker]=(ROOT/'web'/name).read_text().replace('</script','<\\/script')
+    values={'/*STYLE*/':(ROOT/'web/style.css').read_text(encoding='utf-8'), '<!--ICONS-->':(ROOT/'web/icons.svg').read_text(encoding='utf-8'),
+      '/*KNOWLEDGE*/':json.dumps(json.loads((ROOT/'web/knowledge.json').read_text(encoding='utf-8')),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
+      '/*AGENT_TOOLS*/':json.dumps(json.loads((ROOT/'web/agent-tools.json').read_text(encoding='utf-8')),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
+      '/*NOMENCLATURE*/':json.dumps(json.loads((ROOT/'web/nomenclature.json').read_text(encoding='utf-8')),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
+      '/*CURRICULUM*/':json.dumps(json.loads((ROOT/'web/curriculum.json').read_text(encoding='utf-8')),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'),
+      '/*MODEL_SOURCES*/':json.dumps(json.loads((ROOT/'web/model-sources.json').read_text(encoding='utf-8')),ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')}
+    for marker,name in [('/*ENGINE*/','mesh-engine.js'),('/*CORE*/','core.js'),('/*PINYIN*/','pinyin-data.js'),('/*KNOWLEDGE_LOGIC*/','knowledge.js'),('/*NOMENCLATURE_LOGIC*/','nomenclature.js'),('/*CURRICULUM_LOGIC*/','curriculum.js'),('/*MARKDOWN*/','markdown.js'),('/*AGENT_CONFIG*/','agent-config.js'),('/*TIMELINE*/','timeline.js'),('/*FOLLOW*/','follow.js'),('/*AGENT*/','agent.js'),('/*APP*/','app.js')]:
+        values[marker]=(ROOT/'web'/name).read_text(encoding='utf-8').replace('</script','<\\/script')
     for marker,value in values.items():
         if marker not in template: raise ValueError('Missing build marker '+marker)
         template=template.replace(marker,value)
