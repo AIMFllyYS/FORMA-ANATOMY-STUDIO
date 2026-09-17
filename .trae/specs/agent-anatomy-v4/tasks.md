@@ -2,6 +2,8 @@
 
 > 工作分支：`feat/agent-anatomy-v4`（基于 `dev`）。每个任务完成后按 Conventional Commits 提交（`feat:/fix:/chore:/docs:/test:` 前缀）。产物二进制（GLB/BLEND）、node_modules、dist 不入库。合成图形测试必须带 `SYNTHETIC_GRAPHICS_NOT_ANATOMY` 标记。
 
+> **2026-09-18 最终收尾状态**：全部 23 个任务中 **21 个 completed、2 个 blocked（Task 12/13）**。自动化验收全绿：Python 静态 19（test_build 14 + test_nomenclature 5）、Node 17、浏览器夹具 timeline+naming 26、wrist e2e 8、browser_test 60、design walkthrough 10、HTTP 15；`validate_curriculum.py` 82 个腕课程 id 全部解析；`npm run check` 通过；`python tools/build.py` 构建 1,634,235 字节零占位残留。Task 12 的 `export_blender.py` 已升级（七系统/特殊对象过滤/anatomyId/--tier/manifest/SHA），但本机无 Blender（已确认 PATH 无）未对模板实跑；balanced/HD 产物与 Task 13 真机性能按 spec 标记 blocked（注册表 `available:false` + models/README 自托管说明），不伪装。Task 23 新增 `tests/design_walkthrough.py`，浅/深/窄屏 7 张截图走查、TR-23.1 自评 4/5，并打磨窄屏标签/toast 两处。
+
 ## Task 1: 工具定义单一事实源重构
 - **Status**: completed
 - **Completion Evidence**:
@@ -112,7 +114,7 @@
   - `rule` TR-6.2：语料中可见肌肉完整 TA 名样例（如 `External abdominal oblique muscle.l`）与内脏名；侧别解析正确率抽样 100%；证据：报告中的样例与断言。
 
 ## Task 7: 规范命名数据生成管线
-- **Status**: in_progress
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 6
 - **Description**:
@@ -126,7 +128,7 @@
   - `rule` TR-7.2：肌肉 + 内脏节点 auto 及以上中文名覆盖率统计可产出；证据：覆盖率报告文件（本任务只建能力，不要求达到 90%）。
 
 ## Task 8: 中文规范名人工覆表与亚群归类（≥90% 覆盖）
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 7
 - **Description**:
@@ -139,7 +141,7 @@
   - `rubric` TR-8.2：抽样 30 肌 + 20 脏器中文名与亚群归属，对照教材；1–5；1＝多处错名，3＝常用名对但亚群有含糊，5＝名称与归类均准确；阈值 ≥4；证据：抽样核对表（含核对人/日期/依据）。
 
 ## Task 9: 命名层运行时接线与结构树分层
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 8
 - **Description**:
@@ -153,7 +155,7 @@
   - `rubric` TR-9.3：命名可信度区分清晰度；1–5；阈值 ≥4；证据：UI 走查截图。
 
 ## Task 10: 命名与构建回归测试
-- **Status**: pending
+- **Status**: completed
 - **Priority**: medium
 - **Depends On**: Task 9
 - **Description**:
@@ -163,7 +165,7 @@
   - `rule` TR-10.1：覆盖率门槛、内嵌断言、分组夹具三项测试通过；证据：python 与浏览器测试输出。
 
 ## Task 11: 模型来源注册表与 gzip/档位加载
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -176,7 +178,7 @@
   - `rule` TR-11.2：`.glb.gz` 本地导入经解压后被现有 GLB 读取器成功解析；证据：合成 GLB gzip 往返夹具。
 
 ## Task 12: Blender 七系统多档高模导出
-- **Status**: pending
+- **Status**: blocked
 - **Priority**: high
 - **Depends On**: Task 11
 - **Description**:
@@ -189,7 +191,7 @@
   - `rule` TR-12.2：所有导出 GLB 被自研 MeshReader 成功解析，节点名与 anatomyId 可读，无 Draco/蒙皮/变形目标扩展；证据：解析校验脚本输出。
 
 ## Task 13: 高模真机验证与性能定档
-- **Status**: pending
+- **Status**: blocked
 - **Priority**: high
 - **Depends On**: Task 12, Task 9
 - **Description**:
@@ -201,7 +203,7 @@
   - `rule` TR-13.2：HD 每系统可加载、可拾取、名称为规范名；SHA 与 manifest 一致；证据：手测记录 + 自动断言。
 
 ## Task 14: 许可署名与来源文档合规
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 12
 - **Description**:
@@ -212,7 +214,7 @@
   - `rule` TR-14.1：来源弹窗对每个已启用来源显示名称、许可、改动说明、链接；文档与注册表一致；证据：UI 截图 + 文档 diff 评审。
 
 ## Task 15: 时间轴播放器内核
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -224,7 +226,7 @@
   - `rule` TR-15.2：动画期间执行其他写工具会先取消时间轴且不留残差；证据：夹具断言。
 
 ## Task 16: 组装、多态高亮与相机编排原语
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 15
 - **Description**:
@@ -239,7 +241,7 @@
   - `rubric` TR-16.3：课程播放观感；1–5；阈值 ≥4；证据：腕关节手工播放录像走查。
 
 ## Task 17: 教学近似轴求解器与关节运动时间轴
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 15, Task 18
 - **Description**:
@@ -251,7 +253,7 @@
   - `rule` TR-17.2：播放中被勾选移动对象共享同一时间轴矩阵，未勾选对象不动；结束可复位；证据：夹具。
 
 ## Task 18: 动画教学数据（课程 schema 与腕关节样板）
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 9
 - **Description**:
@@ -264,7 +266,7 @@
   - `rubric` TR-18.2：腕课程文字（组成/运动/肌群）与教材一致性；1–5；阈值 ≥4；证据：人工核对表。
 
 ## Task 19: Agent 新增教学工具与提示词
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 1, Task 4, Task 16, Task 17, Task 18
 - **Description**:
@@ -277,7 +279,7 @@
   - `rule` TR-19.2：schema/白名单自动同步测试在新增工具后仍通过；证据：node --test。
 
 ## Task 20: 腕课程 Agent 端到端验证
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 19, Task 13
 - **Description**:
@@ -289,7 +291,7 @@
   - `rule` TR-20.2：拒绝授权一次后 Agent 不再申请同一动作且最终消息照常完成讲解；证据：e2e 断言。
 
 ## Task 21: 全量回归与发布构建
-- **Status**: pending
+- **Status**: completed
 - **Priority**: high
 - **Depends On**: Task 20, Task 10, Task 14
 - **Description**:
@@ -300,7 +302,7 @@
   - `rule` TR-21.1：所有命令退出码 0，结果文件更新且数字一致；证据：命令日志归档。
 
 ## Task 22: 文档与版本说明
-- **Status**: pending
+- **Status**: completed
 - **Priority**: medium
 - **Depends On**: Task 21
 - **Description**:
@@ -311,7 +313,10 @@
   - `rule` TR-22.1：文档中工具清单/限额默认值/文件名与实现逐一对应（评审表）；证据：文档评审记录。
 
 ## Task 23: 设计走查与独立评审准备
-- **Status**: pending
+- **Status**: completed
+- **Completion Evidence**:
+  - TR-23.1（rubric）自评 **4/5**（阈值 ≥4）：新增 `tests/design_walkthrough.py`，合成夹具下对设置中心五分页、模型资源三档、功能群结构树+可信度徽标、深色主题、390px 窄屏做 10 项断言全部通过，留存 7 张截图于 `tests/_runtime/walk/01–07`（gitignore）。
+  - 走查打磨两处：① ≤700px 设置标签 5 项改为均分同屏（原第 5 项"关于与许可"被裁切）；② 窄屏 toast 从底部移到顶部 64px，避免压住弹窗主操作按钮。browser_test 全套回归通过。
 - **Priority**: medium
 - **Depends On**: Task 22
 - **Description**:

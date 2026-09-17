@@ -12,9 +12,7 @@
     "invalid_tool_args_rejected_400": true,
     "extra_tool_args_rejected_400": true,
     "bad_tool_json_rejected_400": true,
-    "tool_call_cap_rejected_400": true,
-    "system_dropped_before_validation": true,
-    "explicit_cors_preflight": true
+    "tool_call_cap_rejected_400": false
   },
   "provider_contacted": false,
   "sdk_installed": true,

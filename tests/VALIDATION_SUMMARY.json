@@ -1,6 +1,6 @@
 {
-  "release": "Forma 3.0",
-  "validated_at": "2026-09-10",
+  "release": "Forma 4.0",
+  "validated_at": "2026-09-18",
   "browser": {
     "passed_checks": 60,
     "page_errors": [],
@@ -9,27 +9,77 @@
     "denied_api_fallback": "simulated rejection tested",
     "fixture": "SYNTHETIC_GRAPHICS_NOT_ANATOMY, never shipped as anatomy"
   },
+  "timeline_naming_fixture": {
+    "passed": 26,
+    "file": "tests/test_timeline_naming.py",
+    "covers": [
+      "nomenclature identity resolve/unmatched",
+      "latin + chinese + english + pinyin search",
+      "trust badges (reviewed/pending/unmapped)",
+      "assembly offset segment 0.5->0",
+      "rigid motion matrix channel",
+      "teaching axis solver from bounds + loud failure on missing anchors",
+      "multi-state highlight (contraction/series/accent)",
+      "animation budget clamp",
+      "instant reduced-motion terminal state",
+      "list_taxonomy / get_lesson honest missing-systems report"
+    ]
+  },
+  "wrist_e2e": {
+    "passed": 8,
+    "file": "tests/test_wrist_e2e.py",
+    "covers": [
+      "scripted teaching tool sequence via mocked service",
+      "lesson result + boundary notice returned to model",
+      "missing motion anchors reported, never silently swapped",
+      "final assistant message carries non-physiological notice",
+      "denied write requested exactly once and not retried"
+    ]
+  },
   "python_packaging": {
-    "passed": 10
+    "passed": 14,
+    "extra_files": ["tests/test_nomenclature.py"]
+  },
+  "nomenclature_coverage_gate": {
+    "passed": 5,
+    "muscles_zh_coverage": 100.0,
+    "organs_zh_coverage": 100.0,
+    "muscles_organs_gate": ">=90% (actual 100%)",
+    "mapped_muscle_organs_functional_group": "100%"
+  },
+  "node_agent": {
+    "passed": 17,
+    "tool_count": 17,
+    "single_source": "web/agent-tools.json shared with agent-server"
+  },
+  "design_walkthrough": {
+    "passed": 10,
+    "file": "tests/design_walkthrough.py",
+    "screenshots": "tests/_runtime/walk/01-07 (light/dark/narrow)",
+    "surfaces": ["settings center 5 tabs", "model source 3 tiers", "functional-group tree + trust badge", "dark theme", "390px narrow no overflow"],
+    "rubric_TR_23_1": 4,
+    "polish": "narrow settings tabs now fit 5 across; toast moved to top on <=700px so it never covers modal action buttons"
   },
   "proxy_http": {
-    "passed": 9,
+    "passed": 15,
     "sdk_imported": false,
     "provider_contacted": false
   },
-  "protocol_adapter": {
-    "passed": 4
+  "curriculum": {
+    "complete_lessons": ["wrist"],
+    "migrated_incomplete": ["shoulder", "elbow", "radioulnar", "hip", "knee", "ankle", "spine"],
+    "validator": "tools/validate_curriculum.py (82 wrist id references resolved)"
   },
   "not_verified": [
-    "Real upstream GLB download and end-to-end compatibility in this new build",
-    "Source .blend end-to-end export",
-    "Full-body high-detail runtime performance across actual user devices",
-    "npm-installed Vercel AI SDK 6 + real model provider end-to-end",
-    "Expert review of all anatomy content and region boundaries",
-    "Anatomically calibrated motion axes, physiological ROM, collision constraints",
+    "Real upstream GLB download in this build environment (offline; cached corpus used for nomenclature)",
+    "Source .blend end-to-end export: Blender not installed here; export_blender.py upgraded for 7 systems + tier + anatomyId but not executed against the template",
+    "balanced/HD GLB production and real-device performance (AC-12); tiers correctly marked unavailable in the registry",
+    "npm-installed Vercel AI SDK 6 + real model provider end-to-end (v6 migration deliberately deferred)",
+    "Expert review of all anatomy content and region boundaries (auto taxonomy is rule-based pending, manual review CSV remains the reviewed source)",
+    "Anatomical orientation calibration; motion axes are source-coordinate geometric approximations, not physiological ROM",
     "Patient-specific scale, internal CT/MRI volume data"
   ],
   "shipping_assets": 0,
-  "online_model_urls": "same public upstream as previous workbench",
+  "online_model_urls": "standard tier public upstream; balanced/HD self-hosted only (registry available:false)",
   "api_key_exported": false
 }
