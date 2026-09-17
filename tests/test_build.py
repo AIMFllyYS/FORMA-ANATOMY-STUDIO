@@ -47,6 +47,31 @@ class BuildTests(unittest.TestCase):
   html=(ROOT/'dist'/'forma_anatomy_studio.html').read_text(encoding='utf-8')
   self.assertIn('FormaMarkdown',html);self.assertIn('readSSE',html);self.assertIn('ktext-callout',html);self.assertIn('forma-agent-config-v3',html)
   self.assertIn('renderLive',html);self.assertIn('hold_seconds',html);self.assertIn('data-perm="smart"',html)
+ def test_compiled_html_embeds_nomenclature_curriculum_timeline(self):
+  html=(ROOT/'dist'/'forma_anatomy_studio.html').read_text(encoding='utf-8')
+  # Markers must be fully replaced; runtime data/scripts embedded once.
+  for marker in ('/*NOMENCLATURE*/','/*CURRICULUM*/','/*MODEL_SOURCES*/','/*NOMENCLATURE_LOGIC*/','/*TIMELINE*/'):
+   self.assertNotIn(marker,html)
+  self.assertIn('id="nomenclature-data"',html)
+  self.assertIn('id="curriculum-data"',html)
+  self.assertIn('id="model-sources-data"',html)
+  self.assertIn('FormaNomenclature',html)
+  self.assertIn('FormaCurriculum',html)
+  self.assertIn('FormaTimeline',html)
+  self.assertIn('play_joint_motion',html)  # new teaching tool shipped
+  self.assertIn('flexion_extension',html) # wrist motion id present
+  self.assertIn('nom-reviewed',html)      # trust badge styling/state
+  # single copy of each JSON data slot
+  self.assertEqual(html.count('id="nomenclature-data"'),1)
+  self.assertEqual(html.count('id="curriculum-data"'),1)
+ def test_model_sources_registry_shape(self):
+  reg=json.loads((ROOT/'web'/'model-sources.json').read_text())
+  self.assertIn('standard',reg['sources'])
+  self.assertTrue(reg['sources']['standard']['available'])
+  for tier in ('balanced','hd'):
+   src=reg['sources'][tier]
+   self.assertTrue(src['gzip'])
+   self.assertIn('muscles',src['files'])
  def test_pinyin_table_is_compact_json(self):
   raw=(ROOT/'web'/'pinyin-data.js').read_text(encoding='utf-8')
   payload=json.loads(raw.split('window.FormaPinyin=',1)[1].rstrip().rstrip(';'))

@@ -1,0 +1,2 @@
+# 构建/数据管线可选依赖（运行时与浏览器产物不需要）
+opencc-python-reimplemented>=0.1.7  # Wikidata 繁体中文标签 → 简体（build_nomenclature.py）
