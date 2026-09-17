@@ -1,6 +1,8 @@
-# Forma · 解剖学习工作台 3.0
+# Forma · 解剖学习工作台 4.0
 
 基于上一版源网格工作台的产品化重构。单文件 HTML 是发行物；`web/`、`tools/` 和 `agent-server/` 是可维护源码。不使用程序化人体、定位球或假内部组织补齐缺失模型。
+
+4.0 在 3.0 之上新增：规范命名层（中文/拉丁/英文 + 可信度徽标 + 功能群结构树）、确定性时间轴教学动画（组装/刚体运动/相机编排/收缩高亮）、腕关节贯通课程、standard/balanced/HD 三档模型源注册表，以及 7 个 Agent 教学工具与可配置行为限额。
 
 ## 1. 先打开哪个文件
 
@@ -18,15 +20,17 @@
 
 左侧三个页签：
 
-- **结构树**：按系统、区域与结构族展开实际加载对象。中文／英文搜索、区域／侧别筛选、收藏、逐项隐藏。
+- **结构树**：按"系统 → 区域 → 功能群 → 亚群 → 结构"分层（v4 命名层，未映射对象回退旧分类并显示源名）。中文／英文／拉丁名／拼音搜索、区域／侧别筛选、可信度徽标（已审校/待审/未规范命名）、收藏、逐项隐藏。
 - **目录**：结构卡片式浏览；与结构树共用实际对象状态。
 - **图层**：按模型类别控制可见性和透明度。
 
 右侧三个页签：
 
-- **讲解**：概览、细部、连接、笔记；保留源对象英文名、知识来源和几何信息。
-- **Agent**：兼容 OpenAI Chat Completions 的对话和画布工具。齿轮进入连接设置。
+- **讲解**：概览、细部、连接、笔记；规范中文名配合拉丁名/英文名、可信度徽标、知识来源和几何信息。
+- **Agent**：兼容 OpenAI Chat Completions 的对话和画布工具。齿轮或"更多 → 设置中心"进入连接设置、行为限额、模型源、显示与许可分页。
 - **练习**：离线知识题、看图辨名、画布点选及答题回顾。
+
+Agent 输入区旁的"助教设计"按钮提供轮次/单轮工具数/停留/权限四项高频限额快捷调节，与设置中心双向同步、即改即存（localStorage 键 `forma-agent-config-v4`，自动迁移 v3）。
 
 面板宽度可以拖边调整。拖右侧面板顶端的抓手可自由移动；工具栏和视图控件也有抓手。图钉用于悬浮／停靠，“更多 → 恢复布局”可找回移走的面板。手形按钮是平移三维画布，不是拖动面板。
 
@@ -80,9 +84,13 @@
 
 内置 8 个学习场景：肩、肘、桡尺、腕、髋、膝、踝和脊柱连接。选择左右侧后，逐项显示实际已载入的组成对象和相关知识；缺少的关节囊、韧带等显示未载入，不能凭名字生成它们。
 
-“肱骨远端”一类功能分区如果只找到整骨对象，会明确以整骨对象高亮，不声称已经分割出精确关节面。
+"肱骨远端"一类功能分区如果只找到整骨对象，会明确以整骨对象高亮，不声称已经分割出精确关节面。
 
-运动演示采用**手动指定的表面两点轴**，再选择要运动的源对象并调整角度。这是刚性空间观察工具，不是自动生成的生理轴、关节约束解算、肌腱驱动、碰撞或经验证的人体生物力学模型。滑块角度不是生理活动度正常值。没有指定轴时不擅自让骨头活动。
+**v4 课程播放（腕关节为完整样板）**：腕关节面板提供组装（7 步序列：桡尺骨→近排腕骨→远排→掌骨→关节盘韧带→屈肌群→伸肌群）、屈伸与桡尺偏两条教学运动、五视点相机编排，以及播放/暂停/停止/循环控制条。运动骨组按刚性成组演示，跨腕肌群以收缩态红色高亮表达主动/拮抗。其余七关节已迁移到同一课程 schema，但缺失字段显式标注"未提供"，不伪装完整。
+
+运动轴由课程锚点规则（如"过头状骨/月骨区的内外侧方向近似轴"）从真实已加载对象的包围盒中心与极值点求出。**锚点对象缺失或几何退化时直接中文报错，绝不静默换轴。** 这仍是刚性教学演示，不是自动生成的生理轴、关节约束解算、肌腱驱动或经验证的生物力学模型；面板与 Agent 输出常驻"教学近似、非生理活动度/生物力学认证"声明。源模型朝向未校准前只使用源坐标措辞，不称解剖学前/后/内/外。手动两点设轴保留为"高级模式"。
+
+组装偏移与运动矩阵都是纯显示变换，不修改源顶点；任何新的画布写操作、停止或场景切换都会中断动画并清除残差。系统偏好"减少动态效果"时直接呈现终态。
 
 ## 7. 练习
 
@@ -98,7 +106,9 @@
 
 Key 仅留在当前页面内存，不保存到本地记录、不嵌入导出 HTML，也不把私人笔记自动发送给 Agent。更换接口来源需重新提供凭据并确认。刷新页面要重新填写 Key。**内存保存不等于浏览器环境绝对安全**，浏览器扩展、同页代码和开发者工具仍属于信任边界。
 
-Agent 只能请求预定义工具：读取当前场景、搜索结构、读学习卡、聚焦、隔离、高亮、图层控制、爆炸程度、标准视图和开始练习。画布写操作先显示授权确认；只允许已加载对象和限定参数。没有任意 JavaScript、文件、系统命令或任意网络执行工具。工具结果回传模型后继续回答；最多 8 轮，有取消和超时。
+Agent 只能请求 17 个预定义工具（浏览器与服务端共用唯一事实源 `web/agent-tools.json`）：只读的场景读取、结构搜索、学习卡、分类浏览（list_taxonomy）、课程读取（get_lesson）、开始练习；画布写操作的聚焦、隔离、高亮、图层、爆炸程度、标准视图；以及 v4 教学动画工具 set_highlight、play_assembly、play_joint_motion、camera_tour、stop_animation。画布写操作先显示授权确认（拒绝一次后 Agent 不会就同一动作重复申请）；只允许已加载对象/命名层稳定 id 和限定参数。没有任意 JavaScript、文件、系统命令或任意网络执行工具。
+
+所有参数先经 JSON Schema 校验再进审批，非法参数不触达画布、错误结构化回传模型自纠。循环受设置中心限额钳制：总轮次 1–20（默认 8）、单轮工具调用 1–12（默认 6）、工具停留 0–60 秒（默认 12）、请求超时 30–300 秒（默认 120）、动画总预算 0–180 秒（默认 60）。动画工具回传等待时长，Agent 在可中断的等待期间边停边讲；有取消和超时。
 
 ### 独立 Vercel AI SDK 服务端
 
@@ -108,7 +118,17 @@ Agent 只能请求预定义工具：读取当前场景、搜索结构、读学�
 
 公开／多人部署应使用服务端方案，并补充正式用户身份、权限、配额、限流、HTTPS、日志脱敏与依赖锁定。OpenAI 官方建议不要把提供方 API Key 部署到客户端：[API Key Safety](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)。
 
-## 9. 离线、缓存、笔记和迁移
+## 9. 模型档位、离线、缓存、笔记和迁移
+
+**三档模型源**（"模型资源"弹窗选择）：
+
+| 档位 | 来源 | 状态 |
+|---|---|---|
+| standard | 上游公开减面浏览器 GLB（七系统合计约 218 万三角面），即时联网加载 | 默认可用 |
+| balanced | 用 `tools/export_blender.py --tier balanced` 从 Z-Anatomy 模板重导出并自托管 | 默认不可用 |
+| HD | 同上 `--tier hd`，肌肉/心血管/神经面数目标 ≥ standard 2× | 默认不可用 |
+
+balanced/HD 在注册表 `web/model-sources.json` 中如实标记 `available:false`，界面提示查看 `models/README.md` 的自托管步骤，绝不伪装成可下载。文件为 `.glb.gz`，服务端不发 `Content-Encoding: gzip` 时浏览器本地用 DecompressionStream 解压。三档按文件 SHA-256 独立缓存，切换档位不会串模型。
 
 实际成功加载的模型可缓存到当前浏览器 IndexedDB；浏览器不允许缓存时给出提示。笔记、面域、收藏、视图和测验记录尝试保存到本地存储，失败时不要依赖刷新恢复。
 
@@ -122,17 +142,27 @@ Agent 只能请求预定义工具：读取当前场景、搜索结构、读学�
 web/                    界面、状态、真实网格引擎、知识、Agent
   shell.html            界面骨架
   style.css             设计变量、浅深主题、悬浮与响应式
-  mesh-engine.js        GLB/OBJ/STL、WebGL2、三角面拾取
-  core.js               资产载入、哈希、缓存、记录工具
+  mesh-engine.js        GLB/OBJ/STL、WebGL2、三角面拾取、动画/高亮显示通道
+  core.js               资产载入、档位注册表、gzip 解压、哈希、缓存
   knowledge.json        本地知识数据
   knowledge.js          名称匹配、关节场景、离线题库
-  agent.js              兼容协议、工具定义与审批
+  nomenclature.json     v4 规范命名层（records + 七系统 assignments）
+  nomenclature.js       nodeIndex/名称双索引解析、功能群、可信度 API
+  curriculum.json       v4 课程 schema（腕关节完整样板，余七关节迁移）
+  curriculum.js         课程查询 API
+  timeline.js           v4 确定性时间轴播放器
+  model-sources.json    三档模型源注册表
+  agent-tools.json      17 个 Agent 工具的唯一事实源（前端/服务端共用）
+  agent-config.js       v4 行为限额纯函数（钳制/归一/v3 迁移）
+  agent.js              兼容协议、schema 校验、工具执行与审批
   app.js                画布、结构树、讲解、练习、状态管理
-agent-server/           可选 Vercel AI SDK 服务端
+agent-server/           可选 Vercel AI SDK 6 服务端（Ajv 校验、锁版本）
 licenses/               代码与素材来源说明
-models/                 用户自备模型放置说明，不含解剖二进制
+models/                 自托管档位说明，不含解剖二进制
 tools/build.py          标准库单文件构建器
-tools/export_blender.py 原版 Blender 静态网格导出器
+tools/build_nomenclature.py 命名层离线生成管线（缓存可复跑）
+tools/validate_curriculum.py 课程 id 引用校验
+tools/export_blender.py 七系统多档 Blender 静态网格导出器
 tests/                  可运行的工程测试，不是医学审校
 ```
 
@@ -154,10 +184,10 @@ python tools/build.py --from-html /path/to/old_offline.html
 python tools/build.py --input-dir /path/to/models
 ```
 
-可选原始 Blender 导出（需要本机 Blender 与真实源文件；本次未完成实际源文件导出验收）：
+可选原始 Blender 导出（需要本机 Blender 与真实源文件；构建机未安装 Blender，脚本已升级但未对模板实跑，balanced/HD 实体产物标记 blocked）：
 
 ```bash
-python tools/build.py --blender /path/to/blender --blend /path/to/Startup.blend --systems skeletal,joints,muscles,nerves
+python tools/build.py --blender /path/to/blender --blend /path/to/Startup.blend --tier balanced --systems skeletal,joints,muscles,nerves,organs,vessels,lymph
 ```
 
 构建器不自动下载模型、不代装 Blender、不执行源文件自启动脚本、不在失败时换用示意模型。输出 HTML 旁有 `.build.json`，记录文件 SHA-256 和实际内嵌资产。
@@ -165,26 +195,33 @@ python tools/build.py --blender /path/to/blender --blend /path/to/Startup.blend 
 ## 11. 工程测试
 
 ```bash
-python tests/test_build.py
-python tests/server_http_test.py
-node --test agent-server/protocol.test.mjs
+python tools/build.py                          # 单文件构建
+python -m pytest tests/test_build.py tests/test_nomenclature.py   # 19 项静态/覆盖率门槛
+python tools/validate_curriculum.py            # 课程 82 个 id 引用校验
+node --test agent-server/protocol.test.mjs agent-server/tools-sync.test.mjs agent-server/agent-config.test.mjs
+cd agent-server && npm run check               # 语法检查
+python tests/server_http_test.py               # 15 项 HTTP 鉴权/校验
+python tests/test_timeline_naming.py           # 26 项命名层+时间轴浏览器夹具
+python tests/test_wrist_e2e.py                 # 8 项腕课程 Agent 端到端
 ```
 
 浏览器测试另外需要 Playwright 与可用 Chromium/WebGL2：
 
 ```bash
 python -m pip install playwright
+# Windows 设本机 Chrome 路径后运行：
+$env:CHROMIUM_PATH='C:\Program Files\Google\Chrome\Application\chrome.exe'
 python tests/browser_test.py
 # 无显示服务器的 Linux 环境：
-xvfb-run -a python tests/browser_test.py
+CHROMIUM_PATH=/usr/bin/chromium xvfb-run -a python tests/browser_test.py
 ```
 
-测试默认浏览器路径 `/usr/bin/chromium`，其他系统可设置环境变量 `CHROMIUM_PATH`。测试生成器仅制作明确标记 `SYNTHETIC_GRAPHICS_NOT_ANATOMY` 的图形夹具，夹具中的名称只是匹配测试输入。它们不代表真实解剖，不包含在发行 HTML 中；`tests/_runtime/` 不加入交付包。
+测试默认浏览器路径 `CHROMIUM_PATH` 环境变量，缺省回退 `/usr/bin/chromium`（Linux）或本机 Chrome（Windows）。测试生成器仅制作明确标记 `SYNTHETIC_GRAPHICS_NOT_ANATOMY` 的图形夹具，夹具中的名称只是匹配测试输入。它们不代表真实解剖，不包含在发行 HTML 中；`tests/_runtime/` 不加入交付包。
 
-实际结果见 `tests/RESULTS.json` 与 `tests/VALIDATION_SUMMARY.json`。本环境未能获取真实上游二进制，未完成真实源 GLB、新版全模型性能或真实付费模型接口验证。最新版测试记录原生全屏实际获准；另外通过模拟 API 拒绝测试了明确的沉浸退路。不同浏览器的原生全屏权限仍由其自身决定。
+实际结果见 `tests/RESULTS.json`、`tests/SERVER_HTTP_RESULTS.json` 与 `tests/VALIDATION_SUMMARY.json`。本环境未安装 Blender、未获取 balanced/HD 真机性能数据，也未使用真实付费模型完成端到端验证；模拟器覆盖了协议、限额、拒绝路径与教学序列，二者不混写为生产验收。最新版测试记录原生全屏实际获准；不同浏览器的原生全屏权限仍由其自身决定。
 
 ## 12. 明确的学习边界
 
-结构识别依赖模型名称和人工整理映射；知识卡、题库、关节材料未完成逐条医学专家审校。表面裁切只有真实网格交线，没有 CT/MRI 体数据或骨髓重建。方向使用源轴，不自动认证解剖学左右；距离显示源单位，不自动等同毫米。局部面域是待审学习记录，不代表全身精细部位已完成三维分割。
+结构识别依赖模型名称和人工整理映射；自动映射条目带"待审"徽标，知识卡、题库、关节材料未完成逐条医学专家审校。表面裁切只有真实网格交线，没有 CT/MRI 体数据或骨髓重建。方向使用源轴，不自动认证解剖学左右；未做朝向校准前，课程与 Agent 不使用解剖方位词。距离显示源单位，不自动等同毫米。局部面域是待审学习记录，不代表全身精细部位已完成三维分割。关节课程的运动轴是教学近似，肌群为刚性成组演示，角度区间不是生理活动度认证。
 
 软件可作为观察与复习工作台；不能将它的功能测试、漂亮的显示或网格数量替代指定教材、标本、专业审校和临床依据。

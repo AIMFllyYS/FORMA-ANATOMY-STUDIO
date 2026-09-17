@@ -35,7 +35,7 @@ to anatomy education, including artist-created and altered contours. Refer
 readers to those notices; do not present the model as a universally exact
 patient or a completely audited anatomical specimen.
 
-## Optional browser-reduced derivative assets
+## Optional browser-reduced derivative assets (standard tier)
 
 Public conversion maintained at:
 https://github.com/DrMuratAltun/anatomi-simulatoru
@@ -49,8 +49,38 @@ GLBs as CC BY-SA 4.0 derivatives. The workbench does not claim that a reduced
 file preserves all original anatomical detail. It does not adopt the
 upstream project's logo, trademark or three.js bundle.
 
+The registry `web/model-sources.json` marks this as the always-available
+**standard** tier. The upstream retains roughly 46% / 42% / 18% / 17% / 36% /
+11% of the subdivided source for skeletal / joints / muscles / nerves /
+organs / vessels respectively (measured in the v4 corpus,
+`tools/data/nomenclature_coverage.json` sibling statistics). Muscle detail is
+the most reduced and is the primary target of the HD tier.
+
+## balanced / HD self-hosted tiers
+
+`balanced` and `HD` are **not downloaded** by the application. They are
+produced locally by `tools/export_blender.py --tier balanced|hd` from the
+Z-Anatomy template and must be self-hosted (static release / GitHub Pages /
+S3 with CORS). The registry marks them `available:false` until a matching
+manifest exists in `models/manifests/`. Files are `.glb.gz` and the client
+inflates them with `DecompressionStream` when the server does not send
+`Content-Encoding: gzip`.
+
+- Both tiers remain CC BY-SA 4.0 derivatives; the BodyParts3D attribution
+  chain still applies.
+- Nodes carry `extras.anatomyId`, `extras.side`, `extras.tier`,
+  `extras.source_name` and evaluated triangle stats so the nomenclature layer
+  and SHA-based cache can bind to them without guessing.
+- `.j` empty objects, `.g` text objects and trailing-apostrophe
+  not-modelled markers are filtered out and never exported as tissue.
+- HD target (AC-6): muscles / cardiovascular / nerves triangle counts ≥ 2×
+  the standard tier, verified against `models/manifests/*.json`, not assumed.
+- Educational content is not a complete anatomical model and is not
+  biomechanically certified; see the runtime boundary notices.
+
 For locally supplied files, the importer records their filename and SHA-256,
-but this is not evidence that the user owns redistribution rights.
+but this is not evidence that the user owns redistribution rights. Cached
+assets are isolated by SHA-256, so switching tiers never mixes models.
 
 ## Geometry transformations and appearance
 
