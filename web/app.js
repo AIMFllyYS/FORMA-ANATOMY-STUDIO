@@ -5,12 +5,12 @@ const ORIGINAL_HTML='<!doctype html>\n'+document.documentElement.outerHTML;
 const byId=(id)=>id==null||id===''?null:r.objects.find(o=>o.id===Number(id));
 const safe=fn=>(...args)=>{try{const p=fn(...args);if(p?.catch)p.catch(error);}catch(e){error(e);}};
 function error(e){console.error(e);toast(e?.message||String(e));}
-const persisted=C.readStore();const bus=new Bus();let r,assets,agent;
-const state={selected:null,tab:'learn',detailTab:'overview',leftTab:'tree',open:new Set(persisted.treeOpen||[]),query:'',region:'all',side:'all',onlyFavorites:false,category:'all',mode:'select',labels:true,nameHint:false,spin:false,notes:{...(persisted.notes||{})},patches:Array.isArray(persisted.patches)?persisted.patches:[],favorites:new Set(persisted.favorites||[]),theme:persisted.theme==='dark'?'dark':'light',history:[],undo:[],panorama:null,joint:null,jointSide:'L',jointStep:-1,axisPoints:[],axisPicking:false,motionAngle:0,moving:new Set(),measure:[],patchDraft:null,patchRadius:.10,activePatch:null,transients:new Set(),quiz:null,quizHistory:persisted.quizHistory||[],views:persisted.views||[],floating:false,hoverAt:0,lastFocus:null,layout:persisted.layout||{}};
+const persisted=C.readStore();const bus=new Bus();let r,assets,agent,timeline;
+const state={selected:null,tab:'learn',detailTab:'overview',leftTab:'tree',open:new Set(persisted.treeOpen||[]),dirOpen:new Set(persisted.dirOpen||[]),query:'',region:'all',side:'all',onlyFavorites:false,category:'all',mode:'select',labels:true,nameHint:false,spin:false,notes:{...(persisted.notes||{})},patches:Array.isArray(persisted.patches)?persisted.patches:[],favorites:new Set(persisted.favorites||[]),theme:persisted.theme==='dark'?'dark':'light',history:[],undo:[],panorama:null,joint:null,jointSide:'L',jointStep:-1,axisPoints:[],axisPicking:false,motionAngle:0,moving:new Set(),measure:[],patchDraft:null,patchRadius:.10,activePatch:null,transients:new Set(),quiz:null,quizHistory:persisted.quizHistory||[],views:persisted.views||[],floating:false,hoverAt:0,lastFocus:null,layout:persisted.layout||{}};
 function objectKey(o){return assets.key(o);}
 function current(){return byId(state.selected);}
 function objects(){return r.objects.filter(o=>!o.transient);}
-function save(){const pack={version:3,theme:state.theme,notes:state.notes,patches:state.patches,favorites:[...state.favorites],quizHistory:state.quizHistory.slice(-100),views:state.views.slice(-12),treeOpen:[...state.open],layout:state.layout};return C.writeStore(pack);}
+function save(){const pack={version:3,theme:state.theme,notes:state.notes,patches:state.patches,favorites:[...state.favorites],quizHistory:state.quizHistory.slice(-100),views:state.views.slice(-12),treeOpen:[...state.open],dirOpen:[...state.dirOpen],layout:state.layout};return C.writeStore(pack);}
 function setTheme(t){state.theme=t;document.documentElement.dataset.theme=t;r.dark=t==='dark';r.dirty=true;save();}
 function showRight(){document.body.classList.remove('right-hidden');if(innerWidth<1080)document.body.classList.add('right-open');}
 function setTab(tab){if(!['learn','agent','quiz'].includes(tab))return;state.tab=tab;showRight();document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-selected',String(b.dataset.tab===tab));});$('learn-panel').hidden=tab!=='learn';$('agent-panel').hidden=tab!=='agent';$('quiz-panel').hidden=tab!=='quiz';if(tab==='learn')renderDetail();if(tab==='quiz')renderQuiz();agent?.status();}
@@ -18,10 +18,11 @@ function setLeftTab(tab){state.leftTab=tab;document.querySelectorAll('[data-left
 function setMode(mode){state.mode=mode;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));$('canvas').style.cursor={select:'grab',pan:'grab',box:'crosshair',measure:'crosshair',annotate:'crosshair'}[mode]||'grab';state.axisPicking=false;if(mode==='measure'){state.measure=[];if(r.motion||r.explode)toast('测量使用源坐标；显示拆分或运动位移不会参与测距');}const hints={box:'拖出矩形，放大到局部 · Esc / V 返回选择',pan:'拖动画布平移 · 滚轮缩放 · V 返回选择',measure:'依次点击两个真实表面，测量源坐标距离；未经尺寸校准',annotate:'点击所选骨的真实表面，调整面域半径后命名；标注保留待审状态'};$('mode-instruction').hidden=!hints[mode];$('mode-instruction').textContent=hints[mode]||'';if(mode==='annotate'){setTab('learn');state.detailTab='parts';renderDetail();}}
 function cameraState(){return{target:[...r.target],yaw:r.yaw,pitch:r.pitch,span:r.span,perspective:r.perspective};}
 function snapshot(){return{camera:cameraState(),hidden:objects().filter(o=>o.hidden).map(o=>o.id),isolated:r.isolated?[...r.isolated]:null,catVisible:{...r.catVisible},catAlpha:{...r.catAlpha},selected:state.selected,explode:r.explode,explodeCenter:r.explodeCenter?[...r.explodeCenter]:null,clipAxis:r.clipAxis,clipFraction:r.clipFraction,clipSign:r.clipSign,highlighted:[...r.highlighted],panorama:state.panorama,joint:state.joint?.id||null,jointSide:state.jointSide};}
-function remember(){state.undo.push(snapshot());if(state.undo.length>30)state.undo.shift();$('undo-button').disabled=false;}
+function cancelTimeline(){if(timeline&&(timeline.playing||timeline.segments?.length))timeline.stop();}
+function remember(){cancelTimeline();state.undo.push(snapshot());if(state.undo.length>30)state.undo.shift();$('undo-button').disabled=false;}
 function removeTransients(){if(state.transients.size){r.removeObjects(state.transients);state.transients.clear();}r.catVisible.regions=false;}
 function resetMotion(){r.motion=null;state.axisPoints=[];state.axisPicking=false;state.motionAngle=0;state.moving.clear();$('motion-badge').hidden=true;r.dirty=true;}
-function restore(s){removeTransients();resetMotion();r.clearPatch();state.patchDraft=null;state.activePatch=null;const h=new Set(s.hidden);for(const o of objects())o.hidden=h.has(o.id);r.isolated=s.isolated?new Set(s.isolated.filter(id=>byId(id))):null;r.catVisible={...s.catVisible};r.catAlpha={...s.catAlpha};Object.assign(r,s.camera);r.explode=s.explode||0;r.explodeCenter=s.explodeCenter;r.clipAxis=s.clipAxis??-1;r.clipFraction=s.clipFraction??.5;r.clipSign=s.clipSign||1;r.highlighted=new Set(s.highlighted||[]);state.selected=byId(s.selected)?s.selected:null;r.selected=state.selected??-1;state.nameHint=!!state.selected;state.panorama=s.panorama;state.joint=K.JOINTS.find(j=>j.id===s.joint)||null;state.jointSide=s.jointSide||'L';r.dirty=true;syncControls();refresh();}
+function restore(s){cancelTimeline();removeTransients();resetMotion();r.clearPatch();state.patchDraft=null;state.activePatch=null;const h=new Set(s.hidden);for(const o of objects())o.hidden=h.has(o.id);r.isolated=s.isolated?new Set(s.isolated.filter(id=>byId(id))):null;r.catVisible={...s.catVisible};r.catAlpha={...s.catAlpha};Object.assign(r,s.camera);r.explode=s.explode||0;r.explodeCenter=s.explodeCenter;r.clipAxis=s.clipAxis??-1;r.clipFraction=s.clipFraction??.5;r.clipSign=s.clipSign||1;r.highlighted=new Set(s.highlighted||[]);state.selected=byId(s.selected)?s.selected:null;r.selected=state.selected??-1;state.nameHint=!!state.selected;state.panorama=s.panorama;state.joint=K.JOINTS.find(j=>j.id===s.joint)||null;state.jointSide=s.jointSide||'L';r.dirty=true;syncControls();refresh();}
 function pushScene(label){state.history.push({label,snapshot:snapshot()});if(state.history.length>20)state.history.shift();}
 function backScene(){if(state.quiz)return endQuiz();const last=state.history.pop();if(!last){state.panorama=null;state.joint=null;removeTransients();resetMotion();r.isolated=null;r.explode=0;r.explodeCenter=null;r.clearPatch();r.fit();refresh();}else restore(last.snapshot);}
 function select(o,{focus=false,show=true}={}){if(!o)return;state.selected=o.id;r.selected=o.id;state.nameHint=true;r.clearPatch();state.patchDraft=null;state.activePatch=null;if(focus){o.hidden=false;r.catVisible[o.category]=true;if(r.isolated&&!r.isolated.has(o.id))r.isolated=new Set([o.id]);r.fit([o]);}r.dirty=true;if(show){showRight();if(state.tab==='learn')renderDetail();}renderCatalog();syncScene();agent?.status();}
@@ -33,14 +34,87 @@ function view(v){const p={iso:[.45,.18,'斜视图'],x:[Math.PI/2,0,'+X 面'],nx:
 function syncControls(){$('explode').value=Math.round(r.explode*100);$('explode-value').textContent=Math.round(r.explode*100)+'%';$('clip-axis').value=String(r.clipAxis);$('clip-position').disabled=r.clipAxis<0;$('clip-position').value=r.clipFraction*100;$('labels-button').classList.toggle('active',state.labels);}
 function syncScene(){const o=current(),n=objects().length;const special=!!(state.panorama!==null||state.joint||state.transients.size);$('scene-title').textContent=state.transients.size?'面域展开':state.joint?state.joint.zh:state.panorama!==null&&o?K.title(o):n?'观察结构，理解连接。':'从整体，到每一个细节。';$('scene-kicker').textContent=state.joint?'JOINT / RELATIONSHIPS':special?'STRUCTURE / PANORAMA':'ANATOMY / EXPLORER';$('scene-subtitle').textContent=state.transients.size?'源三角面片展开，不生成实体切面':state.joint?'逐项看骨与软组织，再联系运动':special?'旋转 / 六面观察 · 细部术语与已标注面域分开显示':n?'点击选择 · 空白处收起名称 · 双击放大 · 右键进入结构全景':'选择结构，开始你的三维学习。';$('scene-crumb').hidden=!state.history.length;$('scene-crumb-text').textContent=state.history.length?state.history[state.history.length-1].label:'';$('selection-pill').hidden=!o||!!state.quiz||!state.nameHint;if(o){const n=K.names(o);$('selection-name').textContent=n.zh;const enEl=$('selection-en');if(enEl){const show=!!(n.en&&n.en!==n.zh);enEl.hidden=!show;enEl.textContent=show?n.en:'';}}$('empty-scene').hidden=n>0;$('object-count').textContent=n.toLocaleString();$('undo-button').disabled=!state.undo.length;}
 function filtered(){return objects().filter(o=>(state.category==='all'||o.category===state.category)&&(state.region==='all'||K.region(o)===state.region)&&(state.side==='all'||K.side(o)===state.side)&&(!state.onlyFavorites||state.favorites.has(objectKey(o)))&&K.matches(o,state.query));}
-function meshRow(o){const active=o.id===state.selected,vis=r.visible(o),n=K.names(o);return `<div class="mesh-row ${active?'selected ':''}${!vis?'dim':''}" role="treeitem" aria-selected="${active}" data-object-row="${o.id}"><button class="mesh-pick" data-select="${o.id}" title="${esc(n.zh)}${n.en&&n.en!==n.zh?' / '+esc(n.en):''}"><span class="mesh-dot" style="--c:${CAT[o.category]?.color||'#888'}"></span><span class="mesh-name">${esc(n.zh)}</span>${state.favorites.has(objectKey(o))?icon('star'):''}</button><button class="tree-eye" data-eye="${o.id}" title="${o.hidden?'恢复':'隐藏'} ${esc(n.zh)}" aria-label="${o.hidden?'恢复':'隐藏'}结构">${icon(o.hidden?'eye-off':'eye')}</button></div>`;}
+const NOM_BADGE={reviewed:['已审校','nom-reviewed'],pending:['待审','nom-pending'],unmatched:['未规范命名','nom-unmapped']};
+function nomBadgeHTML(status){const[zh,cls]=NOM_BADGE[status]||NOM_BADGE.unmatched;return`<i class="nom-badge ${cls}" title="命名可信度：${zh}"></i>`;}
+function meshRow(o){const active=o.id===state.selected,vis=r.visible(o),n=K.names(o);return `<div class="mesh-row ${active?'selected ':''}${!vis?'dim':''}" role="treeitem" aria-selected="${active}" data-object-row="${o.id}"><button class="mesh-pick" data-select="${o.id}" title="${esc(n.zh)}${n.la?' · '+esc(n.la):''}${n.en&&n.en!==n.zh?' / '+esc(n.en):''}"><span class="mesh-dot" style="--c:${CAT[o.category]?.color||'#888'}"></span><span class="mesh-name">${esc(n.zh)}</span>${n.matched?nomBadgeHTML(n.status):nomBadgeHTML('unmatched')}${state.favorites.has(objectKey(o))?icon('star'):''}</button><button class="tree-eye" data-eye="${o.id}" title="${o.hidden?'恢复':'隐藏'} ${esc(n.zh)}" aria-label="${o.hidden?'恢复':'隐藏'}结构">${icon(o.hidden?'eye-off':'eye')}</button></div>`;}
+// Functional grouping: nomenclature group/subgroup wins; legacy family is the
+// fallback group so non-mapped systems keep their previous tree shape.
+function taxOf(o){const g=K.group(o);if(g)return{group:g,subgroup:K.subgroup(o)||''};return{group:K.family(o),subgroup:''};}
 function groupHTML(id,label,arr,inner,level=0){const op=state.query||state.open.has(id)||(state.open.size===0&&level<2);return `<details class="tree-group" data-group="${esc(id)}" ${op?'open':''}><summary><span class="chev">${icon('chevron')}</span>${icon(level===0?'layers':'folder')}<span>${esc(label)}</span><small>${arr.length}</small><button class="tree-eye" data-group-eye="${esc(id)}" title="切换本文件夹可见性">${icon(arr.some(o=>!o.hidden)?'eye':'eye-off')}</button></summary><div class="tree-children">${inner}</div></details>`;}
 let groups=new Map();
 function renderCatalog(){if(!r)return;const arr=filtered();$('tree-summary').textContent=state.category==='all'?`${arr.length} 个源对象${state.query?' · 搜索结果':''}`:`${CAT[state.category]?.name||''} · ${arr.length} 个对象`;$('favorite-filter').classList.toggle('active',state.onlyFavorites);groups=new Map();if(!objects().length){$('catalog').innerHTML=`<div class="catalog-empty">${icon('folder')}<h3>你的结构树将在这里展开</h3><p>载入骨骼或导入源模型后，按系统、区域和结构组织。</p><button class="btn" data-action="resources">添加模型</button></div>`;$('directory').innerHTML='<div class="catalog-empty"><p>结构目录只显示已载入的真实对象。</p><button class="btn" data-action="resources">浏览资源</button></div>';renderLayers();return;}
- let html='';for(const cat of Object.keys(CAT)){const ca=arr.filter(o=>o.category===cat);if(!ca.length)continue;const cid='cat:'+cat;groups.set(cid,ca);let rh='';for(const region of Object.keys(REGIONS)){const ra=ca.filter(o=>K.region(o)===region);if(!ra.length)continue;const rid=cid+'/'+region;groups.set(rid,ra);const fm=new Map();for(const o of ra){const f=K.family(o);if(!fm.has(f))fm.set(f,[]);fm.get(f).push(o);}let fh='';for(const[f,fa]of fm){if(fa.length===1)fh+=meshRow(fa[0]);else{const fid=rid+'/'+f;groups.set(fid,fa);fh+=groupHTML(fid,f,fa,fa.map(meshRow).join(''),2);}}rh+=groupHTML(rid,REGIONS[region],ra,fh,1);}html+=groupHTML(cid,CAT[cat].name,ca,rh,0);}
+ let html='';for(const cat of Object.keys(CAT)){
+  const ca=arr.filter(o=>o.category===cat);if(!ca.length)continue;
+  const cid='cat:'+cat;groups.set(cid,ca);let rh='';
+  for(const region of Object.keys(REGIONS)){
+   const ra=ca.filter(o=>K.region(o)===region);if(!ra.length)continue;
+   const rid=cid+'/'+region;groups.set(rid,ra);
+   // region -> functional group -> subgroup -> structure
+   const gm=new Map();
+   for(const o of ra){const t=taxOf(o),gk=t.group||'其他结构';if(!gm.has(gk))gm.set(gk,new Map());const sg=gm.get(gk),sk=t.subgroup||'';if(!sg.has(sk))sg.set(sk,[]);sg.get(sk).push(o);}
+   let gh='';
+   for(const[gName,subs]of gm){
+    const gobj=[...subs.values()].flat();
+    if(gobj.length===1&&![...subs.keys()][0]){gh+=meshRow(gobj[0]);continue;}
+    const gid=rid+'/'+gName;groups.set(gid,gobj);
+    let sh='';
+    for(const[sName,so]of subs){
+     if(!sName){sh+=so.map(meshRow).join('');}
+     else if(so.length===1){sh+=meshRow(so[0]);}
+     else{const sid=gid+'/'+sName;groups.set(sid,so);sh+=groupHTML(sid,sName,so,so.map(meshRow).join(''),3);}
+    }
+    gh+=groupHTML(gid,gName,gobj,sh,2);
+   }
+   rh+=groupHTML(rid,REGIONS[region],ra,gh,1);
+  }
+  html+=groupHTML(cid,CAT[cat].name,ca,rh,0);
+ }
  $('catalog').innerHTML=html||'<div class="catalog-empty"><h3>没有匹配结构</h3><p>试试中文、英文，或清除区域和收藏筛选。</p><button class="btn" data-action="clear-filters">清除筛选</button></div>';
- $('directory').innerHTML=`<div class="directory-intro"><span class="eyebrow">STRUCTURE INDEX</span><h3>按系统探索</h3><p>目录与源对象同步，不将未加载术语充作模型。</p></div>${Object.entries(CAT).filter(([c])=>arr.some(o=>o.category===c)).map(([c,cat])=>`<details class="directory-card" ${state.category===c||state.query?'open':''}><summary><span class="directory-icon" style="--c:${cat.color}">${icon(cat.icon)}</span><span><b>${cat.name}</b><small>${cat.en}</small></span><strong>${arr.filter(o=>o.category===c).length}</strong>${icon('chevron')}</summary><div>${arr.filter(o=>o.category===c).map(meshRow).join('')}</div></details>`).join('')}`;
+ renderDirectory(arr);
  renderLayers();}
+// Teaching index (目录): a progressive syllabus rather than an object dump.
+// Drill path: 系统 chapter → 部位 region → 功能群组 group → 亚组 subgroup → 结构.
+// It reuses the proven tree-group/mesh-row markup and the taxonomy in taxOf().
+let dirGroups=new Map();
+function dirNodeHTML(id,label,arr,inner,kind){
+ const open=!!state.query||state.dirOpen.has(id);
+ const ic=kind==='region'?'folder':'layers';
+ return `<details class="tree-group idx-node idx-${kind}"${state.query?'':` data-dir-node="${esc(id)}"`} ${open?'open':''}><summary><span class="chev">${icon('chevron')}</span>${icon(ic)}<span>${esc(label)}</span><small>${arr.length}</small><button class="tree-eye" data-dir-eye="${esc(id)}" title="隐藏 / 恢复这一部分">${icon(arr.some(o=>o.hidden)?'eye-off':'eye')}</button></summary><div class="tree-children">${inner}</div></details>`;}
+function renderDirectory(arr){
+ const root=$('directory');
+ dirGroups=new Map();
+ const head=`${state.query?`<div class="directory-intro"><span class="eyebrow">SEARCH RESULTS</span><h3>搜索：${esc(state.query)}</h3><p>${arr.length} 个已加载结构匹配；点击结构即在画布中定位。</p></div>`:`<div class="directory-intro"><span class="eyebrow">STRUCTURE INDEX</span><h3>按讲授顺序探索</h3><p>从系统进入，再按部位与功能群组逐层细化。目录只索引已加载的真实源对象。</p></div>`}`;
+ let chapters='';
+ for(const cat of Object.keys(CAT)){
+  const ca=arr.filter(o=>o.category===cat);if(!ca.length)continue;
+  const cid='dir:'+cat;dirGroups.set(cid,ca);
+  let body='';
+  for(const region of Object.keys(REGIONS)){
+   const ra=ca.filter(o=>K.region(o)===region);if(!ra.length)continue;
+   const rid=cid+'/'+region;dirGroups.set(rid,ra);
+   const gm=new Map();
+   for(const o of ra){const t=taxOf(o),gk=t.group||'其他结构';if(!gm.has(gk))gm.set(gk,new Map());const subs=gm.get(gk),sk=t.subgroup||'';if(!subs.has(sk))subs.set(sk,[]);subs.get(sk).push(o);}
+   let gh='';
+   for(const[gName,subs]of gm){
+    const gobj=[...subs.values()].flat();
+    if(gobj.length===1&&![...subs.keys()][0]){gh+=meshRow(gobj[0]);continue;}
+    const gid=rid+'/'+gName;dirGroups.set(gid,gobj);
+    let sh='';
+    for(const[sName,so]of subs){
+     if(!sName){sh+=so.map(meshRow).join('');}
+     else if(so.length===1){sh+=meshRow(so[0]);}
+     else{const sid=gid+'/'+sName;dirGroups.set(sid,so);sh+=dirNodeHTML(sid,sName,so,so.map(meshRow).join(''),'subgroup');}
+    }
+    gh+=dirNodeHTML(gid,gName,gobj,sh,'group');
+   }
+   body+=dirNodeHTML(rid,REGIONS[region],ra,gh,'region');
+  }
+  const open=!!state.query||state.dirOpen.has(cid);
+  const cdef=CAT[cat];
+  chapters+=`<details class="idx-chapter"${state.query?'':` data-dir-node="${esc(cid)}"`} ${open?'open':''}><summary><span class="directory-icon" style="--c:${cdef.color}">${icon(cdef.icon)}</span><span class="idx-meta"><b>${esc(cdef.name)}</b><small>${esc(cdef.en)}</small></span><strong>${ca.length}</strong><button class="tree-eye" data-dir-eye="${esc(cid)}" title="隐藏 / 恢复整个系统">${icon(ca.some(o=>o.hidden)?'eye-off':'eye')}</button><span class="chev">${icon('chevron')}</span></summary><div class="idx-chapter-body">${body}</div></details>`;
+ }
+ root.innerHTML=head+(chapters||'<div class="catalog-empty"><h3>没有匹配结构</h3><p>试试中文、英文，或清除区域与收藏筛选。</p><button class="btn" data-action="clear-filters">清除筛选</button></div>');
+}
 function renderLayers(){$('layers').innerHTML=`<div class="layer-intro"><h3>组织图层</h3><p>逐层隐藏、调节透明度。目录分组依据源名称及本地词典。</p></div>${Object.entries(CAT).filter(([c])=>c!=='regions').map(([c,cat])=>{const n=objects().filter(o=>o.category===c).length;return `<section class="layer"><div class="layer-top"><span class="swatch" style="background:${cat.color}"></span><strong>${cat.name}</strong><small>${n? n+' 项':'未载入'}</small>${n?`<button class="ib xs" data-layer-toggle="${c}" title="切换图层">${icon(r.catVisible[c]!==false?'eye':'eye-off')}</button>`:cat.file?`<button class="text-btn" data-load="${c}">载入</button>`:''}</div>${n?`<div class="layer-bottom"><input type="range" min="0" max="100" value="${Math.round((r.catAlpha[c]??1)*100)}" data-alpha="${c}" aria-label="${cat.name}透明度"><output>${Math.round((r.catAlpha[c]??1)*100)}%</output></div>`:''}</section>`;}).join('')}<button class="btn full" data-action="bones-only">仅显示已加载骨骼</button><button class="btn full" data-action="show-all-layers">恢复全部图层</button>`;}
 function sourcesHTML(ids){return (ids||[]).map(id=>{const s=K.sources.find(s=>s.id===id);if(!s)return'';const url=C.safeURL(s.url||s.href||s[1]);return url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(s.title||s.name||id)} ${icon('external')}</a>`:'';}).join('');}
 // Region identity is stricter than a display name. Legacy v2 counted whole-object
@@ -51,7 +125,7 @@ function patchObject(p){return objects().find(o=>patchMatches(o,p));}
 function matchingPart(o,l){const q=K.norm(l.en||''),zh=l.zh;if(!q)return null;const patch=ownPatches(o).find(p=>K.norm(p.label||p.name)===K.norm(zh)||K.norm(p.label||p.name)===q);if(patch)return{patch};const a=objects().find(x=>x.id!==o.id&&x.category===o.category&&(!K.side(o)||K.side(x)===K.side(o))&&K.norm(x.sourceName).includes(q)&&(K.norm(x.sourceName).includes(K.cleanName(o.sourceName))||x.path?.includes(o.sourceName)));return a?{object:a}:null;}
 function relatedJoints(o){const id=K.cardFor(o)?.id;return K.JOINTS.filter(j=>j.related.includes(id)||j.id==='spine'&&/^[CTL]\d+$/.test(id||''));}
 function detailHome(){return `<div class="detail-welcome"><span class="eyebrow">LEARN WITH THE MODEL</span><h2>让每一次观察，<br>都有一个问题。</h2><p>从左侧选择结构，或直接点击画布。讲解会围绕所选对象展开。</p><div class="welcome-steps"><div><b>01</b><span><strong>定位与定向</strong><small>先识别整体，再进入局部全景</small></span></div><div><b>02</b><span><strong>观察细部</strong><small>对照术语，圈选实际表面面域</small></span></div><div><b>03</b><span><strong>连接与回忆</strong><small>观察关节组成，再用练习检验</small></span></div></div><h3 class="detail-section-title">从这里开始</h3><button class="path-card" data-action="joint-library">${icon('joint')}<span><b>关节学习</b><small>组成、连接、逐步高亮与轴演示</small></span>${icon('arrow-right')}</button><button class="path-card" data-action="practice">${icon('quiz')}<span><b>主动回忆</b><small>知识题、结构辨认与画布点选</small></span>${icon('arrow-right')}</button><button class="path-card" data-action="resources">${icon('layers')}<span><b>管理模型</b><small>沿用原始资源与旧版学习记录</small></span>${icon('arrow-right')}</button><p class="micro-note">本地提纲是学习辅助，并非全部结构的审校教材。未映射的细部只显示术语，不自动声称已有三维边界。</p></div>`;}
-function renderDetail(){const root=$('learn-panel');if(state.joint){root.innerHTML=jointDetail();return;}const o=current();if(!o){root.innerHTML=detailHome();return;}const card=K.cardFor(o),a=assets.asset(o),patches=ownPatches(o);const n=K.names(o);root.innerHTML=`<div class="detail-heading"><div class="detail-eyebrow">${esc(CAT[o.category]?.name||'源对象')} <span> / ${esc(REGIONS[K.region(o)]||'其他')}</span></div><div class="detail-title-row"><h2>${esc(n.zh)}</h2><button class="ib" data-action="favorite-selected" title="收藏">${icon(state.favorites.has(objectKey(o))?'star-filled':'star')}</button></div>${n.en&&n.en!==n.zh?`<p class="english">${esc(n.en)}</p>`:''}${n.py?`<p class="detail-pinyin" lang="zh-Latn">${esc(n.py)}</p>`:''}<div class="detail-badges"><span class="pill ok">${o.transient?'源面片':'源网格对象'}</span><span class="pill">${card?o._knowledgeMatch==='related'?'相关结构提纲':'本地学习提纲':'尚无专属提纲'}</span></div><div class="detail-quick"><button class="btn primary" data-action="panorama">${icon('focus')}结构全景</button><button class="btn" data-action="isolate">${icon('isolate')}隔离</button><button class="btn" data-action="ask-selected" title="交给 Agent 深入讲解">${icon('sparkle')}</button></div></div><nav class="detail-subtabs"><button data-detail="overview" class="${state.detailTab==='overview'?'active':''}">概览</button><button data-detail="parts" class="${state.detailTab==='parts'?'active':''}">细部 <small>${(card?.landmarks?.length||0)+patches.length}</small></button><button data-detail="relations" class="${state.detailTab==='relations'?'active':''}">连接</button><button data-detail="notes" class="${state.detailTab==='notes'?'active':''}">笔记</button></nav><div class="detail-body">${state.detailTab==='overview'?overviewHTML(o,card):state.detailTab==='parts'?partsHTML(o,card):state.detailTab==='relations'?relationsHTML(o,card):notesHTML(o)}<details class="source-note"><summary>资料来源与模型信息</summary><p>模型名称：${esc(o.sourceName)}<br>源三角面：${o.triangles.toLocaleString()}<br>来源：${esc(a?.filename||'源面域')}<br>${esc(a?.quality||'')}</p>${sourcesHTML(card?.sources)}${a?.sourceURL?`<a href="${esc(C.safeURL(a.sourceURL))}" target="_blank" rel="noopener noreferrer">模型原始地址 ↗</a>`:''}<p>本地知识与源名称为辅助匹配，未经逐条医学审校。命名不等于表面细部分区；请与指定教材、标本核对。</p></details></div>`;
+function renderDetail(){const root=$('learn-panel');if(state.joint){root.innerHTML=jointDetail();return;}const o=current();if(!o){root.innerHTML=detailHome();return;}const card=K.cardFor(o),a=assets.asset(o),patches=ownPatches(o);const n=K.names(o);const nomLabel=NOM_BADGE[n.status]?.[0]||'未规范命名';const nomCls=NOM_BADGE[n.status]?.[1]||'nom-unmapped';root.innerHTML=`<div class="detail-heading"><div class="detail-eyebrow">${esc(CAT[o.category]?.name||'源对象')} <span> / ${esc(REGIONS[K.region(o)]||'其他')}${n.group?' / '+esc(n.group):''}${n.subgroup?' / '+esc(n.subgroup):''}</span></div><div class="detail-title-row"><h2>${esc(n.zh)}</h2><button class="ib" data-action="favorite-selected" title="收藏">${icon(state.favorites.has(objectKey(o))?'star-filled':'star')}</button></div>${n.la?`<p class="latin-name" lang="la">${esc(n.la)}</p>`:''}${n.en&&n.en!==n.zh?`<p class="english">${esc(n.en)}</p>`:''}${n.py?`<p class="detail-pinyin" lang="zh-Latn">${esc(n.py)}</p>`:''}<div class="detail-badges"><span class="pill ok">${o.transient?'源面片':'源网格对象'}</span><span class="pill ${nomCls}">${esc(nomLabel)}</span><span class="pill">${card?o._knowledgeMatch==='related'?'相关结构提纲':'本地学习提纲':'尚无专属提纲'}</span></div><div class="detail-quick"><button class="btn primary" data-action="panorama">${icon('focus')}结构全景</button><button class="btn" data-action="isolate">${icon('isolate')}隔离</button><button class="btn" data-action="ask-selected" title="交给 Agent 深入讲解">${icon('sparkle')}</button></div></div><nav class="detail-subtabs"><button data-detail="overview" class="${state.detailTab==='overview'?'active':''}">概览</button><button data-detail="parts" class="${state.detailTab==='parts'?'active':''}">细部 <small>${(card?.landmarks?.length||0)+patches.length}</small></button><button data-detail="relations" class="${state.detailTab==='relations'?'active':''}">连接</button><button data-detail="notes" class="${state.detailTab==='notes'?'active':''}">笔记</button></nav><div class="detail-body">${state.detailTab==='overview'?overviewHTML(o,card):state.detailTab==='parts'?partsHTML(o,card):state.detailTab==='relations'?relationsHTML(o,card):notesHTML(o)}<details class="source-note"><summary>资料来源与模型信息</summary><p>模型名称：${esc(o.sourceName)}<br>源三角面：${o.triangles.toLocaleString()}<br>来源：${esc(a?.filename||'源面域')}<br>${esc(a?.quality||'')}</p>${sourcesHTML(card?.sources)}${a?.sourceURL?`<a href="${esc(C.safeURL(a.sourceURL))}" target="_blank" rel="noopener noreferrer">模型原始地址 ↗</a>`:''}<p>本地知识与源名称为辅助匹配，未经逐条医学审校。命名不等于表面细部分区；请与指定教材、标本核对。</p></details></div>`;
  const textarea=$('structure-note');if(textarea){textarea.value=state.notes[objectKey(o)]||'';textarea.oninput=()=>{state.notes[objectKey(o)]=textarea.value;const ok=save();$('note-status').textContent=ok?'已保存在本机':'本地存储受限，请导出记录';};}}
 function overviewHTML(o,c){if(!c)return `<p class="detail-summary">已选择实际源对象“${esc(o.sourceName)}”。当前没有可靠匹配的专属知识卡，不能用另一个结构的讲解替代。</p><section class="article-section"><h3>建议的观察顺序</h3><p>先确定结构身份与朝向，再对照教材识别边、面、端及相邻结构。未校准的源轴不代表解剖学方向。</p></section><button class="btn full" data-action="ask-selected">${icon('sparkle')}向已配置的 Agent 提问</button><section class="article-section"><h3>完善这一条目</h3><p>可以保存笔记，或在“细部”中标记真实三角面区域。用户标注保留待审状态。</p></section>`;
  return `${o._knowledgeMatch==='related'?`<div class="notice">以下是与“${esc(o.sourceName)}”相关的“${esc(c.zh)}”学习提纲，不是当前源对象的独立专属讲解。请以原始名称核对身份。${c.en||K.pinyin(c.zh)?`<span class="related-std">${esc(c.zh)}${c.en?' · '+esc(K.prettyEn(c.en)):''}${K.pinyin(c.zh)?' · '+esc(K.pinyin(c.zh)):''}</span>`:''}</div>`:''}<p class="detail-summary">${esc(c.summary||'')}</p>${(c.sections||[]).map((s,i)=>`<section class="article-section"><h3><span>${String(i+1).padStart(2,'0')}</span>${esc(s.title)}</h3><p>${esc(s.body)}</p></section>`).join('')}${c.memory?`<div class="mnemonic">${icon('sparkle')}<div><strong>记忆抓手</strong><p>${esc(c.memory)}</p></div></div>`:''}<div class="detail-bottom-actions"><button class="btn" data-action="selected-quiz">${icon('quiz')}练一练</button><button class="btn" data-detail="parts">查看细部 ${icon('arrow-right')}</button></div>`;}
@@ -93,7 +167,19 @@ function renderQuiz(){const s=state.quiz;if(!s){const h=state.quizHistory,last=h
 let lastModalFocus=null;
 function modal(title,body,footer=null,wide=false){lastModalFocus=document.activeElement;hideMenus();$('modal-root').innerHTML=`<div class="modal-backdrop"><section class="modal ${wide?'wide':''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-head"><h2 id="modal-title">${esc(title)}</h2><button class="ib" data-action="modal-close" aria-label="关闭窗口">${icon('close')}</button></header><div class="modal-body scroll">${body}</div>${footer===null?'':`<footer class="modal-footer">${footer}</footer>`}</section></div>`;setTimeout(()=>$('modal-root').querySelector('button,input,textarea,select')?.focus(),0);}
 function closeModal(){$('modal-root').innerHTML='';lastModalFocus?.focus?.();lastModalFocus=null;}
-function resources(){modal('模型资源',`<div class="resource-intro"><p>沿用上一版的公开源网格。可以直接载入，也可以把已有模型或旧版离线 HTML 导入这里。</p><div class="notice">浏览器公开版由上游减面，不等于原始扫描精度。只缓存和导出实际已成功加载的模型。</div></div><div class="resource-grid">${Object.entries(CAT).filter(([c,x])=>x.file).map(([c,cat])=>{const a=assets.assets.filter(a=>a.category===c);return `<article class="resource-card"><span style="--c:${cat.color}" class="directory-icon">${icon(cat.icon)}</span><h3>${cat.name}</h3><small>${cat.en}</small><p>${a.length?a.reduce((s,a)=>s+a.objects,0)+' 个源对象 · '+C.bytes(a.reduce((s,a)=>s+a.bytes,0)):'首次加载需联网'}</p><button class="btn ${a.length?'':'primary'}" data-load="${c}">${a.length?'已载入 / 重显':'载入此系统'}</button></article>`;}).join('')}</div><div class="dropzone" id="resource-drop"><h3>${icon('upload')}导入本地资源</h3><p>GLB、OBJ、STL，或上一版“已含模型”的离线 HTML。只读取数据插槽，不执行导入 HTML 的脚本。</p><div class="row wrap"><select id="import-category" aria-label="本地模型类别">${Object.entries(CAT).filter(([c])=>c!=='regions').map(([c,x])=>`<option value="${c}" ${c==='other'?'selected':''}>${x.name}</option>`).join('')}</select><button class="btn" data-action="import-model">选择文件</button></div></div><label class="check-row"><input id="cache-enabled" type="checkbox" ${assets.cacheEnabled?'checked':''}>在本机缓存已载入模型（IndexedDB；浏览器可能限制容量）</label><div class="row wrap"><button class="btn" data-action="export-offline">${icon('download')}导出含模型的单文件 HTML</button><button class="btn" data-action="clear-cache">清除本机模型缓存</button><button class="text-btn" data-action="sources">来源与许可</button></div><p class="micro-note">缓存不等于单文件内嵌。跨浏览器、移动 HTML 或清理网站数据前，先导出离线版和学习记录。Agent 配置与密钥从不打包。</p>`,null,true);const drop=$('resource-drop');drop.ondragover=e=>{e.preventDefault();drop.classList.add('dragover');};drop.ondragleave=()=>drop.classList.remove('dragover');drop.ondrop=safe(async e=>{e.preventDefault();await importFiles([...e.dataTransfer.files]);});$('cache-enabled').onchange=e=>assets.cacheEnabled=e.target.checked;}
+function resources(){
+ const tiers=Object.entries(C.MODEL_SOURCES.sources);
+ const current=assets.tier;
+ const tierCards=tiers.map(([id,s])=>`<label class="tier-card ${current===id?'active':''} ${!s.available?'is-pending':''}"><input type="radio" name="model-tier" value="${id}" ${current===id?'checked':''} ${!s.available?'':''}><div><b>${esc(s.zh)}</b><small>${esc(s.triangleBudget||'')}</small><p>${esc(s.qualityZh||'')}</p>${s.available?'':`<small class="tier-locked">需自托管 · ${esc(s.selfHostGuide||'')}</small>`}</div></label>`).join('');
+ modal('模型资源',`<div class="resource-intro"><p>选择来源与分辨率档位，再按系统载入。不同档位按文件 SHA-256 独立缓存，不会串用。</p><div class="notice">浏览器公开版由上游减面，不等于原始扫描精度。只缓存和导出实际已成功加载的模型。balanced/HD 由 Z-Anatomy 重导出并自托管（见 models/README.md）。</div></div>
+ <section class="tier-section"><h3>来源 / 档位</h3><div class="tier-grid">${tierCards}</div><p class="micro-note" id="tier-current">当前档位：${esc(C.MODEL_SOURCES.sources[current]?.zh||current)}</p></section>
+ <div class="resource-grid">${Object.entries(CAT).filter(([c,x])=>x.file).map(([c,cat])=>{const a=assets.assets.filter(a=>a.category===c);return `<article class="resource-card"><span style="--c:${cat.color}" class="directory-icon">${icon(cat.icon)}</span><h3>${cat.name}</h3><small>${cat.en}</small><p>${a.length?a.reduce((s,a)=>s+a.objects,0)+' 个源对象 · '+C.bytes(a.reduce((s,a)=>s+a.bytes,0)):'首次加载需联网'}</p><button class="btn ${a.length?'':'primary'}" data-load="${c}">${a.length?'已载入 / 重显':'载入此系统'}</button></article>`;}).join('')}</div><div class="dropzone" id="resource-drop"><h3>${icon('upload')}导入本地资源</h3><p>GLB / .glb.gz（自动解压）、OBJ、STL，或上一版“已含模型”的离线 HTML。只读取数据插槽，不执行导入 HTML 的脚本。</p><div class="row wrap"><select id="import-category" aria-label="本地模型类别">${Object.entries(CAT).filter(([c])=>c!=='regions').map(([c,x])=>`<option value="${c}" ${c==='other'?'selected':''}>${x.name}</option>`).join('')}</select><button class="btn" data-action="import-model">选择文件</button></div></div><label class="check-row"><input id="cache-enabled" type="checkbox" ${assets.cacheEnabled?'checked':''}>在本机缓存已载入模型（IndexedDB；浏览器可能限制容量）</label><div class="row wrap"><button class="btn" data-action="export-offline">${icon('download')}导出含模型的单文件 HTML</button><button class="btn" data-action="clear-cache">清除本机模型缓存</button><button class="text-btn" data-action="sources">来源与许可</button></div><p class="micro-note">缓存不等于单文件内嵌。跨浏览器、移动 HTML 或清理网站数据前，先导出离线版和学习记录。Agent 配置与密钥从不打包。</p>`,null,true);
+ document.querySelectorAll('input[name="model-tier"]').forEach(radio=>radio.addEventListener('change',safe(async()=>{
+  const id=radio.value,s=C.MODEL_SOURCES.sources[id];
+  if(!s.available&&!C.readTierBases()[id]?.length){toast(s.zh+' 尚未生成；见 models/README.md 自托管说明');radio.checked=false;document.querySelector('input[name="model-tier"][value="'+assets.tier+'"]').checked=true;return;}
+  assets.setTier(id);$('tier-current').textContent='当前档位：'+s.zh;toast('已切换到 '+s.zh+'，对之后载入的系统生效');
+ })));
+ const drop=$('resource-drop');drop.ondragover=e=>{e.preventDefault();drop.classList.add('dragover');};drop.ondragleave=()=>drop.classList.remove('dragover');drop.ondrop=safe(async e=>{e.preventDefault();await importFiles([...e.dataTransfer.files]);});$('cache-enabled').onchange=e=>assets.cacheEnabled=e.target.checked;}
 function menuItems(items){return items.map(x=>x==='-'?'<div class="menu-separator"></div>':`<button class="menu-item" data-action="${x[0]}">${icon(x[2]||'cube')}<span>${x[1]}</span>${x[3]?`<kbd>${x[3]}</kbd>`:''}</button>`).join('');}
 function place(el,x,y){el.hidden=false;el.style.left=clamp(x,8,innerWidth-el.offsetWidth-8)+'px';el.style.top=clamp(y,8,innerHeight-el.offsetHeight-8)+'px';}
 function popover(html,anchor){hideMenus();const p=$('popover');p.innerHTML=html;const b=anchor?.getBoundingClientRect()||{left:innerWidth-270,bottom:50};place(p,b.left,b.bottom+7);}
@@ -141,7 +227,7 @@ const ACTIONS={
  'copy-name':async()=>{const o=current();if(!o)return;try{await navigator.clipboard.writeText(o.sourceName);toast('源名称已复制');}catch{modal('源名称',`<textarea readonly class="notes-area">${esc(o.sourceName)}</textarea><p>当前浏览器未允许自动复制，可手动选择文本。</p>`);}},
  'annotate':()=>setMode('annotate'),'patch-save':savePatch,'patch-clear':()=>{r.clearPatch();state.patchDraft=null;state.activePatch=null;state.detailTab='parts';setMode('select');renderDetail();},'regions-explode':explodeRegions,
  'axis-pick':beginAxis,'motion-reset':()=>{resetMotion();renderDetail();},'joint-all':jointAll,'joint-next':()=>{const ps=jointParts();for(let k=1;k<=ps.length;k++){const i=(state.jointStep+k)%ps.length;if(ps[i].objects.length)return highlightJoint(i);}toast('尚无已加载组成');},
- 'agent-settings':()=>agent.settings(),'agent-design':b=>agent.designPopover(b),'agent-open-resources':()=>{closeModal();resources();},'agent-open-licenses':()=>{closeModal();sourceModal();},'agent-save':()=>agent.saveSettings(),'agent-forget':()=>agent.forget(),'chat-clear':()=>agent.clear(),'chat-stop':()=>agent.stop(),'ask-selected':()=>{setTab('agent');$('chat-input').value='请系统讲解当前选中的结构，按定位、形态、连接、易混点和观察顺序展开。';$('chat-input').focus();},
+ 'agent-settings':()=>agent.settings(),'agent-design':b=>agent.designPopover(b),'agent-open-resources':()=>{closeModal();resources();},'agent-open-licenses':()=>{closeModal();sourceModal();},'agent-save':()=>agent.saveSettings(),'agent-forget':()=>agent.forget(),'chat-clear':()=>agent.clear(),'chat-stop':()=>agent.stop(),'chat-new':()=>agent.newThread(),'chat-history':b=>agent.openHistory(b),'chat-perm':b=>agent.openPerm(b),'ask-selected':()=>{setTab('agent');$('chat-input').value='请系统讲解当前选中的结构，按定位、形态、连接、易混点和观察顺序展开。';$('chat-input').focus();},
  'export-offline':exportOffline,'export-records':()=>C.jsonFile(recordPack(),'forma_learning_records.json'),'import-records':()=>$('records-file').click(),'export-manifest':()=>C.jsonFile(assets.manifest(),'forma_source_manifest.json'),'sources':sourceModal,'help':help,
  'clear-cache':async()=>{await assets.cache.clear();toast('本机模型缓存已清除；当前打开的模型与学习笔记未删除');},
  'save-view':viewsModal,'commit-view':()=>{const name=$('view-name').value.trim()||'观察视图 '+(state.views.length+1);state.views.push({name,at:new Date().toISOString(),view:persistView()});state.views=state.views.slice(-12);save();viewsModal();toast('视图已保存');},
@@ -152,6 +238,7 @@ function bindDocument(){document.addEventListener('click',safe(async e=>{const b
  if(b.dataset.focusObject!==undefined){select(byId(b.dataset.focusObject),{focus:true});hideMenus();return;}
  if(b.dataset.eye!==undefined){e.preventDefault();const o=byId(b.dataset.eye);remember();o.hidden=!o.hidden;refresh();return;}
  if(b.dataset.groupEye){e.preventDefault();e.stopPropagation();const ar=groups.get(b.dataset.groupEye)||[];remember();const hide=ar.some(o=>!o.hidden);for(const o of ar)o.hidden=hide;refresh();return;}
+ if(b.dataset.dirEye!==undefined){e.preventDefault();e.stopPropagation();const ar=dirGroups.get(b.dataset.dirEye)||[];if(!ar.length)return;remember();const hide=ar.some(o=>!o.hidden);for(const o of ar)o.hidden=hide;refresh();return;}
  if(b.dataset.layerToggle){remember();r.catVisible[b.dataset.layerToggle]=r.catVisible[b.dataset.layerToggle]===false;r.dirty=true;renderCatalog();return;}
  if(b.dataset.leftTab){setLeftTab(b.dataset.leftTab);return;}
  if(b.dataset.tab){setTab(b.dataset.tab);return;}
@@ -172,6 +259,7 @@ function bindDocument(){document.addEventListener('click',safe(async e=>{const b
  document.addEventListener('pointerdown',e=>{if(!e.target.closest('#popover,#context-menu,[data-action="menu"],[data-action="view-menu"],[data-action="dock-more"]'))hideMenus();});
  $('modal-root').addEventListener('click',e=>{if(e.target.classList.contains('modal-backdrop'))closeModal();});
  $('catalog').addEventListener('toggle',e=>{const el=e.target;if(!el.dataset.group)return;if(el.open)state.open.add(el.dataset.group);else state.open.delete(el.dataset.group);},true);
+ $('directory').addEventListener('toggle',e=>{const el=e.target;if(!el.dataset.dirNode)return;if(state.query)return;if(el.open)state.dirOpen.add(el.dataset.dirNode);else state.dirOpen.delete(el.dataset.dirNode);save();},true);
  let searchTimer;$('search').addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{state.query=$('search').value;renderCatalog();},100);});$('region-filter').onchange=e=>{state.region=e.target.value;renderCatalog();};$('side-filter').onchange=e=>{state.side=e.target.value;renderCatalog();};
  document.addEventListener('input',safe(e=>{const x=e.target;if(x.dataset.alpha){r.catAlpha[x.dataset.alpha]=Number(x.value)/100;x.nextElementSibling.textContent=x.value+'%';r.dirty=true;return;}if(x.id==='patch-radius'&&state.patchDraft){const d=state.patchDraft,o=byId(d.objectId);state.patchRadius=Number(x.value)/100;d.spec=r.patch(o,d.hit,E.Vec.length(E.boundsSize(o.bounds))*state.patchRadius);r.showPatch(o,d.spec);x.nextElementSibling.textContent=d.spec.faces.length+' 面';return;}if(x.id==='motion-angle')applyMotion(x.value);if(x.dataset.moving&&state.axisPoints.length===2)applyMotion(state.motionAngle);}));
  $('explode').onpointerdown=()=>remember();$('explode').oninput=e=>{if(r.motion)resetMotion();r.explode=Number(e.target.value)/100;if(!r.explodeCenter)r.explodeCenter=groupCenter(r.objects.filter(o=>r.visible(o)));$('explode-value').textContent=e.target.value+'%';r.dirty=true;};$('explode').onchange=()=>{r.fit();if(r.objects.filter(o=>r.visible(o)).length===1&&r.explode)toast('当前只显示一个完整源对象；要拆分骨内细部，请先保存真实面域');};
@@ -223,10 +311,192 @@ async function executeTool(name,a){const requireIds=()=>{if(!Array.isArray(a.ids
  if(name==='set_layer'){if(!CAT[a.category]||!objects().some(o=>o.category===a.category))throw Error('该组织没有已加载模型');if(a.visible!==undefined&&typeof a.visible!=='boolean')throw Error('visible 必须为布尔值');if(a.opacity!==undefined&&(!Number.isFinite(a.opacity)||a.opacity<0||a.opacity>1))throw Error('透明度必须为 0–1');remember();if(a.visible!==undefined)r.catVisible[a.category]=a.visible;if(a.opacity!==undefined)r.catAlpha[a.category]=a.opacity;r.dirty=true;renderCatalog();return{done:true};}
  if(name==='set_explode'){if(!Number.isFinite(a.amount)||a.amount<0||a.amount>1)throw Error('拆分程度必须为 0–1');remember();resetMotion();r.explode=a.amount;r.explodeCenter=groupCenter(r.objects.filter(o=>r.visible(o)));r.fit();syncControls();return{done:true,meaning:'display offset only'};}
  if(name==='set_view'){if(!['iso','x','nx','y','ny','z','nz'].includes(a.view))throw Error('不支持的视图');remember();view(a.view);return{done:true,axes:'source coordinates, not verified anatomy directions'};}
- if(name==='start_practice'){if(!['theory','identify'].includes(a.mode))throw Error('不支持的题型');startQuiz(a.mode);return{done:!!state.quiz};}throw Error('工具不在白名单');}
+ if(name==='start_practice'){if(!['theory','identify'].includes(a.mode))throw Error('不支持的题型');startQuiz(a.mode);return{done:!!state.quiz};}
+ // ---- Teaching tools (Tasks 19) ----
+ if(name==='list_taxonomy'){
+  const ar=objects();
+  const cat=a.category||null;
+  const rows=new Map();
+  for(const o of ar){
+   if(cat&&o.category!==cat)continue;
+   const n=K.names(o);
+   const g=n.group||'(未分组)',sg=n.subgroup||'';
+   const key=o.category+'|'+K.region(o)+'|'+g+'|'+sg;
+   if(!rows.has(key))rows.set(key,{category:o.category,region:K.region(o),group:g,subgroup:sg,count:0,reviewed:0,pending:0,unmapped:0});
+   const row=rows.get(key);row.count++;row[n.status==='reviewed'?'reviewed':n.matched?'pending':'unmapped']++;
+   if(a.group&&g!==a.group)rows.delete(key);
+  }
+  return{taxonomy:[...rows.values()].sort((x,y)=>x.category.localeCompare(y.category)||x.group.localeCompare(y.group)),total:rows.size,objects:ar.length,loadedCategories:Object.keys(CAT).filter(c=>ar.some(o=>o.category===c))};
+ }
+ if(name==='get_lesson'){
+  const lesson=window.FormaCurriculum.lesson(a.joint);
+  if(!lesson)throw Error('没有该关节的课程数据');
+  const side=state.jointSide||'L';
+  const needed=new Set();const loaded=new Set();
+  const markIds=ids=>{for(const id of ids||[]){const os=objectsByNomIds([id],side);if(os.length)os.forEach(o=>loaded.add(o.category));else{const rec=window.FormaNomenclature.records[id];if(rec){/* system inferred from lesson step */}}}};
+  (lesson.assembly||[]).forEach(st=>{needed.add(st.system);st.ids.forEach(id=>{if(objectsByNomIds([id],side).length)loaded.add(st.system);});markIds(st.ids);});
+  (lesson.motions||[]).forEach(m=>{[...m.movingIds,...(m.agonistIds||[]),...(m.antagonistIds||[]),...(m.anchorRule?.anchorIds||[])].forEach(id=>{const os=objectsByNomIds([id],side);os.forEach(o=>loaded.add(o.category));});});
+  const missingSystems=[...needed].filter(s=>!loaded.has(s));
+  // report per-assembly-step availability without returning geometry
+  const assembly=(lesson.assembly||[]).map(st=>({step:st.step,zh:st.zh,en:st.en,system:st.system,requested:st.ids.length,loaded:new Set(objectsByNomIds(st.ids,side).map(K.nomId)).size,namesPending:!!st.namesPending}));
+  const motions=(lesson.motions||[]).map(m=>({id:m.id,zh:m.zh,en:m.en,axisNameZh:m.anchorRule.axisNameZh,startAngle:m.startAngle,endAngle:m.endAngle,movingObjects:objectsByNomIds(m.movingIds,side).length,agonistObjects:objectsByNomIds(m.agonistIds||[],side).length,antagonistObjects:objectsByNomIds(m.antagonistIds||[],side).length,anchorsLoaded:objectsByNomIds(m.anchorRule.anchorIds,side).length>0,approximationNotice:'教学近似轴 / 刚性成组演示，非生理活动度或生物力学认证'}));
+  return{joint:lesson.joint,zh:lesson.zh,en:lesson.en,complete:!!lesson.complete,missingFields:lesson.missingFields||[],warning:lesson.warning||null,assembly,motions,views:lesson.views||[],missingSystems,calibrated:window.FormaCurriculum.orientationCalibrated(),loadedSide:side};
+ }
+ if(name==='set_highlight'){
+  const entries={};a.ids.forEach(id=>{entries[id]=a.state;});
+  const map=setHighlight(entries);
+  if(!map.length)throw Error('指定 id 的结构均未加载；先用 search_structures / list_taxonomy 确认已加载对象');
+  for(const[oid,st]of map)r.highlightState.set(oid,st);
+  r.dirty=true;renderCatalog();
+  return{done:true,highlighted:map.length,state:a.state};
+ }
+ if(name==='play_assembly'){
+  let steps=a.steps;
+  if(!steps){const lesson=window.FormaCurriculum.lesson(a.joint);if(!lesson?.assembly)throw Error('该关节尚无组装课程');steps=lesson.assembly.map(st=>({system:st.system,ids:st.ids,zh:st.zh}));}
+  if(a.reverse)steps=[...steps].reverse();
+  const dur=clamp(Number(a.step_seconds)||1.4,0.3,8);
+  const res=playAssembly(steps,{stepDuration:dur});
+  const wait=Math.max(0.4,Math.min(steps.length*dur,animationBudget()));
+  return{done:true,steps:steps.length,objects:res.played,missing:res.missing,wait_seconds:Math.round(wait*10)/10,note:'显示偏移归位，源顶点未移动'};
+ }
+ if(name==='play_joint_motion'){
+  const lesson=window.FormaCurriculum.lesson(a.joint);if(!lesson)throw Error('没有该关节课程');
+  const motion=(lesson.motions||[]).find(m=>m.id===a.motion);
+  if(!motion)throw Error('课程中没有该运动：'+a.motion);
+  const dur=clamp(Number(a.seconds)||3,0.5,20),loop=clamp(Math.round(a.loop)||1,1,4);
+  const res=playJointMotion(motion,{duration:dur,loop});
+  return{done:true,motion:motion.zh,axis:res.axis.name,movingObjects:res.moving,contractionObjects:res.contraction,wait_seconds:Math.min(dur*loop,animationBudget()),warning:motion.anchorRule.axisNameZh+'；教学近似，非生理活动度'};
+ }
+ if(name==='camera_tour'){
+  const hold=clamp(Number(a.hold_seconds)??1,0,10);
+  const views=a.views.map(v=>({view:v}));
+  cameraTour(views,{hold});
+  return{done:true,views:views.length,wait_seconds:Math.min(views.length*(0.9+hold),animationBudget()),axes:'source coordinates, anatomical orientation not calibrated'};
+ }
+ if(name==='stop_animation'){stopAnimation();return{done:true};}
+ throw Error('工具不在白名单');}
+// ================= Teaching animation primitives (Tasks 16–18) =================
+const T=window.FormaTimeline;
+function objectsByNomIds(ids,side=state.jointSide||'L'){
+ const want=new Set(ids||[]);const out=[];
+ for(const o of objects()){
+  const id=K.nomId(o);if(!id||!want.has(id))continue;
+  // Midline / unsided structures always participate; only exclude the clearly
+  // opposite side. Empty side must never silently drop a requested structure.
+  const sd=K.side(o);
+  if(sd&&side&&sd!==side)continue;
+  out.push(o);
+ }
+ return out;
+}
+function missingNomIds(ids,side){
+ const found=new Set(objectsByNomIds(ids,side).map(o=>K.nomId(o)));
+ return(ids||[]).filter(id=>!found.has(id));
+}
+// Teaching axis: joint center from union bounds of anchor objects, two endpoints
+// along the declared source-coordinate axisVector. Fails loudly on missing
+// anchors or degenerate geometry — never silently substitutes another axis.
+function solveAxis(rule,side=state.jointSide){
+ const anchors=objectsByNomIds(rule?.anchorIds||[],side);
+ if(!anchors.length)throw Error('锚点结构尚未加载，无法计算教学近似轴；请先载入对应骨骼系统');
+ const b=E.boundsEmpty();
+ for(const o of anchors){E.boundsAdd(b,o.bounds.min);E.boundsAdd(b,o.bounds.max);}
+ const size=E.boundsSize(b);
+ if(!size.every(Number.isFinite)||Math.max(...size)<=0)throw Error('锚点结构几何异常（包围盒退化），无法定义教学近似轴');
+ const center=E.boundsCenter(b);
+ const v=rule.axisVector;
+ const vlen=Math.hypot(v[0],v[1],v[2]);
+ if(!vlen)throw Error('教学轴方向向量为零');
+ const half=Math.max(...size)*0.6;
+ const dir=v.map(x=>x/vlen);
+ const A=center.map((c,i)=>c-dir[i]*half),B=center.map((c,i)=>c+dir[i]*half);
+ return{pointA:A,pointB:B,center,name:rule.axisNameZh||'教学近似轴'};
+}
+function animationBudget(){return(agent?.limits?.().animationBudgetSeconds)??60;}
+// Set multi-state highlight. state: accent|series|contraction|null(clear).
+function setHighlight(entries){
+ const map=[];
+ for(const[id,st]of Object.entries(entries||{})){
+  const os=objectsByNomIds([id]);
+  if(!os.length)continue;
+  for(const o of os){
+   r.highlighted.add(o.id);o.hidden=false;r.catVisible[o.category]=true;
+   map.push([o.id,st||'accent']);
+  }
+ }
+ return map;
+}
+function clearHighlightStates(){r.highlightState.clear();r.dirty=true;}
+// Play ordered assembly steps. Each step gathers its ids, starts exploded,
+// settles to assembly with camera push-in and series highlight.
+function playAssembly(steps,{stepDuration=1.4,onstep,onfinish}={}){
+ if(!T)throw Error('动画模块未加载');
+ cancelTimeline();remember();
+ const side=state.jointSide||'L';
+ const collected=[];const missing=[];
+ const segs=[];let cursor=0;
+ steps.forEach((step,i)=>{
+  const os=objectsByNomIds(step.ids,side);
+  if(!os.length){missing.push(step.zh);return;}
+  for(const o of os){o.hidden=false;r.catVisible[o.category]=true;}
+  collected.push(...os);
+  const hl=os.map(o=>[o.id,i===steps.length-1?'accent':'series']);
+  segs.push(T.highlight(r,hl,{delay:cursor,duration:stepDuration+0.4}));
+  segs.push(T.assembly(r,os,{from:0.65,to:0,delay:cursor,duration:stepDuration,easing:'easeOutCubic'}));
+  // camera gently frames the step at its midpoint
+  const bb=E.boundsEmpty();for(const o of os){E.boundsAdd(bb,o.bounds.min);E.boundsAdd(bb,o.bounds.max);}
+  segs.push(T.cameraMove(r,{target:E.boundsCenter(bb),span:Math.max(...E.boundsSize(bb))*1.9},{delay:cursor,duration:stepDuration}));
+  cursor+=stepDuration;
+ });
+ if(!collected.length)throw Error('组装序列中的结构均未加载：'+missing.join('、'));
+ r.isolated=new Set(collected.map(o=>o.id));r.explode=0;r.explodeCenter=groupCenter(collected);
+ timeline=new T.Timeline(r);
+ timeline.play(segs,{budgetSeconds:animationBudget(),onfinish:()=>{r.timelineOffsets.clear();r.dirty=true;onfinish?.({missing});}});
+ return{played:collected.length,missing};
+}
+// Play one joint motion with rigid bone group + contraction-state muscles.
+function playJointMotion(motion,{duration=3,loop=1,onfinish}={}){
+ if(!T)throw Error('动画模块未加载');
+ cancelTimeline();remember();
+ const side=state.jointSide||'L';
+ const axis=solveAxis(motion.anchorRule,side);
+ const moving=objectsByNomIds(motion.movingIds,side);
+ if(!moving.length)throw Error('运动骨组尚未加载，无法播放教学运动');
+ const agonists=objectsByNomIds(motion.agonistIds||[],side);
+ const antagonists=objectsByNomIds(motion.antagonistIds||[],side);
+ const all=[...moving,...agonists,...antagonists];
+ for(const o of all){o.hidden=false;r.catVisible[o.category]=true;}
+ r.isolated=new Set(all.map(o=>o.id));r.explode=0;r.explodeCenter=groupCenter(all);
+ const ids=new Set(moving.map(o=>o.id));
+ const segs=[
+  T.highlight(r,agonists.map(o=>[o.id,'contraction']),{delay:0}),
+  T.highlight(r,antagonists.map(o=>[o.id,'series']),{delay:0}),
+  T.rigidSweep(r,{ids,pointA:axis.pointA,pointB:axis.pointB,amplitude:Math.round((motion.endAngle-motion.startAngle)/2)||30,duration})
+ ];
+ timeline=new T.Timeline(r);
+ timeline.play(segs,{budgetSeconds:animationBudget(),loop,onfinish:()=>{r.timelineMatrixFor=()=>null;r.highlightState.clear();r.dirty=true;onfinish?.();}});
+ return{axis,moving:moving.length,contraction:agonists.length};
+}
+// Camera tour: timed sequence of named source views / holds around a target.
+function cameraTour(views,{hold=1.0,onfinish}={}){
+ if(!T)throw Error('动画模块未加载');
+ cancelTimeline();
+ const segs=[];let cursor=0;
+ const p=({yaw,pitch})=>({yaw,pitch});
+ for(const v of views){
+  const preset={z:[0,0],nz:[Math.PI,0],x:[Math.PI/2,0],nx:[-Math.PI/2,0],y:[0,Math.PI/2-.001],ny:[0,-Math.PI/2+.001],iso:[.45,.18]}[v.view]||[r.yaw,r.pitch];
+  segs.push(T.cameraMove(r,{yaw:preset[0],pitch:preset[1]},{delay:cursor,duration:0.9}));
+  cursor+=0.9+hold;
+ }
+ timeline=new T.Timeline(r);
+ timeline.play(segs,{budgetSeconds:animationBudget(),onfinish:()=>onfinish?.()});
+ return{views:views.length};
+}
+function stopAnimation(){cancelTimeline();resetMotion();r.dirty=true;}
 async function startup(){const p=JSON.parse($('payload-data').textContent||'{}');if(p.theme==='dark')setTheme('dark');if(p.assets?.length){bus.emit('loading-start');try{for(const {data,...meta}of p.assets){await assets.ingest(C.b64decode(data),meta,{fit:false});}importRecords(p);r.fit();if(p.view)try{loadView(p.view);}catch(e){toast('源数据已恢复；部分旧视图不兼容');}}finally{bus.emit('loading-end');}return;}
  if(location.hash.includes('no-auto'))return;let cached=[];try{cached=await assets.cache.all();}catch{}if(cached.length){bus.emit('loading-start');try{for(const a of cached){const {buffer,...meta}=a;await assets.ingest(buffer,meta,{fit:false,cache:false});}r.fit();refresh();toast('已从本机缓存恢复源模型');}finally{bus.emit('loading-end');}}else await assets.load('skeletal');}
-try{r=new E.MeshRenderer($('canvas'));assets=new C.AssetManager(r,bus);const app={state,renderer:r,assets,object:byId,validatedPatches:ownPatches,selectedObject:current,select,hideCanvasName,setTab,modal,closeModal,popover,agentContext,executeTool,actions:ACTIONS,save,refresh,recordPack,exportOffline,startQuiz,answerQuiz,endQuiz,openJoint,jointParts,panorama,importRecords,makePatch,view,restore,snapshot};window.FormaStudio=app;window.__studio=app;agent=new FormaAgent.Agent(app);app.agent=agent;
+try{r=new E.MeshRenderer($('canvas'));assets=new C.AssetManager(r,bus);timeline=new T.Timeline(r);const app={state,renderer:r,assets,object:byId,validatedPatches:ownPatches,selectedObject:current,select,hideCanvasName,setTab,modal,closeModal,popover,agentContext,executeTool,actions:ACTIONS,save,refresh,recordPack,exportOffline,startQuiz,answerQuiz,endQuiz,openJoint,jointParts,panorama,importRecords,makePatch,view,restore,snapshot,
+ get timeline(){return timeline;},objectsByNomIds,solveAxis,playAssembly,playJointMotion,cameraTour,stopAnimation,curriculum:()=>window.FormaCurriculum};window.FormaStudio=app;window.__studio=app;agent=new FormaAgent.Agent(app);app.agent=agent;
  bus.on('asset',()=>{refresh();});bus.on('progress',({text,pct})=>{$('load-message').textContent=text;$('load-progress').style.width=(pct??15)+'%';});bus.on('loading-start',()=>{$('load-banner').hidden=false;$('load-error').hidden=true;});bus.on('loading-end',()=>{$('load-banner').hidden=true;});bus.on('import-records',importRecords);let cacheWarning=false;bus.on('cache-unavailable',()=>{if(!cacheWarning){cacheWarning=true;toast('浏览器未允许模型缓存；本次仍可使用，离开前可导出离线文件');}});
  bindDocument();bindDragging();bindCanvas();setTheme(state.theme);setMode('select');syncControls();renderCatalog();renderDetail();renderQuiz();new ResizeObserver(()=>{r.resize();r.dirty=true;}).observe($('stage'));for(const key of['--left','--right'])if(state.layout[key])document.documentElement.style.setProperty(key,state.layout[key]);
  document.addEventListener('visibilitychange',()=>{if(document.hidden){state.spin=false;save();}});addEventListener('beforeunload',save);requestAnimationFrame(animate);startup().catch(e=>{$('load-error').hidden=false;$('load-error').textContent=e.message;$('load-banner').hidden=true;toast('源模型暂未载入；可重试、导入本地文件或旧版离线 HTML');console.warn(e.message);});

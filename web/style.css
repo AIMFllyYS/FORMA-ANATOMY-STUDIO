@@ -172,6 +172,8 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .idx-chapter>summary>strong{font-size:13px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .idx-chapter>summary .chev{display:inline-flex;color:var(--faint);transition:transform .14s ease-out}
 .idx-chapter>summary .chev .ico{width:13px;height:13px}
+.idx-chapter>summary .tree-eye{opacity:.45;flex-shrink:0}
+.idx-chapter>summary:hover .tree-eye{opacity:1}
 .idx-chapter[open]>summary>.chev{transform:rotate(90deg)}
 .idx-chapter-body{border-top:1px solid var(--border);padding:6px 8px 8px;min-width:0}
 .idx-node{min-width:0}
