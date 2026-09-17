@@ -212,6 +212,135 @@
       "mutatesCanvas": true,
       "zh": "开始练习",
       "icon": "quiz"
+    },
+    {
+      "name": "list_taxonomy",
+      "description": "只读：按命名层浏览实际已加载结构的分类（系统→区域→功能群→亚群）与各组对象数、命名审校状态。不加载模型；缺料时用 get_scene 查看已载系统并提示用户载入。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "category": { "type": "string", "enum": ["skeletal", "joints", "muscles", "nerves", "organs", "vessels", "lymph"] },
+          "group": { "type": "string", "maxLength": 60 }
+        },
+        "additionalProperties": false
+      },
+      "mutatesCanvas": false,
+      "zh": "浏览分类",
+      "icon": "layers"
+    },
+    {
+      "name": "get_lesson",
+      "description": "只读：读取关节课程数据（组装顺序、组成、教学运动、主动/拮抗肌群、教学近似轴锚点规则、六面观察建议、缺失字段）。关节 id 用 wrist/shoulder/elbow/radioulnar/hip/knee/ankle/spine。未加载的系统会在 missingSystems 中给出需要载入的系统名。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "joint": { "type": "string", "enum": ["wrist", "shoulder", "elbow", "radioulnar", "hip", "knee", "ankle", "spine"] }
+        },
+        "additionalProperties": false,
+        "required": ["joint"]
+      },
+      "mutatesCanvas": false,
+      "zh": "读取课程",
+      "icon": "book"
+    },
+    {
+      "name": "set_highlight",
+      "description": "按稳定命名 id 给已加载结构设置多态高亮：accent 强调（绿）、series 序列焦点（橙）、contraction 收缩态（红）。需用户批准；不改变位置。讲解时可配 hold_seconds 停留。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "ids": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 100 },
+          "state": { "type": "string", "enum": ["accent", "series", "contraction"] },
+          "hold_seconds": { "type": "number", "minimum": 0, "maximum": 60, "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。" }
+        },
+        "additionalProperties": false,
+        "required": ["ids", "state"]
+      },
+      "mutatesCanvas": true,
+      "zh": "多态高亮",
+      "icon": "sparkle"
+    },
+    {
+      "name": "play_assembly",
+      "description": "播放课程组装序列：结构组从显示偏移逐步归位，伴随分组高亮与相机推近。传入关节 id（如 wrist）按课程顺序播放；也可用 steps 自定义 [{system, ids:[命名id], zh}]。显示偏移不修改源顶点。受动画总时长预算钳制。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "joint": { "type": "string", "enum": ["wrist", "shoulder", "elbow", "radioulnar", "hip", "knee", "ankle", "spine"] },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "system": { "type": "string", "enum": ["skeletal", "joints", "muscles", "nerves", "organs", "vessels", "lymph"] },
+                "ids": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 100 },
+                "zh": { "type": "string", "maxLength": 80 }
+              },
+              "required": ["ids"],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 12
+          },
+          "step_seconds": { "type": "number", "minimum": 0.3, "maximum": 8 },
+          "reverse": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      },
+      "mutatesCanvas": true,
+      "zh": "播放组装",
+      "icon": "layers"
+    },
+    {
+      "name": "play_joint_motion",
+      "description": "播放关节教学运动：运动骨组按课程声明的教学近似轴（由真实已加载几何包围盒推导）在角度区间刚性往复，主动肌呈收缩态、拮抗肌序列态。始终是教学近似/刚性演示，非生理活动度与生物力学认证。锚点结构缺失时失败并中文提示，不静默换轴。受动画总时长预算钳制。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "joint": { "type": "string", "enum": ["wrist", "shoulder", "elbow", "radioulnar", "hip", "knee", "ankle", "spine"] },
+          "motion": { "type": "string", "maxLength": 60, "description": "课程内运动 id，如 flexion_extension / radial_ulnar_deviation" },
+          "seconds": { "type": "number", "minimum": 0.5, "maximum": 20 },
+          "loop": { "type": "integer", "minimum": 1, "maximum": 4 }
+        },
+        "additionalProperties": false,
+        "required": ["joint", "motion"]
+      },
+      "mutatesCanvas": true,
+      "zh": "关节运动",
+      "icon": "rotate"
+    },
+    {
+      "name": "camera_tour",
+      "description": "相机编排：按视点序列定时切换并停留。view 用 iso/x/nx/y/ny/z/nz 源坐标方向；源模型朝向未校准前不得向用户称解剖学前后左右。受动画总时长预算钳制。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "views": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["iso", "x", "nx", "y", "ny", "z", "nz"] },
+            "minItems": 1,
+            "maxItems": 8
+          },
+          "hold_seconds": { "type": "number", "minimum": 0, "maximum": 10 }
+        },
+        "additionalProperties": false,
+        "required": ["views"]
+      },
+      "mutatesCanvas": true,
+      "zh": "相机编排",
+      "icon": "cube"
+    },
+    {
+      "name": "stop_animation",
+      "description": "立即停止正在播放的组装/运动/相机动画，清除显示偏移与运动矩阵，恢复可交互状态。",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "mutatesCanvas": true,
+      "zh": "停止动画",
+      "icon": "close"
     }
   ]
 }

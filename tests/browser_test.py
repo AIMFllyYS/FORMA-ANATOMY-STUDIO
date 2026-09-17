@@ -198,13 +198,16 @@ try:
   page.evaluate('__studio.agent.configureForTest({limits:FormaAgentConfig.defaultLimits()})')
   # 统一 JSON Schema 校验：每个工具一条非法 + 合法用例（TR-4.1/4.2）
   schema_cases=page.evaluate('''()=>{
-    const bad={get_scene:{extra:1},search_structures:{query:123},get_structure_info:{},focus_structures:{ids:[]},isolate_structures:{ids:[1],hold_seconds:999},highlight_structures:{ids:["x"]},set_layer:{category:"bones"},set_explode:{amount:2},set_view:{view:"front"},start_practice:{mode:"point"}};
-    const good={get_scene:{},search_structures:{query:"肱骨"},get_structure_info:{id:0},focus_structures:{ids:[0]},isolate_structures:{ids:[0],hold_seconds:5},highlight_structures:{ids:[0]},set_layer:{category:"muscles",visible:false,opacity:.5},set_explode:{amount:.5},set_view:{view:"z"},start_practice:{mode:"theory"}};
+    const bad={get_scene:{extra:1},search_structures:{query:123},get_structure_info:{},focus_structures:{ids:[]},isolate_structures:{ids:[1],hold_seconds:999},highlight_structures:{ids:["x"]},set_layer:{category:"bones"},set_explode:{amount:2},set_view:{view:"front"},start_practice:{mode:"point"},
+     list_taxonomy:{category:"bones"},get_lesson:{},set_highlight:{ids:[],state:"red"},play_assembly:{step_seconds:99},play_joint_motion:{joint:"wrist"},camera_tour:{views:[]},stop_animation:{extra:1}};
+    const good={get_scene:{},search_structures:{query:"肱骨"},get_structure_info:{id:0},focus_structures:{ids:[0]},isolate_structures:{ids:[0],hold_seconds:5},highlight_structures:{ids:[0]},set_layer:{category:"muscles",visible:false,opacity:.5},set_explode:{amount:.5},set_view:{view:"z"},start_practice:{mode:"theory"},
+     list_taxonomy:{},get_lesson:{joint:"wrist"},set_highlight:{ids:["radius"],state:"accent"},play_assembly:{joint:"wrist"},play_joint_motion:{joint:"wrist",motion:"flexion_extension"},camera_tour:{views:["z","nz"]},stop_animation:{}};
     const out={};
     for(const d of FormaAgent.DEFINITIONS){const [name,,schema]=d;out[name]=[FormaAgent.validateArgs(schema,bad[name]).length>0, FormaAgent.validateArgs(schema,good[name]).length===0];}
     return out;
   }''')
-  test('schema_validation_all_tools', all(v==[True,True] for v in schema_cases.values()))
+  bad_schema=[k for k,v in schema_cases.items() if v!=[True,True]]
+  test('schema_validation_all_tools', not bad_schema)
   # 全链路：非法参数不触发审批、不触碰画布，错误回送模型
   bad_flow=[]
   def bad_flow_route(route):

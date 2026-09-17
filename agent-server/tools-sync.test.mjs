@@ -41,5 +41,21 @@ test('every tool carries complete, bounded metadata',()=>{
 
 test('read/write split matches the approval policy',()=>{
  const writes=new Set(tools.filter(t=>t.mutatesCanvas).map(t=>t.name));
- assert.deepEqual(writes,new Set(['focus_structures','isolate_structures','highlight_structures','set_layer','set_explode','set_view','start_practice']));
+ assert.deepEqual(writes,new Set(['focus_structures','isolate_structures','highlight_structures','set_layer','set_explode','set_view','start_practice','set_highlight','play_assembly','play_joint_motion','camera_tour','stop_animation']));
+ // All write tools must be listed as read-write; the two new read tools are read-only.
+ assert.equal(tools.find(t=>t.name==='list_taxonomy').mutatesCanvas,false);
+ assert.equal(tools.find(t=>t.name==='get_lesson').mutatesCanvas,false);
+ assert.equal(tools.find(t=>t.name==='stop_animation').mutatesCanvas,true);
+});
+
+test('teaching animation tools declare bounded, schema-valid parameters',()=>{
+ const by=Object.fromEntries(tools.map(t=>[t.name,t]));
+ for(const name of ['set_highlight','play_assembly','play_joint_motion','camera_tour','stop_animation','list_taxonomy','get_lesson']){
+  assert.ok(by[name],`工具存在: ${name}`);
+  assert.equal(by[name].parameters.additionalProperties,false,`${name} 拒绝额外字段`);
+ }
+ assert.equal(by.set_highlight.parameters.properties.state.enum.join(','),'accent,series,contraction');
+ assert.ok(by.play_joint_motion.parameters.required.includes('joint'));
+ assert.ok(by.play_joint_motion.parameters.required.includes('motion'));
+ assert.ok(by.camera_tour.parameters.properties.views.maxItems<=8);
 });
