@@ -1,0 +1,257 @@
+﻿未命中唯一名: 256 未命中节点: 459
+(Abdominal part of pectoralis major muscle) | 2
+(Accessory parotid gland) | 2
+(Adductor minimus) | 2
+(Anteromedial basal segmental bronchus of left lung) | 1
+(Iliopectineal bursa) | 2
+(Opponens digiti minimi muscle of foot) | 2
+Abductor digiti minimi of foot | 2
+Accessory pancreatic duct | 1
+Acromial part of deltoid muscle | 2
+Anserine bursa | 2
+Antebrachial fascia | 2
+Anterior basal segmental bronchus of left lung (BVIII) | 1
+Anterior basal segmental bronchus of right lung (BVIII) | 1
+Anterior belly of digastric muscle | 2
+Anterior intermuscular septum of leg | 2
+Anterior lateral segment of liver (VI) | 1
+Anterior layer of thoracolumbar fascia | 2
+Anterior medial segment of liver (V) | 1
+Anterior segmental bronchus of left lung (BIII) | 1
+Anterior segmental bronchus of right lung (BIII) | 1
+Apical segmental bronchus of right lung (BI) | 1
+Apicoposterior segmental bronchus of left lung (BI+BII) | 1
+Ary-epiglottic part of oblique arytenoid muscle | 2
+Ascending part of trapezius muscle | 2
+Bicipitoradial bursa | 2
+Brachial fascia | 2
+Bucinator | 2
+Bursa of piriformis muscle | 2
+Clavicular head of pectoralis major muscle | 2
+Clavicular part of deltoid muscle | 2
+Common flexor tendon sheath | 2
+Common tendon sheath of fibularis muscles | 2
+Coracobrachial bursa | 2
+Corpus spongiosum of penis | 1
+Corrugator supercilii | 2
+Cruciform part of fibrous sheath of digit of hand | 2
+Deep head of flexor pollicis brevis | 2
+Deep head of pronator teres | 2
+Deep infrapatellar bursa | 2
+Deep part of masseter | 2
+Deltoid fascia | 2
+Depressor anguli oris | 2
+Depressor labii inferioris | 2
+Depressor septi nasi | 2
+Descending part of trapezius muscle | 2
+Diaphragmatic fascia | 1
+Dorsal fascia of hand | 2
+Dorsal interossei muscles of foot | 2
+Dorsal parts of lateral intertransversarii lumborum muscles | 2
+Epicranial aponeurosis | 2
+External part of thyro-arytenoid muscle | 2
+Fascia lata | 2
+Flexor digiti minimi of foot | 2
+Flexor digiti minimi of hand | 2
+Free taenia | 1
+Humeral head of extensor carpi ulnaris | 2
+Humeral head of flexor carpi ulnaris | 2
+Humero-ulnar head of flexor digitorum superficialis | 2
+Iliococcygeus muscle | 2
+Iliocostalis colli muscle | 2
+Iliocostalis lumborum muscle | 2
+Iliocostalis thoracis muscle | 2
+Iliopectineal arch | 2
+Iliopsoas fascia | 2
+Inferior extensor retinaculum of ankle | 2
+Inferior fibular retinaculum | 2
+Inferior gemellus muscle | 2
+Inferior head of lateral pterygoid muscle | 2
+Inferior lingular segmental bronchus of left lung (BV) | 1
+Inferior lobe of left lung | 1
+Inferior lobe of right lung | 1
+Inferior parathyroid gland | 2
+Inferior subtendinous bursa of biceps femoris muscle | 2
+Inferior tarsus | 2
+Intermediate bronchus | 1
+Intermediate tendon of digastric muscle | 2
+Intermuscular gluteal bursae | 2
+Interspinales colli muscles | 2
+Interspinales lumborum muscles | 2
+Interspinales thoracis muscles | 2
+Intertubercular tendon sheath | 2
+Investing abdominal fascia | 2
+Laryngopharynx | 1
+Lateral basal segmental bronchus of left lung (BIX) | 1
+Lateral basal segmental bronchus of right lung (BIX) | 1
+Lateral crico-arytenoid muscle | 2
+Lateral femoral intermuscular septum | 2
+Lateral head of flexor hallucis brevis | 2
+Lateral head of gastrocnemius | 2
+Lateral head of triceps brachii | 2
+Lateral intermuscular septum of arm | 2
+Lateral patellar retinaculum | 2
+Lateral segmental bronchus of right lung (BIV) | 1
+Lateral subtendinous bursa of gastrocnemius muscle | 2
+Left anterior lateral segment of liver (III) | 1
+Left inferior lobar bronchus | 1
+Left main bronchus | 1
+Left medial segment of liver (IV) | 1
+Left posterior lateral segment of liver (II) | 1
+Left superior lobar bronchus | 1
+Levator anguli oris | 2
+Levator nasolabialis | 2
+Levator palpebrae superioris | 2
+Levatores breves costarum | 2
+Levatores longi costarum | 2
+Long head of biceps brachii | 2
+Long head of biceps femoris | 2
+Long head of triceps brachii | 2
+Longissimus capitis muscle | 2
+Longissimus colli muscle | 2
+Longissimus thoracis muscle | 2
+Lumbrical muscles of foot | 2
+Masseteric fascia | 2
+Medial basal segmental bronchus of left lung (BVII) | 1
+Medial basal segmental bronchus of right lung (BVII) | 1
+Medial femoral intermuscular septum | 2
+Medial head of flexor hallucis brevis | 2
+Medial head of gastrocnemius | 2
+Medial head of triceps brachii | 2
+Medial intermuscular septum of arm | 2
+Medial patellar retinaculum | 2
+Medial segmental bronchus of right lung (BV) | 1
+Medial subtendinous bursa of gastrocnemius muscle | 2
+Meso-appendix | 1
+Mesocolic taenia | 1
+Mesocolon | 1
+Middle layer of thoracolumbar fascia | 2
+Middle lobar bronchus | 1
+Middle lobe of right lung | 1
+Mucosa of nasal cavity | 1
+Multifidus colli muscle | 2
+Multifidus lumborum muscle | 2
+Multifidus thoracis muscle | 2
+Nasopharynx | 1
+Oblique head of adductor hallucis | 2
+Oblique head of adductor pollicis | 2
+Oblique part of cricothyroid muscle | 2
+Obliquus inferior capitis muscle | 2
+Obliquus superior capitis muscle | 2
+Omental taenia | 1
+Orbicularis oris muscle | 2
+Orbital part of orbicularis oculi | 2
+Oropharynx | 1
+Palpebral part of orbicularis oculi | 2
+Piriformis fascia | 2
+Plantar tendon sheath of fibularis longus muscle | 2
+Platysma | 2
+Popliteal fascia | 2
+Posterior basal segmental bronchus of left lung (BX) | 1
+Posterior basal segmental bronchus of right lung (BX) | 1
+Posterior belly of digastric muscle | 2
+Posterior crico-arytenoid muscle | 2
+Posterior intermuscular septum of leg | 2
+Posterior lateral segment of liver (VII) | 1
+Posterior layer of thoracolumbar fascia | 2
+Posterior medial segment of liver (VIII) | 1
+Posterior segment of liver (I) | 1
+Posterior segmental bronchus of right lung (BII) | 1
+Pubo-analis muscle | 2
+Radial head of flexor digitorum superficialis | 2
+Rectus anterior capitis muscle | 2
+Rectus lateralis capitis muscle | 2
+Rectus posterior major capitis muscle | 2
+Rectus posterior minor capitis muscle | 2
+Right inferior lobar bronchus | 1
+Right main bronchus | 1
+Right superior lobar bronchus | 1
+Rotatores | 2
+Scalenus anterior muscle | 2
+Scalenus medius muscle | 2
+Scalenus posterior muscle | 2
+Scapular spinal part of deltoid muscle | 2
+Sciatic bursa of gluteus maximus muscle | 2
+Sciatic bursa of obturator internus | 2
+Semimembranosus bursa | 2
+Semispinalis thoracis muscle | 2
+Short head of biceps brachii | 2
+Short head of biceps femoris | 2
+Spinalis capitis muscle | 2
+Spinalis colli muscle | 2
+Spinalis thoracis muscle | 2
+Splenius colli muscle | 2
+Sternocostal head of pectoralis major muscle | 2
+Straight part of cricothyroid muscle | 2
+Subacromial bursa | 2
+Subcutaneous acromial bursa | 2
+Subcutaneous bursa of lateral malleolus | 2
+Subcutaneous bursa of medial malleolus | 2
+Subcutaneous bursa of tuberosity of tibia | 2
+Subcutaneous calcaneal bursa | 2
+Subcutaneous infrapatellar bursa | 2
+Subcutaneous prepatellar bursa | 2
+Subcutaneous trochanteric bursa | 2
+Subdeltoid bursa | 2
+Subfacial prepatellar bursa | 2
+Submandibular duct | 2
+Subtendinous bursa of iliacus muscle | 2
+Subtendinous bursa of infraspinatus muscle | 2
+Subtendinous bursa of obturator internus | 2
+Subtendinous bursa of sartorius muscle | 2
+Subtendinous bursa of teres major muscle | 2
+Subtendinous bursa of tibialis anterior | 2
+Subtendinous bursa of trapezius muscle | 2
+Subtendinous bursa of triceps brachii muscle | 2
+Subtendinous calcaneal bursa | 2
+Subtendinous prepatellar bursa | 2
+Superficial head of flexor pollicis brevis | 2
+Superficial head of pronator teres | 2
+Superficial investing cervical fascia | 2
+Superficial layer of temporal fascia | 2
+Superficial part of masseter | 2
+Superficial transverse metacarpal ligament | 2
+Superficial transverse metatarsal ligament | 2
+Superior bursa of biceps femoris muscle | 2
+Superior extensor retinaculum of ankle | 2
+Superior fibular retinaculum | 2
+Superior gemellus muscle | 2
+Superior head of lateral pterygoid muscle | 2
+Superior lingular segmental bronchus of left lung (BIV) | 1
+Superior lobe of left lung | 1
+Superior lobe of right lung | 1
+Superior parathyroid gland | 2
+Superior pharyngeal constrictor | 2
+Superior segmental bronchus of left lung (BVI) | 1
+Superior segmental bronchus of right lung (BVI) | 1
+Superior tarsus | 2
+Suprapatellar bursa | 2
+Synovial sheaths of digits of hand | 2
+Tendinous arch of levator ani | 2
+Tendon of extensor digitorum longus | 2
+Tendon sheath - abd. pollicis longus - ext. pollicis brevis | 2
+Tendon sheath of extensor carpi ulnaris | 2
+Tendon sheath of extensor digiti minimi manus | 2
+Tendon sheath of extensor digitorum and extensor indicis | 2
+Tendon sheath of extensor digitorum longus | 2
+Tendon sheath of extensor hallucis longus | 2
+Tendon sheath of extensor pollicis longus | 2
+Tendon sheath of extensors carpi radialis | 2
+Tendon sheath of flexor carpi radialis | 2
+Tendon sheath of flexor digitorum longus | 2
+Tendon sheath of flexor hallucis longus | 2
+Tendon sheath of flexor pollicis longus | 2
+Tendon sheath of tibialis anterior | 2
+Tendon sheath of tibialis posterior muscle | 2
+Thyro-epiglottic part of thyro-arytenoid muscle | 2
+Transverse head of adductor hallucis | 2
+Transverse head of adductor pollicis | 2
+Transverse intermuscular septum of leg | 2
+Transverse part of trapezius muscle | 2
+Trochanteric bursa of gluteus maximus muscle | 2
+Trochanteric bursa of gluteus medius muscle | 2
+Trochanteric bursa of gluteus minimus muscle | 2
+Ulnar head of extensor carpi ulnaris | 2
+Ulnar head of flexor carpi ulnaris | 2
+Vastus medialis muscle | 2
+Ventral parts of lateral intertransversarii lumborum muscles | 2

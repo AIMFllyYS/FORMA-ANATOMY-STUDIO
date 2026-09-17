@@ -89,6 +89,15 @@ def collect() -> tuple[set[str], set[str]]:
         add(m)
     for extra in ('左侧', '右侧', '骨骼', '肌肉', '神经', '关节', '韧带', '头颈', '脊柱', '胸腹', '上肢', '骨盆', '下肢'):
         add(extra)
+    # Nomenclature layer (Task 9): every mapped zh name and its functional groups
+    # so pinyin search covers muscles/organs added beyond the knowledge cards.
+    nom_path = ROOT / 'web' / 'nomenclature.json'
+    if nom_path.exists():
+        nom = json.loads(nom_path.read_text(encoding='utf-8'))
+        for rec in nom.get('records', {}).values():
+            add(rec.get('zh'))
+            add(rec.get('group'))
+            add(rec.get('subgroup'))
     return phrases, chars
 
 

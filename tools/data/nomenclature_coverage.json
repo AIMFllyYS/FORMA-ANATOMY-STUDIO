@@ -1,0 +1,78 @@
+{
+  "systems": {
+    "skeletal": {
+      "total": 277,
+      "zh": 100,
+      "reviewed": 0,
+      "methods": {
+        "wikidata": 100,
+        "none": 177
+      },
+      "coverage": 36.1
+    },
+    "joints": {
+      "total": 413,
+      "zh": 63,
+      "reviewed": 0,
+      "methods": {
+        "card": 22,
+        "none": 350,
+        "wikidata": 41
+      },
+      "coverage": 15.3
+    },
+    "muscles": {
+      "total": 683,
+      "zh": 683,
+      "reviewed": 395,
+      "methods": {
+        "wikidata": 222,
+        "manual": 399,
+        "card": 62
+      },
+      "coverage": 100.0
+    },
+    "nerves": {
+      "total": 581,
+      "zh": 252,
+      "reviewed": 0,
+      "methods": {
+        "none": 329,
+        "wikidata": 246,
+        "card": 6
+      },
+      "coverage": 43.4
+    },
+    "organs": {
+      "total": 119,
+      "zh": 119,
+      "reviewed": 60,
+      "methods": {
+        "wikidata": 59,
+        "manual": 60
+      },
+      "coverage": 100.0
+    },
+    "vessels": {
+      "total": 676,
+      "zh": 309,
+      "reviewed": 0,
+      "methods": {
+        "none": 367,
+        "wikidata": 309
+      },
+      "coverage": 45.7
+    },
+    "lymph": {
+      "total": 163,
+      "zh": 3,
+      "reviewed": 0,
+      "methods": {
+        "none": 160,
+        "wikidata": 3
+      },
+      "coverage": 1.8
+    }
+  },
+  "muscles_organs_coverage": 100.0
+}

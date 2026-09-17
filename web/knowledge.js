@@ -31,22 +31,31 @@ function pinyin(text){
  }).replace(/\s*([/·])\s*/g,' $1 ').replace(/([\u00C0-\u024Fa-z])(\d)/g,'$1 $2').replace(/(\d)(?=[\u00C0-\u024Fa-z])/g,'$1 ').replace(/\s+/g,' ').trim();
 }
 function foldPy(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+const NOM=window.FormaNomenclature;
+function nomId(o){return NOM?.identity(o)?.id||null;}
+function nomStatus(o){return NOM?.identity(o)?.status||'unmatched';}
 function names(o){
- if(!o)return{zh:'',en:'',py:'',matched:false};
- if(o.transient){const zh=o.name||'';return{zh,en:o.sourceName||zh,py:pinyin(zh),matched:false};}
+ if(!o)return{zh:'',en:'',la:'',py:'',matched:false,status:'unmatched'};
+ if(o.transient){const zh=o.name||'';return{zh,en:o.sourceName||zh,la:'',py:pinyin(zh),matched:false,status:'unmatched'};}
  const c=cardFor(o),raw=String(o.sourceName||o.name||''),n=cleanName(raw);
- let zh=o._knowledgeMatch==='exact'?c?.zh:null,en=o._knowledgeMatch==='exact'?c?.en:null;
+ const ident=NOM?NOM.identity(o):null;
+ let zh=ident?.zh||(o._knowledgeMatch==='exact'?c?.zh:null);
+ let en=ident?.en||(o._knowledgeMatch==='exact'?c?.en:null);
+ const la=ident?.la||'';
  if(!zh){const legacy=LEGACY_TERMS.find(([e])=>cleanName(e)===n);if(legacy){zh=legacy[1];if(!en)en=legacy[0];}}
- const sd=side(o),zhSide=sd==='L'?'左侧 · ':sd==='R'?'右侧 · ':'',enSide=sd==='L'?'Left ':sd==='R'?'Right ':'';
- if(zh){const full=zhSide+zh;return{zh:full,en:prettyEn((enSide+prettyEn(en||'')).trim()),py:pinyin(full),matched:true};}
- return{zh:raw,en:prettyEn(raw),py:'',matched:false};
+ const sd=ident?.side||side(o),zhSide=sd==='L'?'左侧 · ':sd==='R'?'右侧 · ':'',enSide=sd==='L'?'Left ':sd==='R'?'Right ':'';
+ if(zh){const full=zhSide+zh;return{zh:full,en:prettyEn((enSide+prettyEn(en||'')).trim()),la,py:pinyin(full),matched:true,status:ident?.status||'pending',id:ident?.id||null,group:ident?.group||'',subgroup:ident?.subgroup||''};}
+ return{zh:raw,en:prettyEn(raw),la:'',py:'',matched:false,status:'unmatched',id:null,group:'',subgroup:''};
 }
 function title(o){return names(o).zh;}
 function englishName(o){return names(o).en;}
-function region(o){const c=cardFor(o);if(c){if(/^[CTL]\d+$/.test(c.id)||['sacrum','coccyx'].includes(c.id))return'spine';if(c.region==='trunk')return'thorax';if(c.region==='neck')return'head';if(c.region==='back')return'thorax';return REGIONS[c.region]?c.region:'other';}const n=norm([o.name,...o.path||[],...o.collectionPaths||[]].join(' '));for(const[k,re]of [['spine',/vertebr|spinal|sacrum|coccyx/],['upper',/humer|radial|ulnar|forearm|hand|carpal|clavicl|scapul|shoulder|brachii/],['lower',/femur|femor|tibial|fibul|patell|foot|tarsal|talus|calcane|thigh|leg/],['pelvis',/pelvi|hip bone|coxal|iliac|ilium|ischi|pubi/],['head',/skull|cranial|brain|cerebr|face|frontal|parietal|occipital|temporal|sphenoid|maxilla|mandib|neck|hyoid/],['thorax',/thorax|abdom|pectoral|rib|heart|lung|liver|stomach|kidney|trunk|back/]])if(re.test(n))return k;return'other';}
-function family(o){const c=cardFor(o);if(c){if(/^[CTL]\d+$/.test(c.id))return{C:'颈椎',T:'胸椎',L:'腰椎'}[c.id[0]];if(/^rib\d/.test(c.id))return'肋';if(/^costal_cartilage/.test(c.id))return'肋软骨';if(/phalan|metacarp|metatars/.test(c.en.toLowerCase()))return /metacarp/i.test(c.en)?'掌骨':/metatars/i.test(c.en)?'跖骨':'指 / 趾骨';return c.zh;}
+function region(o){const t=NOM?.taxonomy(o);if(t?.region&&REGIONS[t.region])return t.region;const c=cardFor(o);if(c){if(/^[CTL]\d+$/.test(c.id)||['sacrum','coccyx'].includes(c.id))return'spine';if(c.region==='trunk')return'thorax';if(c.region==='neck')return'head';if(c.region==='back')return'thorax';return REGIONS[c.region]?c.region:'other';}const n=norm([o.name,...o.path||[],...o.collectionPaths||[]].join(' '));for(const[k,re]of [['spine',/vertebr|spinal|sacrum|coccyx/],['upper',/humer|radial|ulnar|forearm|hand|carpal|clavicl|scapul|shoulder|brachii/],['lower',/femur|femor|tibial|fibul|patell|foot|tarsal|talus|calcane|thigh|leg/],['pelvis',/pelvi|hip bone|coxal|iliac|ilium|ischi|pubi/],['head',/skull|cranial|brain|cerebr|face|frontal|parietal|occipital|temporal|sphenoid|maxilla|mandib|neck|hyoid/],['thorax',/thorax|abdom|pectoral|rib|heart|lung|liver|stomach|kidney|trunk|back/]])if(re.test(n))return k;return'other';}
+// Functional taxonomy from the nomenclature layer: group -> subgroup.
+function group(o){return NOM?.taxonomy(o)?.group||'';}
+function subgroup(o){return NOM?.taxonomy(o)?.subgroup||'';}
+function family(o){const t=NOM?.taxonomy(o);if(t?.group)return t.group;const c=cardFor(o);if(c){if(/^[CTL]\d+$/.test(c.id))return{C:'颈椎',T:'胸椎',L:'腰椎'}[c.id[0]];if(/^rib\d/.test(c.id))return'肋';if(/^costal_cartilage/.test(c.id))return'肋软骨';if(/phalan|metacarp|metatars/.test(c.en.toLowerCase()))return /metacarp/i.test(c.en)?'掌骨':/metatars/i.test(c.en)?'跖骨':'指 / 趾骨';return c.zh;}
  const p=o.collectionPaths?.[0]?.split('/').filter(Boolean)||o.path?.slice(0,-1)||[];return p.slice(-1)[0]||'源模型结构';}
-function key(o){const n=names(o);return norm([o.name,o.sourceName,n.zh,n.en,foldPy(n.py),cardFor(o)?.en,region(o),REGIONS[region(o)],...o.path||[],...o.collectionPaths||[]].join(' '));}
+function key(o){const n=names(o);return norm([o.name,o.sourceName,n.zh,n.en,n.la,foldPy(n.py),n.group,n.subgroup,cardFor(o)?.en,region(o),REGIONS[region(o)],...o.path||[],...o.collectionPaths||[]].join(' '));}
 function matches(o,q){q=norm(q);if(!q)return true;const text=key(o);return q.split(/\s+/).every(w=>text.includes(w))||LEGACY_TERMS.some(([en,zh])=>zh.includes(q)&&norm(o.name).includes(en));}
 const bone=(zh,ids)=>({zh,ids,cat:'skeletal'}),soft=(zh,terms)=>({zh,terms,cat:'joints'});
 const JOINTS=[
@@ -86,5 +95,5 @@ const QUESTIONS=[
 ['手的第一指通常具有几节指骨？',['1','2','3','4'],1,'拇指有近、远两节；其余手指通常有三节。','metacarpal1',['S5']],
 ['肩、髋关节比较，首先应该同时考虑什么？',['活动范围与稳定结构','仅模型颜色','仅源文件大小','只有关节名称'],0,'关节窝形态、关节囊、韧带与肌的作用要结合运动范围理解。','hip',['S9']]
 ].map((q,i)=>({id:'q'+i,question:q[0],options:q[1],answer:q[2],explanation:q[3],subject:q[4],sources:q[5]}));
-window.FormaKnowledge={cards,byId,sources:data.sources,cardFor,title,names,englishName,pinyin,prettyEn,side,region,family,key,matches,JOINTS,QUESTIONS,norm,cleanName,LEGACY_TERMS};
+window.FormaKnowledge={cards,byId,sources:data.sources,cardFor,title,names,englishName,pinyin,prettyEn,side,region,family,group,subgroup,nomId,nomStatus,key,matches,JOINTS,QUESTIONS,norm,cleanName,LEGACY_TERMS};
 })();
