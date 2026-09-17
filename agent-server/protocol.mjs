@@ -54,6 +54,22 @@ export function toModelMessages(messages) {
     } else if (m.role === 'tool') {
       const name = callNames.get(m.tool_call_id);
       if (!name) throw new Error('Tool result has no matching call');
+      // 多模态画布截图：浏览器对 capture_current_canvas 可发 content 数组，其中 image_url
+      // 只允许本地渲染的 data:image（无外部 URL/SSRF 面），其余 part 一律拒绝。
+      if (Array.isArray(m.content)) {
+        if (name !== 'capture_current_canvas') throw new Error('Multipart tool output only allowed for canvas capture');
+        const parts = [];
+        for (const p of m.content) {
+          if (!p || typeof p !== 'object') throw new Error('Invalid tool part');
+          if (p.type === 'text' && typeof p.text === 'string') parts.push({type:'text',text:p.text});
+          else if (p.type === 'image_url' && typeof p.image_url?.url === 'string' && /^data:image\/(png|jpeg|webp);base64,/.test(p.image_url.url)) {
+            if (p.image_url.url.length > 8_000_000) throw new Error('Capture image too large');
+            parts.push({type:'image_url',image_url:{url:p.image_url.url}});
+          } else throw new Error('Unsupported tool part type');
+        }
+        out.push({role:'tool',content:parts});
+        continue;
+      }
       let value;try {value = JSON.parse(m.content);} catch {value = {text:String(m.content).slice(0,100000)};}
       out.push({role:'tool',content:[{type:'tool-result',toolCallId:m.tool_call_id,toolName:name,output:{type:'json',value}}]});
     } else throw new Error('Unsupported message role');

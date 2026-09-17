@@ -35,12 +35,14 @@ function normalizeLimits(raw){
  return out;
 }
 function normalizePerm(m){return PERM_MODES.includes(m)?m:'smart';}
-function emptyConfig(){return{url:'',key:'',model:'',consent:false,proxy:false,permissionMode:'smart',limits:defaultLimits()};}
+function emptyConfig(){return{url:'',key:'',model:'',consent:false,proxy:false,vision:false,permissionMode:'smart',limits:defaultLimits()};}
 function str(v,n){return typeof v==='string'?v.slice(0,n):'';}
 function normalizeConfig(raw){
  if(!raw||typeof raw!=='object')return emptyConfig();
  const url=str(raw.url,400),model=str(raw.model,200),key=str(raw.key,8000);
  return{url,key,model,consent:raw.consent===true&&!!url&&!!model,proxy:false,
+  // vision：用户显式声明当前模型支持图像输入时才把画布截图作为 image_url 发送。
+  vision:raw.vision===true,
   permissionMode:normalizePerm(raw.permissionMode),limits:normalizeLimits(raw.limits)};
 }
 // v3 结构：{version:1,url,key,model,consent,permissionMode}
@@ -75,7 +77,12 @@ function normalizeMsg(m){
   if(Array.isArray(m.tool_calls))out.tool_calls=m.tool_calls.filter(t=>t&&t.type!==undefined).map(t=>({id:String(t.id||'').slice(0,80),type:'function',function:{name:String(t.function?.name||'').slice(0,80),arguments:String(typeof t.function?.arguments==='string'?t.function.arguments:JSON.stringify(t.function?.arguments||{})).slice(0,8000)}})).slice(0,12);
   return out;
  }
- if(role==='tool')return{role:'tool',tool_call_id:String(m.tool_call_id||'').slice(0,80),content:String(m.content??'').slice(0,8000)};
+ if(role==='tool'){
+  // 多模态截图工具消息（content 为 part 数组）落盘时只保留文字部分，base64 不入 localStorage。
+  let c=m.content;
+  if(Array.isArray(c))c=c.map(p=>p?.type==='text'?p.text:'').filter(Boolean).join('\n');
+  return{role:'tool',tool_call_id:String(m.tool_call_id||'').slice(0,80),content:String(c??'').slice(0,8000)};
+ }
  return null;
 }
 function normalizeViewTurn(v){

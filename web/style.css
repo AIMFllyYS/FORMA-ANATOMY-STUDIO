@@ -282,3 +282,81 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .md-body h2,.md-body h3{scroll-margin-top:12px}
 .md-body h2:after{content:'';display:block;width:26px;height:2px;border-radius:2px;background:var(--accent3);margin-top:5px}
 
+/* ===== 推理时间线：深色发光、非卡片、一行行向下排布 ===== */
+.turn-flow{list-style:none;margin:2px 0 4px;padding:0}
+.turn-phase{position:relative;margin:0;padding:0 0 2px 16px;border-left:1px solid color-mix(in srgb,var(--accent) 26%,transparent)}
+.turn-phase:before{content:'';position:absolute;left:-3.5px;top:7px;width:6px;height:6px;border-radius:50%;background:#05070a;border:1.5px solid var(--accent);box-shadow:0 0 7px color-mix(in srgb,var(--accent) 80%,transparent);z-index:1}
+.turn-phase:last-child{border-left-color:transparent}
+.turn-phase .answer-slot{margin:3px 0 7px;padding:0 2px}
+.turn-phase .answer-slot.is-empty{display:none}
+/* 折叠壳去掉一切卡片观感，成为纯文字一行 */
+.turn-phase .reason-shell{margin:0;background:none;border:0;box-shadow:none}
+.turn-phase .reason-summary{padding:3px 2px;font-size:11.5px;letter-spacing:.02em}
+.turn-phase .reason-shell:not(.is-live) .reason-summary{color:color-mix(in srgb,var(--text) 86%,var(--accent));text-shadow:0 0 10px color-mix(in srgb,var(--accent) 42%,transparent)}
+.turn-phase .reason-title{font-weight:600}
+.turn-phase .reason-meta{color:var(--faint);text-shadow:none}
+.turn-phase .reason-chain{margin:2px 0 0;padding:1px 0 2px 2px;border-left:0;list-style:none}
+.turn-phase .reason-step{margin:0 0 3px}
+.turn-phase .reason-step:before{display:none}
+/* 思考：暗底微光，不占卡片 */
+.turn-phase .think-body{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px;color:color-mix(in srgb,var(--text) 72%,transparent)}
+/* 工具行：图标 + 名称 + 次数 + 状态 + 详情，同一行排布 */
+.turn-phase .tool-group{margin:0 0 3px}
+.turn-phase .tool-line{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+.turn-phase .tool-chip{display:inline-flex;align-items:center;gap:7px;padding:1px 8px 1px 3px;border:0;border-radius:7px;background:transparent;color:var(--text);box-shadow:none}
+.turn-phase .tool-chip .tool-ico{width:18px;height:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--accent)}
+.turn-phase .tool-chip-name{font-size:11.5px;font-weight:600;letter-spacing:.01em;text-shadow:0 0 9px color-mix(in srgb,var(--accent) 30%,transparent)}
+.turn-phase .tool-count{font-size:10px;color:var(--faint)}
+.turn-phase .tool-chip-flag{margin-left:1px;font-size:10.5px;color:var(--faint)}
+.turn-phase .tool-chip.is-active .tool-chip-flag{color:var(--accent);text-shadow:0 0 8px color-mix(in srgb,var(--accent) 70%,transparent)}
+.turn-phase .tool-chip.is-done .tool-chip-flag{color:#7fe6b0;text-shadow:0 0 8px rgba(90,220,150,.55)}
+.turn-phase .tool-chip.is-error .tool-chip-name,.turn-phase .tool-chip.is-error .tool-chip-flag{color:#ff8a8a;text-shadow:0 0 8px rgba(255,90,90,.5)}
+/* 详情按钮：紧贴在“完成”状态右侧同一行 */
+.turn-phase .tool-calls-summary{list-style:none;border:0;background:none;cursor:pointer;padding:1px 4px;font-size:10.5px;color:var(--faint);line-height:1.4}
+.turn-phase .tool-calls-summary:before{content:none}
+.turn-phase .tool-calls-summary:hover{color:var(--accent);text-shadow:0 0 8px color-mix(in srgb,var(--accent) 60%,transparent)}
+.turn-phase .tool-calls{margin:3px 0 2px;padding:4px 0 2px 10px;border-left:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:3px}
+.turn-phase .tool-calls[hidden]{display:none}
+.turn-phase .tool-calls .tool-detail{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px}
+
+/* ===== 对话滚动跟随：包裹层 + 回到最新 + 输入框聚合菜单 ===== */
+.agent-panel{display:flex;flex-direction:column;min-height:0}
+.chat-scroll-wrap{position:relative;flex:1 1 auto;min-height:0;display:flex}
+.chat-scroll-wrap>#chat-messages{position:absolute;inset:0;width:100%;height:100%;overflow-y:auto}
+.scroll-jump{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:6;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 13px;border:1px solid var(--accent3);border-radius:999px;background:color-mix(in srgb,var(--panel) 92%,transparent);color:var(--accent);font-size:10.5px;box-shadow:var(--shadow);backdrop-filter:blur(10px);animation:fs-in .16s ease}
+.scroll-jump:hover{background:var(--accent2)}
+.scroll-jump .ico{width:13px;height:13px}
+.scroll-jump .ico-down{transform:rotate(180deg)}
+.scroll-mode-label{font-size:9px;color:var(--faint);white-space:nowrap;padding:2px 7px;border:1px solid var(--border);border-radius:999px;background:var(--panel2)}
+.composer-bar .grow{flex:1 1 auto}
+/* 聚合菜单内容 */
+.menu-title{font-size:10px;font-weight:650;color:var(--muted);letter-spacing:.04em;padding:2px 4px 6px}
+.menu-item{display:flex;align-items:center;gap:9px;width:100%;padding:8px 8px;border-radius:8px;font-size:11.5px;color:var(--text);text-align:left;background:transparent;border:0}
+.menu-item .ico{width:15px;height:15px;color:var(--accent);flex-shrink:0}
+.menu-item:hover{background:var(--accent2)}
+.menu-item.danger{color:var(--red)}
+.menu-item.danger .ico{color:var(--red)}
+.menu-separator{height:1px;background:var(--border);margin:7px 2px}
+.menu-group-label{font-size:9px;color:var(--faint);padding:0 4px 5px;letter-spacing:.05em}
+.menu-radio-row{display:flex;gap:4px;padding:0 2px}
+.menu-radio{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:7px 4px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--muted);font-size:10.5px;line-height:1.2}
+.menu-radio:hover{border-color:var(--accent3);color:var(--text)}
+.menu-radio.active{border-color:var(--accent);background:var(--accent2);color:var(--accent);font-weight:600}
+#popover .micro-note{margin:7px 2px 2px}
+/* ===== 画布半透明讲解标注悬浮层（Agent） ===== */
+.canvas-annotations{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.canvas-annotations .anno-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.anno-line{display:none}
+.anno-card{position:absolute;max-width:248px;padding:10px 12px 11px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:11px;background:color-mix(in srgb,var(--panel) 82%,transparent);backdrop-filter:blur(9px);box-shadow:0 10px 30px rgba(8,20,14,.28);color:var(--text);font-size:11px;line-height:1.7;pointer-events:auto;animation:fs-in .2s ease;transform:translateZ(0)}
+.anno-card .anno-head{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:650;color:var(--accent);letter-spacing:.04em;margin-bottom:4px}
+.anno-card .anno-head .ico{width:13px;height:13px}
+.anno-card .anno-body{color:var(--muted)}
+.anno-card .anno-body p{margin:0 0 .4em}
+.anno-card .anno-body p:last-child{margin-bottom:0}
+.anno-card .anno-close{position:absolute;top:5px;right:6px;width:20px;height:20px;display:grid;place-items:center;border:0;background:transparent;color:var(--faint)}
+.anno-card .anno-close:hover{color:var(--red)}
+.anno-card .anno-close .ico{width:12px;height:12px}
+.anno-arrow{position:absolute;z-index:4;pointer-events:none;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 70%,transparent))}
+.anno-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent),0 0 10px var(--accent);transform:translate(-50%,-50%);z-index:5}
+
+

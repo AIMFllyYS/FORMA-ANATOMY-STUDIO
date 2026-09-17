@@ -82,12 +82,14 @@ class MeshRenderer{
  }
  displayPoint(o,p){return Vec.add(M4.point(this.displayMatrix(o),p).slice(0,3),this.offset(o));}
  offset(o){
-  const base=Vec.scale(Vec.sub(o.center,this.explodeCenter||boundsCenter(this.bounds)),this.explode);
+  // 局部爆炸：设置了 explodeIds 白名单时，只有这些对象沿爆炸中心外移。
+  const exploded=!this.explodeIds||this.explodeIds.has(o.id);
+  const base=exploded?Vec.scale(Vec.sub(o.center,this.explodeCenter||boundsCenter(this.bounds)),this.explode):[0,0,0];
   const t=this.timelineOffsets.get(o.id);
   return t?Vec.add(base,t):base;
  }
  // Assembly start position for an object: explode vector scaled by factor.
- assemblyVector(o,factor=1){return Vec.scale(Vec.sub(o.center,this.explodeCenter||boundsCenter(this.bounds)),factor);}
+ assemblyVector(o,factor=1){const exploded=!this.explodeIds||this.explodeIds.has(o.id);return exploded?Vec.scale(Vec.sub(o.center,this.explodeCenter||boundsCenter(this.bounds)),factor):[0,0,0];}
  clearTimelineChannels(){this.timelineOffsets.clear();this.timelineMatrixFor=()=>null;this.highlightState.clear();this.dirty=true;}
  objectBounds(o){const b=boundsEmpty();for(let i=0;i<8;i++)boundsAdd(b,this.displayPoint(o,[0,1,2].map(k=>(i>>k)&1?o.bounds.max[k]:o.bounds.min[k])));return b;}
  removeObjects(ids){this.clearPatch();const gl=this.gl;for(const o of this.objects.filter(o=>ids.has(o.id)))for(const p of o.parts){for(const b of p.buffers||[])gl.deleteBuffer(b);if(p.lineBuffer)gl.deleteBuffer(p.lineBuffer);gl.deleteVertexArray(p.vao);}this.objects=this.objects.filter(o=>!ids.has(o.id));this.bounds=boundsEmpty();for(const o of this.objects){boundsAdd(this.bounds,o.bounds.min);boundsAdd(this.bounds,o.bounds.max);}this.worldRadius=this.objects.length?Math.max(Vec.length(boundsSize(this.bounds))*.5,1e-6):1;this.dirty=true;}

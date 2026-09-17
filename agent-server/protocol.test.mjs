@@ -43,3 +43,16 @@ test('sse payload includes reasoning and done marker',()=>{
  assert.match(raw,/reasoning_content/);assert.match(raw,/肱骨/);assert.match(raw,/\[DONE\]/);
 });
 test('refuses unsupported multimodal uploads',()=>{assert.throws(()=>toModelMessages([{role:'user',content:[{type:'image',image:'private'}]}]));});
+test('passes canvas capture image_url only as bounded data-url',()=>{
+ const dataUrl='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+ const setup=[{role:'assistant',content:null,tool_calls:[{id:'cap1',function:{name:'capture_current_canvas',arguments:'{}'}}]}];
+ const ok=toModelMessages([...setup,{role:'tool',tool_call_id:'cap1',content:[{type:'text',text:'shot'},{type:'image_url',image_url:{url:dataUrl}}]}]);
+ const parts=ok[1].content;
+ assert.equal(parts[0].type,'text');
+ assert.equal(parts[1].type,'image_url');
+ assert.equal(parts[1].image_url.url,dataUrl);
+ // 非截图工具不允许多 part；外部 URL / 非图片 data 一律拒绝。
+ assert.throws(()=>toModelMessages([{role:'assistant',tool_calls:[{id:'o1',function:{name:'get_scene',arguments:'{}'}}]},{role:'tool',tool_call_id:'o1',content:[{type:'image_url',image_url:{url:dataUrl}}]}]));
+ assert.throws(()=>toModelMessages([...setup,{role:'tool',tool_call_id:'cap1',content:[{type:'image_url',image_url:{url:'https://evil.example/x.png'}}]}]));
+ assert.throws(()=>toModelMessages([...setup,{role:'tool',tool_call_id:'cap1',content:[{type:'image_url',image_url:{url:'data:text/html;base64,PHNjcmlwdD4='}}]}]));
+});

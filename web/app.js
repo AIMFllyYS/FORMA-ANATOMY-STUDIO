@@ -22,7 +22,7 @@ function cancelTimeline(){if(timeline&&(timeline.playing||timeline.segments?.len
 function remember(){cancelTimeline();state.undo.push(snapshot());if(state.undo.length>30)state.undo.shift();$('undo-button').disabled=false;}
 function removeTransients(){if(state.transients.size){r.removeObjects(state.transients);state.transients.clear();}r.catVisible.regions=false;}
 function resetMotion(){r.motion=null;state.axisPoints=[];state.axisPicking=false;state.motionAngle=0;state.moving.clear();$('motion-badge').hidden=true;r.dirty=true;}
-function restore(s){cancelTimeline();removeTransients();resetMotion();r.clearPatch();state.patchDraft=null;state.activePatch=null;const h=new Set(s.hidden);for(const o of objects())o.hidden=h.has(o.id);r.isolated=s.isolated?new Set(s.isolated.filter(id=>byId(id))):null;r.catVisible={...s.catVisible};r.catAlpha={...s.catAlpha};Object.assign(r,s.camera);r.explode=s.explode||0;r.explodeCenter=s.explodeCenter;r.clipAxis=s.clipAxis??-1;r.clipFraction=s.clipFraction??.5;r.clipSign=s.clipSign||1;r.highlighted=new Set(s.highlighted||[]);state.selected=byId(s.selected)?s.selected:null;r.selected=state.selected??-1;state.nameHint=!!state.selected;state.panorama=s.panorama;state.joint=K.JOINTS.find(j=>j.id===s.joint)||null;state.jointSide=s.jointSide||'L';r.dirty=true;syncControls();refresh();}
+function restore(s){cancelTimeline();removeTransients();resetMotion();r.clearPatch();state.patchDraft=null;state.activePatch=null;const h=new Set(s.hidden);for(const o of objects())o.hidden=h.has(o.id);r.isolated=s.isolated?new Set(s.isolated.filter(id=>byId(id))):null;r.catVisible={...s.catVisible};r.catAlpha={...s.catAlpha};Object.assign(r,s.camera);r.explode=s.explode||0;r.explodeCenter=s.explodeCenter;r.explodeIds=null;r.clipAxis=s.clipAxis??-1;r.clipFraction=s.clipFraction??.5;r.clipSign=s.clipSign||1;r.highlighted=new Set(s.highlighted||[]);state.selected=byId(s.selected)?s.selected:null;r.selected=state.selected??-1;state.nameHint=!!state.selected;state.panorama=s.panorama;state.joint=K.JOINTS.find(j=>j.id===s.joint)||null;state.jointSide=s.jointSide||'L';r.dirty=true;syncControls();refresh();}
 function pushScene(label){state.history.push({label,snapshot:snapshot()});if(state.history.length>20)state.history.shift();}
 function backScene(){if(state.quiz)return endQuiz();const last=state.history.pop();if(!last){state.panorama=null;state.joint=null;removeTransients();resetMotion();r.isolated=null;r.explode=0;r.explodeCenter=null;r.clearPatch();r.fit();refresh();}else restore(last.snapshot);}
 function select(o,{focus=false,show=true}={}){if(!o)return;state.selected=o.id;r.selected=o.id;state.nameHint=true;r.clearPatch();state.patchDraft=null;state.activePatch=null;if(focus){o.hidden=false;r.catVisible[o.category]=true;if(r.isolated&&!r.isolated.has(o.id))r.isolated=new Set([o.id]);r.fit([o]);}r.dirty=true;if(show){showRight();if(state.tab==='learn')renderDetail();}renderCatalog();syncScene();agent?.status();}
@@ -227,17 +227,16 @@ const ACTIONS={
  'copy-name':async()=>{const o=current();if(!o)return;try{await navigator.clipboard.writeText(o.sourceName);toast('源名称已复制');}catch{modal('源名称',`<textarea readonly class="notes-area">${esc(o.sourceName)}</textarea><p>当前浏览器未允许自动复制，可手动选择文本。</p>`);}},
  'annotate':()=>setMode('annotate'),'patch-save':savePatch,'patch-clear':()=>{r.clearPatch();state.patchDraft=null;state.activePatch=null;state.detailTab='parts';setMode('select');renderDetail();},'regions-explode':explodeRegions,
  'axis-pick':beginAxis,'motion-reset':()=>{resetMotion();renderDetail();},'joint-all':jointAll,'joint-next':()=>{const ps=jointParts();for(let k=1;k<=ps.length;k++){const i=(state.jointStep+k)%ps.length;if(ps[i].objects.length)return highlightJoint(i);}toast('尚无已加载组成');},
- 'agent-settings':()=>agent.settings(),'agent-design':b=>agent.designPopover(b),'agent-open-resources':()=>{closeModal();resources();},'agent-open-licenses':()=>{closeModal();sourceModal();},'agent-save':()=>agent.saveSettings(),'agent-forget':()=>agent.forget(),'chat-clear':()=>agent.clear(),'chat-stop':()=>agent.stop(),'chat-new':()=>agent.newThread(),'chat-history':b=>agent.openHistory(b),'chat-perm':b=>agent.openPerm(b),'ask-selected':()=>{setTab('agent');$('chat-input').value='请系统讲解当前选中的结构，按定位、形态、连接、易混点和观察顺序展开。';$('chat-input').focus();},
+ 'agent-settings':()=>agent.settings(),'agent-design':b=>agent.designPopover(b),'agent-open-resources':()=>{closeModal();resources();},'agent-open-licenses':()=>{closeModal();sourceModal();},'agent-save':()=>agent.saveSettings(),'agent-forget':()=>agent.forget(),'chat-menu':b=>agent.composeMenu(b),'chat-clear':()=>agent.clear(),'chat-stop':()=>agent.stop(),'chat-new':()=>agent.newThread(),'chat-history':b=>agent.openHistory(b),'chat-perm':b=>agent.openPerm(b),'ask-selected':()=>{setTab('agent');$('chat-input').value='请系统讲解当前选中的结构，按定位、形态、连接、易混点和观察顺序展开。';$('chat-input').focus();},
  'export-offline':exportOffline,'export-records':()=>C.jsonFile(recordPack(),'forma_learning_records.json'),'import-records':()=>$('records-file').click(),'export-manifest':()=>C.jsonFile(assets.manifest(),'forma_source_manifest.json'),'sources':sourceModal,'help':help,
  'clear-cache':async()=>{await assets.cache.clear();toast('本机模型缓存已清除；当前打开的模型与学习笔记未删除');},
  'save-view':viewsModal,'commit-view':()=>{const name=$('view-name').value.trim()||'观察视图 '+(state.views.length+1);state.views.push({name,at:new Date().toISOString(),view:persistView()});state.views=state.views.slice(-12);save();viewsModal();toast('视图已保存');},
  'dock-panel':()=>toggleFloating(),'layout-reset':resetLayout
 };
-function bindDocument(){document.addEventListener('click',safe(async e=>{const b=e.target.closest('button,[data-select],[data-detail]');if(!b)return;if(b.hasAttribute('disabled'))return;if(b.dataset.action){const fn=ACTIONS[b.dataset.action];hideMenus();if(fn){e.preventDefault();await fn(b);}return;}
+function bindDocument(){document.addEventListener('click',safe(async e=>{const annoClose=e.target.closest('[data-anno-close]');if(annoClose){e.preventDefault();e.stopPropagation();clearCanvasAnnotations();return;}const b=e.target.closest('button,[data-select],[data-detail]');if(!b)return;if(b.hasAttribute('disabled'))return;if(b.dataset.action){const fn=ACTIONS[b.dataset.action];hideMenus();if(fn){e.preventDefault();await fn(b);}return;}
  if(b.dataset.select!==undefined){select(byId(b.dataset.select),{focus:!r.visible(byId(b.dataset.select))});return;}
  if(b.dataset.focusObject!==undefined){select(byId(b.dataset.focusObject),{focus:true});hideMenus();return;}
- if(b.dataset.eye!==undefined){e.preventDefault();const o=byId(b.dataset.eye);remember();o.hidden=!o.hidden;refresh();return;}
- if(b.dataset.groupEye){e.preventDefault();e.stopPropagation();const ar=groups.get(b.dataset.groupEye)||[];remember();const hide=ar.some(o=>!o.hidden);for(const o of ar)o.hidden=hide;refresh();return;}
+ if(b.dataset.eye!==undefined){e.preventDefault();const o=byId(b.dataset.eye);remember();o.hidden=!o.hidden;refresh();return;} if(b.dataset.groupEye){e.preventDefault();e.stopPropagation();const ar=groups.get(b.dataset.groupEye)||[];remember();const hide=ar.some(o=>!o.hidden);for(const o of ar)o.hidden=hide;refresh();return;}
  if(b.dataset.dirEye!==undefined){e.preventDefault();e.stopPropagation();const ar=dirGroups.get(b.dataset.dirEye)||[];if(!ar.length)return;remember();const hide=ar.some(o=>!o.hidden);for(const o of ar)o.hidden=hide;refresh();return;}
  if(b.dataset.layerToggle){remember();r.catVisible[b.dataset.layerToggle]=r.catVisible[b.dataset.layerToggle]===false;r.dirty=true;renderCatalog();return;}
  if(b.dataset.leftTab){setLeftTab(b.dataset.leftTab);return;}
@@ -301,7 +300,64 @@ function overlay(){const mask=!!state.quiz&&!state.quiz.ended&&state.quiz.questi
  if(state.axisPoints.length){lines+=state.axisPoints.map((p,i)=>drawPoint(p,'轴'+(i+1))).join('');if(state.axisPoints.length===2){const a=r.project(state.axisPoints[0]),z=r.project(state.axisPoints[1]);lines+=`<line x1="${a.x}" y1="${a.y}" x2="${z.x}" y2="${z.y}" stroke-dasharray="6 3"/>`;}}
  const o=current();if(r.clipAxis>=0&&o&&r.visible(o)&&!mask){const plane=r.plane(),pos=-plane[3]/r.clipSign;const key=[o.id,r.clipAxis,pos,r.explode,state.motionAngle].join('/');if(key!==sectionCache.key){sectionCache={key,segments:r.section(o,r.clipAxis,pos).slice(0,12000)};}let path='';for(const [a,z]of sectionCache.segments){const p=r.project(a),q=r.project(z);if([p.x,p.y,q.x,q.y].every(Number.isFinite))path+=`M${p.x.toFixed(1)},${p.y.toFixed(1)}L${q.x.toFixed(1)},${q.y.toFixed(1)}`;}lines+=`<path class="section-path" d="${path}"/><text x="15" y="${b.height-125}">所选源表面截交线 · 非组织切片</text>`;}
  svg.innerHTML=lines;}
-function animate(t){requestAnimationFrame(animate);if(state.spin){r.yaw+=.002;r.dirty=true;}if(r.dirty){r.draw();overlay();const st=r.stats;$('render-status').textContent='WebGL 2 · 源网格';$('visible-count').textContent=(st?.visible||0)+' 可见 / '+objects().length+' 源对象';}}
+// ================= Agent 画布半透明讲解标注（世界坐标投影 + 箭头） =================
+let annotations=[];let annoSeq=0;
+function annotationLayer(){return $('canvas-annotations');}
+function addCanvasAnnotation({title='',text='',targetId=null,position='auto',duration=8}){
+ // 教学跟随场景同一时刻只保留一张讲解卡，新标注替换旧标注，避免画面堆叠。
+ const ann={id:'a'+(++annoSeq),title,text,targetId,position,expiresAt:duration>0?Date.now()+duration*1000:0};
+ annotations=[ann];r.dirty=true;return ann.id;
+}
+function clearCanvasAnnotations(){const n=annotations.length;annotations=[];renderAnnotations();r.dirty=true;return n;}
+function annoPara(text){return esc(text).split(/\n+/).filter(Boolean).map(s=>`<p>${s}</p>`).join('');}
+function cardPos(ann,w,h,p){
+ const m=16,cw=248,ch=130;
+ let pos=ann.position;
+ if(pos==='auto'){
+  if(p){pos=p.x<w/2?(p.y<h/2?'top-right':'bottom-right'):(p.y<h/2?'top-left':'bottom-left');}
+  else pos='top-right';
+ }
+ const map={
+  'top-left':{x:m,y:m},'top-right':{x:w-cw-m,y:m},
+  'bottom-left':{x:m,y:h-ch-m},'bottom-right':{x:w-cw-m,y:h-ch-m}
+ };
+ return{...(map[pos]||map['top-right']),side:pos};
+}
+function renderAnnotations(){
+ const layer=annotationLayer();if(!layer)return;
+ const now=Date.now();
+ const live=annotations.filter(a=>!a.expiresAt||a.expiresAt>now);
+ if(live.length!==annotations.length){annotations=live;}
+ if(!live.length){if(layer._annoId){layer.innerHTML='';layer._annoId=null;}return;}
+ const b=r.canvas.getBoundingClientRect(),w=b.width,h=b.height;
+ if(!layer.querySelector('.anno-svg'))layer.innerHTML='<svg class="anno-svg" width="100%" height="100%"><defs><marker id="anno-arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="var(--accent)"/></marker></defs><line class="anno-line" stroke="var(--accent)" stroke-width="2" marker-end="url(#anno-arrowhead)"/></svg>';
+ const line=layer.querySelector('.anno-line');
+ const ann=live[0];
+ let card=layer.querySelector('.anno-card');
+ if(!card){card=document.createElement('div');card.className='anno-card';layer.appendChild(card);}
+ if(layer._annoId!==ann.id){
+  layer._annoId=ann.id;
+  card.innerHTML=`${ann.title?`<div class="anno-head">${icon('pin')}<span>${esc(ann.title)}</span></div>`:''}<button class="anno-close" data-anno-close title="关闭">${icon('close')}</button><div class="anno-body">${annoPara(ann.text)}</div>`;
+ }
+ // 目标世界坐标→屏幕坐标；对象不可见或在视锥外时只显示卡片、不画箭头。
+ let target=null;
+ if(ann.targetId!=null){const o=byId(ann.targetId);if(o&&r.visible(o)){const wp=r.displayPoint(o,o.center),pp=r.project(wp);if(Number.isFinite(pp.x)&&pp.z>=-1&&pp.z<=1&&pp.x>-40&&pp.x<w+40&&pp.y>-40&&pp.y<h+40)target=pp;}}
+ const cw=Math.min(card.offsetWidth||248,w-32),ch=card.offsetHeight||120;
+ const pos=cardPos(ann,w,h,target);
+ card.style.width=cw+'px';
+ card.style.left=pos.x+'px';card.style.top=pos.y+'px';
+ if(target){
+  // 从卡片朝向目标的一侧边缘中点连到目标点。
+  const ex=target.x<pos.x?pos.x:pos.x+cw;
+  const ey=clamp(target.y,pos.y,pos.y+ch);
+  line.setAttribute('x1',ex);line.setAttribute('y1',ey);line.setAttribute('x2',target.x);line.setAttribute('y2',target.y);
+  line.style.display='';
+  let dot=layer.querySelector('.anno-dot');
+  if(!dot){dot=document.createElement('div');dot.className='anno-dot';layer.appendChild(dot);}
+  dot.style.left=target.x+'px';dot.style.top=target.y+'px';dot.style.display='';
+ }else{line.style.display='none';const dot=layer.querySelector('.anno-dot');if(dot)dot.style.display='none';}
+}
+function animate(t){requestAnimationFrame(animate);if(state.spin){r.yaw+=.002;r.dirty=true;}if(r.dirty){r.draw();overlay();renderAnnotations();const st=r.stats;$('render-status').textContent='WebGL 2 · 源网格';$('visible-count').textContent=(st?.visible||0)+' 可见 / '+objects().length+' 源对象';}else if(annotations.length){renderAnnotations();}}
 function agentContext(){const o=current();return{selected:o?{id:o.id,name:K.title(o),sourceName:o.sourceName,category:o.category,hasLocalArticle:!!K.cardFor(o),mappedUserRegions:ownPatches(o).length}:null,loadedObjects:objects().length,categories:Object.keys(CAT).filter(c=>objects().some(o=>o.category===c)),joint:state.joint?.zh||null,sourceAxes:'unverified_anatomical_orientation',geometry:'source_surface_meshes',medicalReview:'not_expert_certified',privateNotes:'not_shared'};}
 async function executeTool(name,a){const requireIds=()=>{if(!Array.isArray(a.ids)||!a.ids.length||a.ids.length>100||!a.ids.every(Number.isSafeInteger))throw Error('ids 必须是 1–100 个整数');const ar=[...new Set(a.ids)].map(byId);if(ar.some(o=>!o||o.transient))throw Error('对象编号不存在或不是实际源对象');return ar;};const out=ar=>ar.map(o=>({id:o.id,name:K.title(o),sourceName:o.sourceName,category:o.category,visible:r.visible(o)}));
  if(name==='get_scene')return{...agentContext(),objects:out(objects().slice(0,60)),truncated:objects().length>60,layers:r.catVisible,opacity:r.catAlpha,explode:r.explode};
@@ -309,7 +365,42 @@ async function executeTool(name,a){const requireIds=()=>{if(!Array.isArray(a.ids
  if(name==='get_structure_info'){if(!Number.isSafeInteger(a.id))throw Error('无效对象编号');const o=byId(a.id);if(!o)throw Error('找不到该源对象');return{...out([o])[0],article:K.cardFor(o),source:assets.asset(o)?.sourceURL||null,geometry:{triangles:o.triangles,subregions:ownPatches(o).map(p=>({label:p.label,status:p.status}))},warning:'未映射术语不是已完成三维细部。私人笔记不共享。'};}
  if(name==='focus_structures'){focus(requireIds());return{done:true};}if(name==='isolate_structures'){isolate(requireIds());return{done:true};}if(name==='highlight_structures'){const ar=requireIds();remember();r.highlighted=new Set(ar.map(o=>o.id));for(const o of ar){o.hidden=false;r.catVisible[o.category]=true;}if(r.isolated)for(const o of ar)r.isolated.add(o.id);r.dirty=true;renderCatalog();return{done:true,objects:out(ar)};}
  if(name==='set_layer'){if(!CAT[a.category]||!objects().some(o=>o.category===a.category))throw Error('该组织没有已加载模型');if(a.visible!==undefined&&typeof a.visible!=='boolean')throw Error('visible 必须为布尔值');if(a.opacity!==undefined&&(!Number.isFinite(a.opacity)||a.opacity<0||a.opacity>1))throw Error('透明度必须为 0–1');remember();if(a.visible!==undefined)r.catVisible[a.category]=a.visible;if(a.opacity!==undefined)r.catAlpha[a.category]=a.opacity;r.dirty=true;renderCatalog();return{done:true};}
- if(name==='set_explode'){if(!Number.isFinite(a.amount)||a.amount<0||a.amount>1)throw Error('拆分程度必须为 0–1');remember();resetMotion();r.explode=a.amount;r.explodeCenter=groupCenter(r.objects.filter(o=>r.visible(o)));r.fit();syncControls();return{done:true,meaning:'display offset only'};}
+ if(name==='set_explode'){if(!Number.isFinite(a.amount)||a.amount<0||a.amount>1)throw Error('拆分程度必须为 0–1');remember();resetMotion();r.explode=a.amount;
+  // 局部爆炸：传入 ids 时，爆炸中心取这些对象的包围盒中心，偏移只作用于它们。
+  const local=Array.isArray(a.ids)&&a.ids.length?(()=>{if(a.ids.length>100||!a.ids.every(Number.isSafeInteger))throw Error('ids 必须是 1–100 个整数');const ar=[...new Set(a.ids)].map(byId);if(ar.some(o=>!o||o.transient))throw Error('对象编号不存在或不是实际源对象');return ar;})():null;
+  if(local&&local.length){r.explodeCenter=groupCenter(local);r.explodeIds=new Set(local.map(o=>o.id));}
+  else{r.explodeIds=null;r.explodeCenter=groupCenter(r.objects.filter(o=>r.visible(o)));}
+  r.fit(local||undefined);syncControls();return{done:true,meaning:'display offset only',scope:local?'local':'global'};}
+ if(name==='toggle_structure_visibility'){
+  if(typeof a.visible!=='boolean')throw Error('visible 必须为布尔值');
+  if(!Array.isArray(a.ids)&&!a.category)throw Error('ids 与 category 至少提供一个');
+  if(Array.isArray(a.ids)&&(a.ids.length>200||!a.ids.every(Number.isSafeInteger)))throw Error('ids 必须是 1–200 个整数');
+  if(a.category&&!CAT[a.category])throw Error('未知组织类别');
+  const idSet=new Set(Array.isArray(a.ids)?a.ids:[]);
+  const ar=objects().filter(o=>idSet.has(o.id)||(a.category&&o.category===a.category));
+  if(!ar.length)throw Error('没有匹配到任何已加载结构；先用 search_structures / get_scene 确认');
+  remember();
+  for(const o of ar){o.hidden=!a.visible;if(a.visible){r.catVisible[o.category]=true;}
+   if(!a.visible){r.highlighted.delete(o.id);r.highlightState?.delete(o.id);if(r.isolated)r.isolated.delete(o.id);}}
+  renderCatalog();r.dirty=true;
+  return{done:true,visible:a.visible,changed:ar.length,objects:out(ar.slice(0,60)),truncated:ar.length>60};
+ }
+ if(name==='add_canvas_annotation'){
+  if(typeof a.text!=='string'||!a.text.trim())throw Error('text 不能为空');
+  const target=a.target_id!=null?byId(a.target_id):null;
+  if(a.target_id!=null&&(!target||target.transient))throw Error('target_id 不是有效源对象');
+  const duration=Number.isFinite(a.duration_seconds)?clamp(a.duration_seconds,0,60):8;
+  const id=addCanvasAnnotation({title:a.title?String(a.title).slice(0,40):'',text:String(a.text).slice(0,300),targetId:target?target.id:null,position:['auto','top-left','top-right','bottom-left','bottom-right'].includes(a.position)?a.position:'auto',duration});
+  return{done:true,annotation_id:id,target:target?K.title(target):null,duration_seconds:duration};
+ }
+ if(name==='clear_canvas_annotations'){const n=clearCanvasAnnotations();return{done:true,cleared:n};}
+ if(name==='capture_current_canvas'){
+  r.draw();
+  let dataUrl='';
+  try{dataUrl=r.canvas.toDataURL('image/png');}catch(e){throw Error('当前画布无法截图（浏览器可能禁用了绘图缓冲读取）');}
+  const sel=current();
+  return{done:true,mime:'image/png',width:r.canvas.width,height:r.canvas.height,data_url:dataUrl,summary:(r.stats?.visible||0)+' 个可见结构 / 共 '+objects().length+' 个'+(sel?'，当前选中：'+K.title(sel):''),vision_hint:'这是本地渲染截图 base64；仅多模态模型可解读其图像内容'};
+ }
  if(name==='set_view'){if(!['iso','x','nx','y','ny','z','nz'].includes(a.view))throw Error('不支持的视图');remember();view(a.view);return{done:true,axes:'source coordinates, not verified anatomy directions'};}
  if(name==='start_practice'){if(!['theory','identify'].includes(a.mode))throw Error('不支持的题型');startQuiz(a.mode);return{done:!!state.quiz};}
  // ---- Teaching tools (Tasks 19) ----

@@ -46,7 +46,14 @@ class BuildTests(unittest.TestCase):
  def test_compiled_html_includes_markdown_agent(self):
   html=(ROOT/'dist'/'forma_anatomy_studio.html').read_text(encoding='utf-8')
   self.assertIn('FormaMarkdown',html);self.assertIn('readSSE',html);self.assertIn('ktext-callout',html);self.assertIn('forma-agent-config-v3',html)
-  self.assertIn('renderLive',html);self.assertIn('hold_seconds',html);self.assertIn('data-perm="smart"',html)
+  self.assertIn('renderLive',html);self.assertIn('hold_seconds',html)
+  # 权限单选已改为 JS 动态模板（聚合菜单/设置中心），验证模板与权限模式仍在产物中。
+  self.assertIn('data-perm="${m}"',html);self.assertIn("permissionMode:'smart'",html)
+  # Agent 教学闭环：渐进显隐、画布标注、截图、局部爆炸、滚动跟随、视觉开关。
+  for marker in ('toggle_structure_visibility','add_canvas_annotation','capture_current_canvas',
+                 'clear_canvas_annotations','canvas-annotations','composeMenuHTML','explodeIds',
+                 '智能跟随','agent-vision'):
+   self.assertIn(marker,html,marker)
  def test_compiled_html_embeds_nomenclature_curriculum_timeline(self):
   html=(ROOT/'dist'/'forma_anatomy_studio.html').read_text(encoding='utf-8')
   # Markers must be fully replaced; runtime data/scripts embedded once.

@@ -41,11 +41,31 @@ test('every tool carries complete, bounded metadata',()=>{
 
 test('read/write split matches the approval policy',()=>{
  const writes=new Set(tools.filter(t=>t.mutatesCanvas).map(t=>t.name));
- assert.deepEqual(writes,new Set(['focus_structures','isolate_structures','highlight_structures','set_layer','set_explode','set_view','start_practice','set_highlight','play_assembly','play_joint_motion','camera_tour','stop_animation']));
- // All write tools must be listed as read-write; the two new read tools are read-only.
+ assert.deepEqual(writes,new Set(['focus_structures','isolate_structures','highlight_structures','set_layer','set_explode','toggle_structure_visibility','add_canvas_annotation','clear_canvas_annotations','set_view','start_practice','set_highlight','play_assembly','play_joint_motion','camera_tour','stop_animation']));
+ // All write tools must be listed as read-write; the new read tools are read-only.
  assert.equal(tools.find(t=>t.name==='list_taxonomy').mutatesCanvas,false);
  assert.equal(tools.find(t=>t.name==='get_lesson').mutatesCanvas,false);
+ assert.equal(tools.find(t=>t.name==='capture_current_canvas').mutatesCanvas,false,'画布截图是只读操作');
  assert.equal(tools.find(t=>t.name==='stop_animation').mutatesCanvas,true);
+});
+
+test('new teaching tools declare bounded, schema-valid parameters',()=>{
+ const by=Object.fromEntries(tools.map(t=>[t.name,t]));
+ for(const name of ['toggle_structure_visibility','add_canvas_annotation','clear_canvas_annotations','capture_current_canvas']){
+  assert.ok(by[name],`工具存在: ${name}`);
+  assert.equal(by[name].parameters.additionalProperties,false,`${name} 拒绝额外字段`);
+ }
+ const vis=by.toggle_structure_visibility.parameters;
+ assert.equal(vis.properties.visible.type,'boolean');
+ assert.ok(vis.properties.ids.items.type==='integer');
+ assert.ok(vis.properties.duration_seconds===undefined||vis.properties.duration_seconds.type==='number');
+ const anno=by.add_canvas_annotation.parameters;
+ assert.ok(anno.required.includes('text'),'标注文本必填');
+ assert.equal(anno.properties.text.type,'string');
+ assert.ok((anno.properties.text.maxLength||0)>=40,'标注文本有合理上限');
+ assert.equal(anno.properties.position.enum!==undefined,true);
+ assert.equal(by.set_explode.parameters.properties.ids.items.type,'integer','局部爆炸支持 ids');
+ assert.equal(by.capture_current_canvas.parameters.properties!==undefined,true);
 });
 
 test('teaching animation tools declare bounded, schema-valid parameters',()=>{

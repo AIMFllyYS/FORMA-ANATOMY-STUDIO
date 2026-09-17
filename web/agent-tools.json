@@ -45,7 +45,7 @@
     },
     {
       "name": "focus_structures",
-      "description": "聚焦实际已加载的一个或多个对象；不新增结构。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 12），以便停留画面并继续说明。",
+      "description": "聚焦实际已加载的一个或多个对象；不新增结构。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 4），以便停留画面并继续说明。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -59,7 +59,7 @@
             "type": "number",
             "minimum": 0,
             "maximum": 60,
-            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。讲解某一结构或方向时传入，停留期间继续用文字说明；下一次会改画面的工具会等到停留结束。"
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 4）。讲解某一结构或方向时传入，停留期间继续用文字说明；下一次会改画面的工具会等到停留结束。"
           }
         },
         "additionalProperties": false,
@@ -71,7 +71,7 @@
     },
     {
       "name": "isolate_structures",
-      "description": "单独显示实际对象，其他对象隐藏在本次视图之外。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 12）。",
+      "description": "单独显示实际对象，其他对象隐藏在本次视图之外。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 4）。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -85,7 +85,7 @@
             "type": "number",
             "minimum": 0,
             "maximum": 60,
-            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 4）。"
           }
         },
         "additionalProperties": false,
@@ -97,7 +97,7 @@
     },
     {
       "name": "highlight_structures",
-      "description": "高亮实际源对象；不是给骨内部未标注的切迹自动划界。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 12）。",
+      "description": "高亮实际源对象；不是给骨内部未标注的切迹自动划界。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 4）。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -111,7 +111,7 @@
             "type": "number",
             "minimum": 0,
             "maximum": 60,
-            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 4）。"
           }
         },
         "additionalProperties": false,
@@ -152,16 +152,23 @@
     },
     {
       "name": "set_explode",
-      "description": "调整当前可见对象的显示拆分程度；不是切碎单个骨或关节运动。",
+      "description": "调整爆炸拆分程度：不传 ids 时对当前全部可见对象做整体爆炸；传入 ids 时仅以这些对象的包围盒为中心做局部爆炸，更直观展示局部结构关系。不是切碎单个骨或关节运动。讲解该视角时请设置 hold_seconds（0–60，受设置上限约束，默认 4）。",
       "parameters": {
         "type": "object",
         "properties": {
           "amount": { "type": "number", "minimum": 0, "maximum": 1 },
+          "ids": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "minItems": 1,
+            "maxItems": 100,
+            "description": "可选。仅对这些会话对象编号做局部爆炸，爆炸中心取它们的包围盒中心；省略则整体爆炸。"
+          },
           "hold_seconds": {
             "type": "number",
             "minimum": 0,
             "maximum": 60,
-            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 4）。"
           }
         },
         "additionalProperties": false,
@@ -172,8 +179,81 @@
       "icon": "explode"
     },
     {
+      "name": "toggle_structure_visibility",
+      "description": "渐进式披露教学：按会话对象编号隐藏或重新显示具体结构。可一次隐藏/显示多个，例如先隐藏内脏与心血管再逐层揭示。传入 category 可整类隐藏/显示（skeletal/joints/muscles/nerves/organs/vessels/lymph/other）。ids 与 category 至少给一个；两者都给时取并集。配合 get_scene/search_structures 获取编号。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "ids": { "type": "array", "items": { "type": "integer" }, "minItems": 1, "maxItems": 200 },
+          "category": {
+            "type": "string",
+            "enum": ["skeletal", "joints", "muscles", "nerves", "organs", "vessels", "lymph", "other"]
+          },
+          "visible": { "type": "boolean", "description": "true 显示，false 隐藏。" },
+          "hold_seconds": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 60,
+            "description": "操作完成后停留秒数（0–60，受设置上限约束，默认 3）。"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["visible"]
+      },
+      "mutatesCanvas": true,
+      "zh": "渐进显隐",
+      "icon": "eye"
+    },
+    {
+      "name": "add_canvas_annotation",
+      "description": "在三维画布上放置一张半透明悬浮讲解卡片，并用发光箭头指向目标结构。target_id 为要指向的会话对象编号（箭头锚定其当前投影位置，随旋转/缩放实时重定位）；text 为简短讲解（纯文本，建议 1–2 句）。不传 target_id 时作为无箭头的提示卡，用 position 指定屏幕角。duration_seconds 到点自动消失，传 0 则保留到下一次标注或 clear。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "target_id": { "type": "integer" },
+          "title": { "type": "string", "maxLength": 40 },
+          "text": { "type": "string", "maxLength": 300, "minLength": 1 },
+          "position": {
+            "type": "string",
+            "enum": ["auto", "top-left", "top-right", "bottom-left", "bottom-right"],
+            "description": "卡片在画布中的落点；auto 时自动放在目标箭头对侧避免遮挡。"
+          },
+          "duration_seconds": { "type": "number", "minimum": 0, "maximum": 60, "description": "自动消失秒数；0 表示持续保留，默认 8。" }
+        },
+        "additionalProperties": false,
+        "required": ["text"]
+      },
+      "mutatesCanvas": true,
+      "zh": "画布讲解标注",
+      "icon": "pin"
+    },
+    {
+      "name": "clear_canvas_annotations",
+      "description": "移除由 add_canvas_annotation 添加的全部悬浮讲解卡片与箭头。",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "mutatesCanvas": true,
+      "zh": "清除标注",
+      "icon": "close"
+    },
+    {
+      "name": "capture_current_canvas",
+      "description": "对当前三维画布截图并以 PNG（data URL base64）返回，用于让具备视觉/多模态能力的模型‘看见’当前画面，核对结构与遮挡后再决定下一步。纯本地读取，不上传网格。仅当所用模型明确支持图像输入（vision/多模态）时调用；纯文本模型调用会浪费上下文，应改用 get_scene 文字描述。返回 data_url、宽高与一句场景摘要。",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "mutatesCanvas": false,
+      "zh": "画布截图",
+      "icon": "camera"
+    },
+    {
       "name": "set_view",
-      "description": "切换源坐标观察方向；未校准时不能声称解剖学前后左右。讲解该方向时请设置 hold_seconds（0–60，受设置上限约束，默认 12）。",
+      "description": "切换源坐标观察方向；未校准时不能声称解剖学前后左右。讲解该方向时请设置 hold_seconds（0–60，受设置上限约束，默认 4）。",
       "parameters": {
         "type": "object",
         "properties": {
@@ -185,7 +265,7 @@
             "type": "number",
             "minimum": 0,
             "maximum": 60,
-            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。"
+            "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 4）。"
           }
         },
         "additionalProperties": false,
@@ -251,7 +331,7 @@
         "properties": {
           "ids": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 100 },
           "state": { "type": "string", "enum": ["accent", "series", "contraction"] },
-          "hold_seconds": { "type": "number", "minimum": 0, "maximum": 60, "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 12）。" }
+          "hold_seconds": { "type": "number", "minimum": 0, "maximum": 60, "description": "操作完成后在该视角停留的秒数（0–60，受设置上限约束，默认 4）。" }
         },
         "additionalProperties": false,
         "required": ["ids", "state"]
