@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "note": "Model source registry. standard = upstream decimated browser GLB (always available). balanced/HD are self-hosted tiers produced by tools/export_blender.py from the Z-Anatomy template; they are marked available:false until manifests exist in models/manifests/. Cached assets are isolated by SHA-256, so switching tiers never mixes models.",
+  "defaultTier": "standard",
+  "attributionIds": ["bodyparts3d", "z-anatomy", "upstream-adaptation"],
+  "sources": {
+    "standard": {
+      "zh": "标准（上游减面版）",
+      "kind": "upstream",
+      "bases": [
+        "https://raw.githubusercontent.com/DrMuratAltun/anatomi-simulatoru/refs/heads/main/systems/",
+        "https://drmurataltun.github.io/anatomi-simulatoru/systems/"
+      ],
+      "files": {
+        "skeletal": "iskelet.glb",
+        "joints": "eklem.glb",
+        "muscles": "kas.glb",
+        "nerves": "sinir.glb",
+        "organs": "ic-organlar.glb",
+        "vessels": "dolasim.glb",
+        "lymph": "lenf.glb"
+      },
+      "gzip": false,
+      "qualityZh": "上游浏览器减面版；肌肉约保留源细分 18%，适合即时浏览",
+      "triangleBudget": "seven systems ≈ 2.18M triangles total",
+      "licenseId": "cc-by-sa-4.0-with-bodyparts3d-chain",
+      "available": true
+    },
+    "balanced": {
+      "zh": "balanced（自托管平衡档）",
+      "kind": "self-hosted",
+      "bases": [],
+      "files": {
+        "skeletal": "skeletal.balanced.glb.gz",
+        "joints": "joints.balanced.glb.gz",
+        "muscles": "muscles.balanced.glb.gz",
+        "nerves": "nerves.balanced.glb.gz",
+        "organs": "organs.balanced.glb.gz",
+        "vessels": "vessels.balanced.glb.gz",
+        "lymph": "lymph.balanced.glb.gz"
+      },
+      "gzip": true,
+      "qualityZh": "Z-Anatomy 重导出平衡档；面数介于标准与 HD 之间，目标 8GB 内存机型分系统 ≥30fps",
+      "triangleBudget": "see models/manifests/*.json",
+      "licenseId": "cc-by-sa-4.0-with-bodyparts3d-chain",
+      "available": false,
+      "selfHostGuide": "models/README.md"
+    },
+    "hd": {
+      "zh": "HD（自托管高分辨率档）",
+      "kind": "self-hosted",
+      "bases": [],
+      "files": {
+        "skeletal": "skeletal.hd.glb.gz",
+        "joints": "joints.hd.glb.gz",
+        "muscles": "muscles.hd.glb.gz",
+        "nerves": "nerves.hd.glb.gz",
+        "organs": "organs.hd.glb.gz",
+        "vessels": "vessels.hd.glb.gz",
+        "lymph": "lymph.hd.glb.gz"
+      },
+      "gzip": true,
+      "qualityZh": "Z-Anatomy 重导出高分辨率档；肌肉/心血管/神经面数 ≥ 现用档 2×",
+      "triangleBudget": "muscles/vessels/nerves >= 2x standard per AC-6",
+      "licenseId": "cc-by-sa-4.0-with-bodyparts3d-chain",
+      "available": false,
+      "selfHostGuide": "models/README.md"
+    }
+  }
+}

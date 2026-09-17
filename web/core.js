@@ -28,6 +28,26 @@ const CAT={skeletal:{name:'骨骼',en:'Skeletal',color:'#b7aa88',file:'iskelet.g
 const REGIONS={head:'头颈',spine:'脊柱',thorax:'胸腹 / 背',upper:'上肢',pelvis:'骨盆',lower:'下肢',other:'其他'};
 const BASE='https://raw.githubusercontent.com/DrMuratAltun/anatomi-simulatoru/refs/heads/main/systems/';
 const MIRROR='https://drmurataltun.github.io/anatomi-simulatoru/systems/';
+// Model source registry (Task 11): versioned data embedded at #model-sources-data.
+function loadModelSources(){
+ try{const raw=document.getElementById('model-sources-data')?.textContent;if(raw&&raw.trim())return JSON.parse(raw);}catch(e){console.warn('model-sources parse failed',e);}
+ return{version:1,defaultTier:'standard',sources:{standard:{bases:[BASE,MIRROR],files:{},gzip:false,available:true}}};
+}
+const MODEL_SOURCES=loadModelSources();
+const TIER_KEY='forma-model-tier-v1';
+const TIER_BASES_KEY='forma-model-bases-v1';
+function readTier(){try{const t=localStorage.getItem(TIER_KEY);return MODEL_SOURCES.sources[t]?t:MODEL_SOURCES.defaultTier||'standard';}catch{return MODEL_SOURCES.defaultTier||'standard';}}
+function writeTier(t){try{localStorage.setItem(TIER_KEY,t);}catch{}}
+function readTierBases(){try{return JSON.parse(localStorage.getItem(TIER_BASES_KEY)||'{}');}catch{return{}}}
+function writeTierBases(obj){try{localStorage.setItem(TIER_BASES_KEY,JSON.stringify(obj));}catch{}}
+// Decompress gzip bytes for explicitly-served .glb.gz (local Object URL /
+// octet-stream). When a server sends Content-Encoding the browser has already
+// inflated, but a .gz-named file usually carries raw gzip without that header.
+async function gunzip(buffer){
+ if(typeof DecompressionStream==='undefined')throw Error('当前浏览器不支持 gzip 解压（DecompressionStream）');
+ const stream=new Response(buffer).body.pipeThrough(new DecompressionStream('gzip'));
+ return await new Response(stream).arrayBuffer();
+}
 const ATTRIBUTION={model:'Z-Anatomy / Gauthier Kervyn, Marcin Zielinski; derived from BodyParts3D / DBCLS.',adaptation:'DrMuratAltun/anatomi-simulatoru; upstream decimated browser GLB.',license:'Upstream distributes systems GLB as CC BY-SA 4.0; retain BodyParts3D CC BY-SA 2.1 Japan and source notices. Component-specific licences may apply.',url:'https://github.com/DrMuratAltun/anatomi-simulatoru/blob/main/ATTRIBUTION.md',source:'https://github.com/Z-Anatomy/Models-of-human-anatomy'};
 const STORE_KEY='forma-study-v3';
 function readStore(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch{return{};}}
@@ -60,20 +80,62 @@ class AssetManager{
   if(this.cacheEnabled&&options.cache!==false)this.cache.put(asset).catch(()=>this.bus.emit('cache-unavailable'));
   return asset;
  }
- async load(category){if(this.pending.has(category))return this.pending.get(category);if(!CAT[category]?.file)throw Error('该类别没有远程模型源');
-  const found=this.assets.find(a=>a.category===category&&a.origin==='compact');if(found){this.r.catVisible[category]=true;this.r.dirty=true;this.bus.emit('asset',found);return found;}
-  this.cancelled=false;const task=(async()=>{this.bus.emit('loading-start',category);let err;try{for(const base of [BASE,MIRROR]){if(this.cancelled)throw Error('下载已取消');try{const url=base+CAT[category].file;this.progress('连接 '+CAT[category].name+' 模型源',2);const buffer=await this.fetch(url);if(this.cancelled)throw Error('下载已取消');return await this.ingest(buffer,{category,filename:CAT[category].file,origin:'compact',quality:'上游浏览器减面版；本应用不再减面',sourceURL:url,license:ATTRIBUTION.license,attribution:ATTRIBUTION},{fit:this.r.objects.length===0});}catch(e){err=e;if(this.cancelled)throw Error('下载已取消');}}throw Error('无法取得 '+CAT[category].name+' 模型。可重试、导入本地 GLB，或导入上一版含数据的离线 HTML。'+(err?.message?'（'+err.message+'）':''));}finally{this.pending.delete(category);this.bus.emit('loading-end');}})();this.pending.set(category,task);return task;
+ get tier(){return readTier();}
+ setTier(t){if(!MODEL_SOURCES.sources[t])throw Error('未知模型档位');writeTier(t);}
+ tierSource(tier=this.tier){const src=MODEL_SOURCES.sources[tier];const custom=readTierBases()[tier];return{...src,bases:(custom&&custom.length)?custom:src.bases};}
+ resolveModelURL(category,tier=this.tier){
+  const src=this.tierSource(tier);const file=src.files?.[category]||CAT[category]?.file;
+  if(!file)throw Error('该档位没有此系统的文件映射');
+  if(!src.bases||!src.bases.length)throw Error('该档位尚未配置自托管地址（见 models/README.md）');
+  return{url:src.bases[0]+file,bases:src.bases,file,gzip:!!src.gzip};
  }
- async importFile(file,category='other'){const ext=file.name.split('.').pop().toLowerCase();if(file.size>1050*1048576)throw Error('文件过大，请按系统导入');
+ async load(category,tier=this.tier){if(this.pending.has(category))return this.pending.get(category);if(!CAT[category])throw Error('该类别没有模型源');
+  const originTag='compact:'+tier;
+  const found=this.assets.find(a=>a.category===category&&a.origin===originTag);if(found){this.r.catVisible[category]=true;this.r.dirty=true;this.bus.emit('asset',found);return found;}
+  const src=this.tierSource(tier);
+  if(!src.available&&!readTierBases()[tier]?.length)throw Error(CAT[category].name+' 的 '+src.zh+' 档位尚未生成；请使用标准档，或按 models/README.md 自托管 balanced/HD。');
+  let resolved;try{resolved=this.resolveModelURL(category,tier);}catch(e){throw e;}
+  this.cancelled=false;const task=(async()=>{this.bus.emit('loading-start',category);let err;
+   try{
+    for(const base of resolved.bases){
+     if(this.cancelled)throw Error('下载已取消');
+     try{
+      const url=base+resolved.file;this.progress('连接 '+CAT[category].name+' 模型源 · '+(src.zh||tier),2);
+      let buffer=await this.fetch(url);if(this.cancelled)throw Error('下载已取消');
+      // .glb.gz delivered without Content-Encoding arrives as raw gzip; inflate locally.
+      if(resolved.gzip||/\.glb\.gz$/i.test(resolved.file)){
+       const dv=new DataView(buffer);
+       const isGLB=dv.byteLength>4&&dv.getUint32(0,true)===0x46546C67;
+       if(!isGLB){this.progress('解压 gzip 模型 · '+bytes(buffer.byteLength),86);buffer=await gunzip(buffer);}
+      }
+      return await this.ingest(buffer,{category,filename:resolved.file.replace(/\.gz$/,''),origin:originTag,tier,quality:(src.qualityZh||('模型档位：'+tier))+'；本应用不再减面',sourceURL:url,license:ATTRIBUTION.license,attribution:ATTRIBUTION},{fit:this.r.objects.length===0});
+     }catch(e){err=e;if(this.cancelled)throw Error('下载已取消');}
+    }
+    throw Error('无法取得 '+CAT[category].name+' 模型。可重试、切换标准档、导入本地 GLB，或导入上一版含数据的离线 HTML。'+(err?.message?'（'+err.message+'）':''));
+   }finally{this.pending.delete(category);this.bus.emit('loading-end');}})();
+  this.pending.set(category,task);return task;
+ }
+ async importFile(file,category='other'){
+  let name=file.name;
+  let ext=name.split('.').pop().toLowerCase();
+  if(/\.glb\.gz$/i.test(name))ext='glb.gz';
+  if(file.size>1050*1048576)throw Error('文件过大，请按系统导入');
   if(['html','htm'].includes(ext)){
    // Parse inert data only. Imported HTML/JavaScript is never executed.
    const text=await file.text();const doc=new DOMParser().parseFromString(text,'text/html');const node=doc.querySelector('#payload-data');if(!node)throw Error('未发现兼容的模型数据插槽；请从旧版先导出含模型的离线 HTML');const pack=JSON.parse(node.textContent);if(!Array.isArray(pack.assets)||!pack.assets.length)throw Error('该 HTML 是无内嵌模型的启动器；请在旧版载入模型并导出离线文件');if(pack.assets.length>80)throw Error('数据包数量异常');for(const a of pack.assets){if(typeof a.data!=='string')throw Error('模型数据缺失');const{data,...meta}=a;await this.ingest(b64decode(data),meta,{fit:false});}this.r.fit();this.bus.emit('import-records',pack);return;
   }
-  if(!['glb','obj','stl'].includes(ext))throw Error('支持 GLB / OBJ / STL 或旧版离线 HTML');
-  await this.ingest(await file.arrayBuffer(),{category,filename:file.name,origin:'local',quality:'用户导入源网格；身份与单位由来源决定'});
+  if(!['glb','obj','stl','glb.gz'].includes(ext))throw Error('支持 GLB / .glb.gz / OBJ / STL 或旧版离线 HTML');
+  let buffer=await file.arrayBuffer();
+  let importName=file.name;
+  if(ext==='glb.gz'){
+   const dv=new DataView(buffer);
+   if(!(dv.byteLength>4&&dv.getUint32(0,true)===0x46546C67))buffer=await gunzip(buffer);
+   importName=file.name.replace(/\.gz$/,'');
+  }
+  await this.ingest(buffer,{category,filename:importName,origin:'local',quality:'用户导入源网格；身份与单位由来源决定'});
  }
  manifest(){return{version:3,generatedAt:new Date().toISOString(),assets:this.assets.map(({buffer,...meta})=>meta),objects:this.r.objects.filter(o=>!o.transient).map(o=>({key:this.key(o),sourceName:o.sourceName,path:o.path,category:o.category,triangles:o.triangles,vertices:o.vertices}))};}
 }
 function rotationAround(a,b,angle){const axis=Vec.norm(Vec.sub(b,a));if(Vec.length(axis)<.5)throw Error('旋转轴两点过近');const half=angle/2;const r=M4.trs([0,0,0],[...Vec.scale(axis,Math.sin(half)),Math.cos(half)]);return M4.mul(M4.trs(a),M4.mul(r,M4.trs(Vec.scale(a,-1))));}
-window.FormaCore={$ ,esc,icon,tick,clamp,norm,safeURL,uid,bytes,toast,saveFile,jsonFile,b64decode,b64encode,sha256,Bus,CAT,REGIONS,ATTRIBUTION,readStore,writeStore,AssetManager,rotationAround};
+window.FormaCore={$ ,esc,icon,tick,clamp,norm,safeURL,uid,bytes,toast,saveFile,jsonFile,b64decode,b64encode,sha256,Bus,CAT,REGIONS,ATTRIBUTION,readStore,writeStore,AssetManager,rotationAround,MODEL_SOURCES,gunzip,readTier,writeTier,readTierBases,writeTierBases};
 })();

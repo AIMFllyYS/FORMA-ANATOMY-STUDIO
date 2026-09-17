@@ -22,9 +22,37 @@ SYSTEMS = {
     "joints": "3: Joints",
     "muscles": "4: Muscular system",
     "nerves": "7: Nervous system & Sense organs",
+    "organs": "5: Internal organs",
+    "vessels": "6: Cardiovascular system",
+    "lymph": "8: Lymphatic system",
 }
 COLORS = {"skeletal": [0.79, 0.75, 0.63, 1], "joints": [0.48, 0.69, 0.73, 1],
-          "muscles": [0.70, 0.37, 0.33, 1], "nerves": [0.80, 0.64, 0.23, 1]}
+          "muscles": [0.70, 0.37, 0.33, 1], "nerves": [0.80, 0.64, 0.23, 1],
+          "organs": [0.66, 0.53, 0.60, 1], "vessels": [0.74, 0.43, 0.43, 1],
+          "lymph": [0.58, 0.64, 0.38, 1]}
+# Z-Anatomy special-object conventions to exclude from anatomical meshes.
+SPECIAL_SUFFIXES = (".j", ".g")
+SPECIAL_MARK = "'"
+def is_special(name: str) -> bool:
+    n = name.strip()
+    if n.endswith(SPECIAL_MARK):
+        return True
+    base = n.rsplit(".", 1)[0].strip() if "." in n else n
+    return n.lower().endswith(SPECIAL_SUFFIXES) or base.endswith(SPECIAL_SUFFIXES)
+def side_suffix(name: str) -> str:
+    n = name.strip().lower()
+    for suf in (".l", ".r", ".left", ".right", "_l", "_r"):
+        if n.endswith(suf):
+            return suf.lstrip("._").upper()[:1]
+    return ""
+def anatomy_id(name: str) -> str:
+    """Stable snake_case id aligned with build_nomenclature.slug()."""
+    import re
+    n = re.sub(r"[._-]?\b(l|r|left|right)\b$", "", name.strip(), flags=re.IGNORECASE)
+    n = re.sub(r"[^a-z0-9]+", "_", n.lower()).strip("_")[:96]
+    return n or "unnamed"
+
+TIER = "balanced"
 
 
 class GLBWriter:
@@ -196,7 +224,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--systems", default=",".join(SYSTEMS))
+    parser.add_argument("--tier", default="balanced", choices=["balanced", "hd"],
+                        help="分辨率档位，写入节点 extras 与 manifest（不自动减面，仅标注）")
     args = parser.parse_args(args_list)
+    global TIER
+    TIER = args.tier
     chosen = args.systems.split(",")
     if any(s not in SYSTEMS for s in chosen):
         raise ValueError("Unknown system")
@@ -204,9 +236,11 @@ def main():
     show_sources()
     paths = collection_paths()
     depsgraph = bpy.context.evaluated_depsgraph_get()
-    manifest = {"exporter": "source-evaluated-no-added-decimation", "blender": bpy.app.version_string,
+    manifest = {"exporter": "source-evaluated-no-added-decimation", "tier": args.tier,
+                "blender": bpy.app.version_string,
                 "source_filename": Path(bpy.data.filepath).name, "assets": [], "errors": [], "skipped": [],
-                "anatomy_review": "not performed", "additional_decimation": False}
+                "anatomy_review": "not performed", "additional_decimation": False,
+                "license": "CC BY-SA 4.0 derivative; retain BodyParts3D / Z-Anatomy attribution chain"}
     emitted = {}
     for category in chosen:
         name = SYSTEMS[category]
@@ -227,12 +261,17 @@ def main():
                 writer.annotation(obj.name, obj.data.body, [float(p.x), float(p.z), -float(p.y)], memberships)
                 annotation_count += 1
                 continue
-            if obj.name.endswith(".g"):
-                # Existing source annotation meshes are not anatomical tissue.
-                manifest["skipped"].append({"object": obj.name, "reason": "source .g annotation geometry; not counted as anatomical mesh"})
+            if is_special(obj.name):
+                # .j empty / .g text-annotation / not-modelled objects are never
+                # exported as anatomical tissue (Z-Anatomy convention).
+                manifest["skipped"].append({"object": obj.name, "reason": "special object (.j/.g/not-modelled); not anatomical mesh"})
                 continue
-            if obj.type not in {"MESH", "CURVE", "SURFACE"}:
+            if obj.type not in {"MESH", "CURVE", "SURFACE", "FONT"}:
                 manifest["skipped"].append({"object": obj.name, "reason": "non-surface type " + obj.type})
+                continue
+            # CURVE/SURFACE are converted to evaluated mesh by Blender; FONT is
+            # handled above as a text annotation, so only mesh-like types arrive.
+            if obj.type == "FONT":
                 continue
             if obj.as_pointer() in emitted:
                 manifest["skipped"].append({"object": obj.name, "reason": "same source object already exported", "first_system": emitted[obj.as_pointer()]})
@@ -244,7 +283,9 @@ def main():
                     manifest["skipped"].append({"object": obj.name, "reason": "source evaluation contains no triangles"})
                     continue
                 positions, normals, indices, stats = result
-                extras = {"source_name": obj.name, "collection_paths": memberships, **stats}
+                extras = {"source_name": obj.name, "anatomyId": anatomy_id(obj.name),
+                          "side": side_suffix(obj.name), "tier": TIER,
+                          "collection_paths": memberships, **stats}
                 writer.mesh(obj.name, positions, normals, indices, extras)
                 object_count += 1
                 tri_count += len(indices)
