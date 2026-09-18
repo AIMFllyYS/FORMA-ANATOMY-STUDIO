@@ -101,6 +101,11 @@ try:
   # --- Pause anytime: request 3 held open, enqueue one, then stop ---
   page.locator('#chat-input').fill('STOP_ME');page.locator('#chat-send').click()
   page.wait_for_function('__studio.agent.busy === true')
+  # 与首轮一致：等这一轮请求真正抵达并被服务器挂起后再入队，避免“停止时请求还没发出”的竞态。
+  for _ in range(300):
+   if STATE['n']>=3:break
+   page.wait_for_timeout(50)
+  check('held_request_before_stop',STATE['n']==3)
   page.locator('#chat-input').fill('AFTER_STOP');page.locator('#chat-send').click()
   page.wait_for_selector('.agent-turn.user.queued')
   action(page,'chat-stop')
@@ -109,7 +114,8 @@ try:
   check('stopped_message_shown','已停止' in err)
   check('queue_discarded_on_stop',page.locator('.agent-turn.user.queued').count()==0 and 'AFTER_STOP' not in STATE['users'])
   check('held_answer_not_rendered','ANSWER_3_SHOULD_NOT_APPEAR' not in page.locator('#chat-messages').inner_text())
-  STATE['gates'][3].set()
+  # 请求 3 可能在中止时尚未抵达服务器（停止即取消），门闩只在已建立时释放。
+  if 3 in STATE['gates']:STATE['gates'][3].set()
   page.wait_for_timeout(200)
   # Can immediately start a new turn after stopping.
   page.locator('#chat-input').fill('RESUME');page.locator('#chat-send').click()

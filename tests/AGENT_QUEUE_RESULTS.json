@@ -13,6 +13,7 @@
   "queue_cleared_after_drain": true,
   "both_answers_rendered": true,
   "stop_hidden_when_idle": true,
+  "held_request_before_stop": true,
   "stopped_message_shown": true,
   "queue_discarded_on_stop": true,
   "held_answer_not_rendered": true,

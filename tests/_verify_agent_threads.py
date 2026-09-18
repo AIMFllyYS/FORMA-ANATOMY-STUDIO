@@ -40,12 +40,14 @@ with sync_playwright() as p:
     page.locator('[data-action="agent-save"]').click()
     page.locator('[data-tab="agent"]').click()
 
-    # 1. 输入框内部：新建 / 历史按钮 + 字数计数 + 权限标签修复
-    check('pill_new_btn', page.locator('#chat-new-btn').count() == 1)
-    check('pill_history_btn', page.locator('#chat-history-btn').count() == 1)
+    # 1. 输入框内部：新建入口在状态栏、历史与权限聚合进“＋”菜单，字数计数常驻输入框内
     check('chat_counter', page.locator('#chat-count').count() == 1)
-    check('perm_smart_label', page.locator('#chat-form [data-perm="smart"]').inner_text().strip() == '智能批准')
-    check('perm_three', page.locator('#chat-form [data-perm]').count() == 3)
+    check('pill_new_btn', page.locator('.agent-context [data-action="chat-new"]').count() == 1)
+    page.locator('[data-action="chat-menu"]').first.click()
+    check('pill_history_btn', page.locator('#popover [data-action="chat-history"]').count() == 1)
+    check('perm_smart_label', page.locator('#popover [data-perm="smart"]').inner_text().strip() == '智能批准')
+    check('perm_three', page.locator('#popover [data-perm]').count() == 3)
+    page.keyboard.press('Escape')
     page.locator('#chat-input').fill('hello')
     check('counter_updates', 'hello' not in page.locator('#chat-count').inner_text() and '5 /' in page.locator('#chat-count').inner_text())
     page.locator('#chat-input').fill('')
@@ -73,11 +75,11 @@ with sync_playwright() as p:
 
     # 4. 新建对话清空，历史可切回
     page2.locator('[data-tab="agent"]').click()
-    page2.locator('#chat-new-btn').click()
+    page2.locator('.agent-context [data-action="chat-new"]').click()
     page2.wait_for_timeout(200)
     check('new_clears', page2.evaluate('__studio.agent.messages.length === 0 && !!document.querySelector(".agent-welcome")'))
     check('two_threads', page2.evaluate('__studio.agent.threads.threads.length === 2'))
-    page2.locator('#chat-history-btn').click()
+    page2.locator('.agent-thread-btn').click()
     page2.wait_for_timeout(200)
     check('history_pop', page2.locator('.thread-pop .thread-item').count() == 2)
     page2.screenshot(path=str(OUT / 'agent_history.png'))
@@ -86,7 +88,7 @@ with sync_playwright() as p:
     check('switch_back', page2.evaluate('document.querySelector(".user-bubble")?.textContent?.includes("肱骨") === true'))
 
     # 5. 删除线程
-    page2.locator('#chat-history-btn').click()
+    page2.locator('.agent-thread-btn').click()
     page2.wait_for_timeout(200)
     page2.locator('[data-thread-delete]').first.click()
     page2.wait_for_timeout(300)

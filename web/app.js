@@ -182,7 +182,15 @@ function resources(){
  const drop=$('resource-drop');drop.ondragover=e=>{e.preventDefault();drop.classList.add('dragover');};drop.ondragleave=()=>drop.classList.remove('dragover');drop.ondrop=safe(async e=>{e.preventDefault();await importFiles([...e.dataTransfer.files]);});$('cache-enabled').onchange=e=>assets.cacheEnabled=e.target.checked;}
 function menuItems(items){return items.map(x=>x==='-'?'<div class="menu-separator"></div>':`<button class="menu-item" data-action="${x[0]}">${icon(x[2]||'cube')}<span>${x[1]}</span>${x[3]?`<kbd>${x[3]}</kbd>`:''}</button>`).join('');}
 function place(el,x,y){el.hidden=false;el.style.left=clamp(x,8,innerWidth-el.offsetWidth-8)+'px';el.style.top=clamp(y,8,innerHeight-el.offsetHeight-8)+'px';}
-function popover(html,anchor){hideMenus();const p=$('popover');p.innerHTML=html;const b=anchor?.getBoundingClientRect()||{left:innerWidth-270,bottom:50};place(p,b.left,b.bottom+7);}
+// 弹出菜单锚点：菜单「左下角」对齐触发按钮左上角并向上展开（输入框加号就在底部，
+// 向下展开会顶出视口）。上方放不下时退回按钮下方，place() 再统一夹取到视口内。
+function popover(html,anchor){
+ hideMenus();const p=$('popover');p.innerHTML=html;p.hidden=false;
+ const b=anchor?.getBoundingClientRect()||{left:innerWidth-270,top:innerHeight-50,bottom:innerHeight-40};
+ let y=b.top-7-p.offsetHeight;
+ if(y<8)y=b.bottom+7;
+ place(p,b.left,y);
+}
 function hideMenus(){$('popover').hidden=true;$('context-menu').hidden=true;}
 function canvasMenu(o,x,y){hideMenus();if(o&&!state.quiz)select(o);const menu=$('context-menu');menu.innerHTML=`<div class="menu-title">${esc(o?K.title(o):'画布操作')}</div>`+menuItems(o?[['panorama','结构全景 · 六面观察','cube'],['focus','局部聚焦','focus','F'],['isolate','单独显示','isolate','I'],['related-joints','相关关节','joint'],['selected-quiz','围绕此结构练习','quiz'],'-',['annotate','添加真实面域','brush'],['favorite-selected','收藏 / 取消收藏','star'],['hide-selected','隐藏此结构','eye-off','Del'],['copy-name','复制源名称','copy'],'-',['restore-hidden','恢复隐藏结构','reset']]:[['view-reset','适应当前结构','focus'],['restore-hidden','恢复隐藏','eye'],['show-all-layers','恢复全部图层','layers'],['fullscreen','全屏画布','maximize'],['resources','添加模型','folder']]);place(menu,x,y);}
 function sourceModal(){modal('来源与许可',`<section class="article-section"><h3>模型不是本工作台生成的扫描</h3><p>${esc(C.ATTRIBUTION.model)}</p><p>${esc(C.ATTRIBUTION.adaptation)}</p><p>${esc(C.ATTRIBUTION.license)}</p><a href="${C.ATTRIBUTION.url}" target="_blank" rel="noopener noreferrer">上游署名与许可说明 ↗</a></section><section class="article-section"><h3>当前已加载的源文件</h3>${assets.assets.map(a=>`<div class="source-asset"><b>${esc(a.filename)}</b><p>${esc(a.quality)}</p><small>${a.objects} 对象 · ${a.triangles.toLocaleString()} 三角面 · ${C.bytes(a.bytes)}</small><code>${a.sha256}</code><p>${esc(a.license)}</p></div>`).join('')||'<p>当前没有加载资产，不能声称包含任何离线解剖数据。</p>'}</section><section class="article-section"><h3>本地学习资料索引</h3><p>提纲沿用本项目的学习数据并补充结构化解释；未经逐条医学审校。以下教材链接用于核对，不代表这些机构认证了模型。</p>${K.sources.map(s=>`<a class="source-link" href="${esc(C.safeURL(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a>`).join('')}</section><div class="notice">只有表面网格时，无法自动得出真实内部骨小梁、CT 断层或全部精细结构边界。高面数、按钮可用及名称匹配均不等于医学审校。</div>`,`<button class="btn" data-action="export-manifest">导出来源清单</button><span class="grow"></span><button class="btn" data-action="modal-close">关闭</button>`,true);}

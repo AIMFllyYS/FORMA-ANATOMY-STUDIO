@@ -30,7 +30,7 @@ with sync_playwright() as p:
             route.fulfill(status=200,content_type='application/json',body=json.dumps(m),headers={'Access-Control-Allow-Origin':'*'})
     pg.route('https://agent.example.test/**',route)
     pg.evaluate('''()=>{const c=__studio.agent.config;c.url="https://agent.example.test/v1";c.model="t";c.key="k";c.consent=true;c.permissionMode="smart";}''')
-    pg.locator('[data-perm="smart"]').click()
+    pg.evaluate('__studio.agent.setPermission("smart")')
     pg.locator('#chat-input').fill('授权测试');pg.locator('#chat-send').click()
     pg.wait_for_selector('#tool-approval:not([hidden])',timeout=15000)
     asking=pg.evaluate('''()=>{const fs=document.querySelector('#follow-strip');return {stripShown:!fs.hidden, phase:fs.dataset.phase, approveShown:!fs.querySelector('[data-fs=approve]').hidden, denyShown:!fs.querySelector('[data-fs=deny]').hidden};}''')

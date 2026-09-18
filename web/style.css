@@ -51,11 +51,19 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .chat-compose>.composer-float{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-top:0}
 .composer-pill{display:flex;align-items:flex-end;gap:6px;border:1px solid var(--border);background:var(--panel);border-radius:22px;box-shadow:var(--shadow);padding:5px 5px 5px 14px;min-height:42px}
 .composer-pill:focus-within{border-color:var(--accent3);box-shadow:0 8px 28px #1a332018,0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent)}
-.composer-pill textarea{border:0!important;background:transparent!important;min-height:22px!important;max-height:120px;resize:none!important;padding:8px 4px 8px 0;margin:0;width:100%;display:block;font-size:12.5px;line-height:1.5;box-shadow:none;overflow-y:auto}
+/* 输入框默认只占一行（35px），随内容长高，4 行封顶后转为框内滚动（滚动条隐藏）。
+   封顶值 = 上内边距 8px + 4 × 行高 18.75px = 83px：滚动容器在底部内边距里也会画出
+   下一行的开头，按「上内边距 + 整 4 行」算才不会露出被切一半的第 5 行。 */
+.composer-pill textarea{border:0!important;background:transparent!important;min-height:35px!important;max-height:83px!important;resize:none!important;padding:8px 4px;margin:0;width:100%;display:block;font-size:12.5px;line-height:1.5;box-shadow:none;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}
+.composer-field{position:relative;flex:1 1 auto;min-width:0}
+.composer-pill textarea::-webkit-scrollbar{width:0;height:0;display:none}
+.composer-field.is-on textarea{padding-right:56px}
+/* 字数只在“写得比较多”时于输入框右下角浮出，平时完全隐藏以省空间。 */
+.chat-count{position:absolute;right:9px;bottom:6px;font-size:9px;line-height:1;color:var(--faint);background:color-mix(in srgb,var(--panel) 86%,transparent);padding:3px 5px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .18s ease}
+.chat-count.is-on{opacity:1}
+.chat-count.near-limit{color:var(--gold)}
 .composer-pill .send{width:32px;height:32px;border-radius:50%;flex-shrink:0}
 .composer-pill .ib{width:30px;height:30px;flex-shrink:0}
-.composer-bar{display:flex;align-items:center;gap:8px;padding:0 2px;min-width:0;flex-wrap:wrap}
-.composer-bar>#chat-state{flex:1;min-width:48px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;color:var(--faint);line-height:1.4}
 .perm-seg{display:flex;align-items:center;gap:1px;padding:2px;border-radius:999px;background:var(--panel2);border:1px solid var(--border);flex-shrink:0}
 .perm-seg button{font-size:9px;padding:4px 8px;border-radius:999px;color:var(--muted);white-space:nowrap;line-height:1.3}
 .perm-seg button:hover:not(:disabled){color:var(--text)}
@@ -64,7 +72,7 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .perm-seg button[data-perm=ask].active,.perm-seg button[data-perm=smart].active{color:var(--accent)}
 .md-live-tail{opacity:.92}
 .reason-shell.is-live .reason-chain{display:block}
-@media(max-width:700px){.composer-pill{border-radius:18px;padding:4px 4px 4px 12px}.perm-seg{max-width:100%}.perm-seg button{padding:4px 6px;font-size:8px}.chat-compose{padding:8px 10px 10px}.composer-bar>#chat-state{flex-basis:100%;order:3}}
+@media(max-width:700px){.composer-pill{border-radius:18px;padding:4px 4px 4px 12px}.perm-seg{max-width:100%}.perm-seg button{padding:4px 6px;font-size:8px}.chat-compose{padding:8px 10px 10px}}
 /* 设置中心：分页、限额滑块与助教设计弹层（iOS 玻璃感，沿用设计变量） */
 .settings-tabs{display:flex;gap:4px;padding:4px;margin:0 0 14px;border-radius:14px;background:var(--panel2);border:1px solid var(--border);position:sticky;top:0;z-index:2;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-x:auto}
 .settings-tabs button{flex:1;min-width:72px;padding:8px 10px;border-radius:10px;font-size:12px;color:var(--muted);white-space:nowrap;transition:color .18s,background .18s}
@@ -84,6 +92,52 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .design-pop .limit-row{grid-template-columns:minmax(0,1fr) 96px 48px;padding:8px 10px;gap:8px}
 .design-pop .perm-seg{margin:2px 0 0}
 @media(max-width:700px){.limit-row{grid-template-columns:1fr 120px 52px}.settings-tabs{gap:2px;padding:3px}.settings-tabs button{flex:1 1 0;min-width:0;font-size:10.5px;padding:7px 3px}.design-pop{min-width:min(82vw,300px)}.toast{bottom:auto;top:64px;transform:translate(-50%,-12px)}.toast.show{transform:translate(-50%,0)}}
+
+/* ===== 连接设置（多配置档 / 单 URL 多模型）：一行一件事，长说明折进 details ===== */
+#agent-conn{display:flex;flex-direction:column;gap:10px}
+#agent-conn .form-field{margin-bottom:0}
+#agent-conn .micro-note{margin:0}
+#agent-conn .check-row{margin:2px 0}
+.conn-row{display:flex;align-items:center;gap:9px;min-height:22px}
+.conn-row .text-btn{margin-top:0}
+.conn-label{flex-shrink:0;font-size:12px;font-weight:650;color:var(--text);letter-spacing:.02em}
+.conn-hint{margin:-5px 0 0;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.conn-relay{padding:0 13px;border:1px solid var(--border);border-radius:14px;background:var(--panel2)}
+.conn-relay>summary{display:flex;align-items:center;gap:8px;list-style:none;padding:11px 0;font-size:11.5px;font-weight:650;cursor:pointer;user-select:none}
+.conn-relay>summary::-webkit-details-marker{display:none}
+.conn-relay>summary small{font-weight:400;color:var(--muted)}
+.conn-relay>summary:after{content:'⌄';margin-left:auto;font-size:12px;line-height:1;color:var(--faint);transition:transform .18s}
+.conn-relay[open]>summary:after{transform:rotate(180deg)}
+.conn-relay .form-field{margin-bottom:10px}
+.conn-relay .micro-note{padding-bottom:12px;line-height:1.75}
+.profile-tabs{display:flex;gap:8px;overflow-x:auto;padding:1px 1px 3px;scrollbar-width:none}
+.profile-tabs::-webkit-scrollbar{display:none}
+.profile-tab{flex:0 0 auto;display:flex;flex-direction:column;gap:3px;min-width:104px;max-width:168px;padding:9px 12px;border:1px solid var(--border);border-radius:13px;background:var(--panel2);text-align:left;transition:border-color .18s,background .18s}
+.profile-tab b,.profile-tab small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.profile-tab b{font-size:11.5px;font-weight:650;color:var(--text)}
+.profile-tab small{font-size:9.5px;color:var(--muted)}
+.profile-tab:hover:not(:disabled){border-color:var(--accent3)}
+.profile-tab.active{background:var(--accent2);border-color:var(--accent3)}
+.profile-tab.active b{color:var(--accent)}
+.profile-card{display:flex;flex-direction:column;gap:11px;padding:14px;border:1px solid var(--border);border-radius:16px;background:var(--panel2)}
+.model-chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:24px}
+.model-chip{display:inline-flex;align-items:stretch;max-width:100%;border:1px solid var(--border);border-radius:999px;background:var(--panel);overflow:hidden}
+.model-chip.active{border-color:var(--accent3);background:var(--accent2)}
+.model-pick{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 3px 5px 10px;font-size:10.5px;color:var(--muted)}
+.model-pick:hover:not(:disabled){color:var(--text)}
+.model-chip.active .model-pick{color:var(--accent);font-weight:600}
+.model-x{display:grid;place-items:center;width:20px;flex-shrink:0;font-size:13px;line-height:1;color:var(--faint)}
+.model-x:hover:not(:disabled){color:var(--red);background:color-mix(in srgb,var(--red) 13%,transparent)}
+.model-add{display:flex;gap:8px}
+.model-add input{flex:1;min-width:0;min-height:33px;font-size:11px}
+.conn-foot .btn{flex:1 1 0}
+@media(max-width:700px){
+ #agent-conn{gap:9px}
+ .conn-label{font-size:11px}
+ .profile-tab{min-width:92px;padding:8px 10px}
+ .profile-card{padding:12px}
+ .model-pick{max-width:148px}
+}
 
 /* ===== Nomenclature trust badges (Task 9) ===== */
 .nom-badge{width:7px;height:7px;border-radius:50%;flex:none;margin-left:6px;display:inline-block;vertical-align:middle;border:1px solid rgba(0,0,0,.18)}
@@ -130,11 +184,12 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .pill-tool{color:var(--muted);border-radius:50%}
 .pill-tool:hover:not(:disabled){color:var(--accent);background:var(--accent2)}
 .pill-tool .ico{width:16px;height:16px}
-.composer-bar{border-top:1px solid var(--border);padding:7px 10px!important;background:color-mix(in srgb,var(--panel2) 55%,transparent)}
-.chat-count{font-size:9px;color:var(--faint);font-variant-numeric:tabular-nums;white-space:nowrap}
-.chat-count.near-limit{color:var(--gold)}
 .agent-context{gap:8px}
-.agent-status-main{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agent-status-main{flex:1;min-width:0;display:flex;align-items:center;gap:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-size:inherit;color:inherit;background:transparent;border:0;padding:0}
+.agent-status-main:hover{color:var(--accent)}
+.agent-status-main .agent-status-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agent-status-mode{flex-shrink:0;font-size:8px;color:var(--faint);border:1px solid var(--border);border-radius:999px;padding:1px 6px;background:var(--panel)}
+.agent-status-mode.is-warn{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,transparent)}
 .agent-thread-btn{display:flex;align-items:center;gap:6px;min-width:0;max-width:46%;padding:4px 8px;border:1px solid var(--border);border-radius:999px;background:var(--panel);font-size:9px;color:var(--muted)}
 .agent-thread-btn:hover{border-color:var(--accent3);color:var(--text)}
 .agent-thread-btn #agent-thread-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px}

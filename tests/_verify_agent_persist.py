@@ -22,8 +22,9 @@ with sync_playwright() as p:
     page.locator('[data-action="agent-save"]').click()
     page.wait_for_timeout(80)
     stored = page.evaluate('JSON.parse(localStorage.getItem("forma-agent-config-v4"))')
-    assert stored['version'] == 4 and stored['key'] == 'LOCAL_KEY_SHOULD_PERSIST', stored
+    assert stored['version'] == 5 and stored['key'] == 'LOCAL_KEY_SHOULD_PERSIST', stored
     assert stored['model'] == 'keep-me'
+    assert any(p['id'] == stored['activeProfile'] and p['model'] == 'keep-me' for p in stored['profiles'])
     assert stored.get('permissionMode', 'smart') == 'smart'
     assert stored['limits']['maxTurns'] == 8
     page2 = ctx.new_page()

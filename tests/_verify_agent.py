@@ -52,14 +52,44 @@ with sync_playwright() as p:
     page.locator('[data-action="agent-save"]').click()
     page.locator('[data-tab="agent"]').click()
     check('composer_pill', page.locator('.composer-pill').count() == 1)
-    check('composer_single_row', page.evaluate('document.querySelector("#chat-input").rows === 1'))
-    check('perm_seg', page.locator('#chat-form [data-perm]').count() == 3)
+    # 空态只占一行；有内容随行长高；到 4 行封顶后在框内滚动（滚动条隐藏）。
+    COMPOSER = '''()=>{
+      const t=document.querySelector("#chat-input");
+      const set=v=>{t.value=v;t.dispatchEvent(new Event("input",{bubbles:true}));};
+      const h=()=>t.getBoundingClientRect().height;
+      const cs=getComputedStyle(t);
+      set("");
+      const empty=h();
+      set("一行文本");
+      const one=h();
+      set(Array(3).fill("三行内容").join("\\n"));
+      const three=h();
+      set(Array(12).fill("很长的一行内容").join("\\n"));
+      const many=h(),scrolls=t.scrollHeight>many+0.5;
+      set("");
+      return {empty:empty,one:one,three:three,many:many,scrolls:scrolls,
+              lh:Number.parseFloat(cs.lineHeight),pt:Number.parseFloat(cs.paddingTop)};
+    }'''
+    c = page.evaluate(COMPOSER)
+    # 可见内容区（高度 − 上内边距）必须正好是整行高，否则会露出被切一半的下一行。
+    def whole_lines(px):
+        return abs((px - c['pt']) / c['lh'] - round((px - c['pt']) / c['lh'])) < 0.02
+    check('composer_compact_default', c['empty'] <= 40 and c['one'] <= 40)
+    check('composer_grows_with_text', c['three'] > c['one'] + 20)
+    check('composer_capped_four_rows', abs(c['many'] - (c['pt'] + 4 * c['lh'])) < 0.5)
+    check('composer_no_partial_line', whole_lines(c['many']))
+    check('composer_scrolls_when_overflow', c['scrolls'])
+    check('composer_count_hidden', page.evaluate('!document.querySelector("#chat-count").classList.contains("is-on")'))
+    # 权限与跟随后已聚合进输入框“＋”菜单，不再平铺在输入区。
+    page.locator('[data-action="chat-menu"]').first.click()
+    check('perm_seg', page.locator('#popover [data-perm]').count() == 3)
     check('perm_default_smart', page.evaluate('__studio.agent.permissionMode()==="smart"'))
-    page.locator('[data-perm="allow"]').click()
+    page.locator('#popover [data-perm="allow"]').click()
     check('perm_allow', page.evaluate('__studio.agent.permissionMode()==="allow"'))
-    page.locator('[data-perm="ask"]').click()
+    page.locator('#popover [data-perm="ask"]').click()
     check('perm_ask', page.evaluate('__studio.agent.permissionMode()==="ask"'))
-    page.locator('[data-perm="smart"]').click()
+    page.locator('#popover [data-perm="smart"]').click()
+    page.keyboard.press('Escape')
     # 设置中心：分页、限额即改即存（TR-3.1）
     page.locator('[data-action="agent-settings"]').filter(visible=True).first.click()
     check('settings_tabs', page.locator('[data-settings-tab]').count() == 5)
@@ -79,8 +109,9 @@ with sync_playwright() as p:
     check('settings_limit_reset', (not ls_ok) or page.evaluate('JSON.parse(localStorage.getItem("forma-agent-config-v4")).limits.maxTurns===8'))
     check('settings_limit_reset_memory', page.evaluate('__studio.agent.limits().maxTurns===8'))
     page.locator('[data-action="modal-close"]').last.click()
-    # 助教设计快捷条：与设置中心共享同一配置（TR-3.1）
-    page.locator('[data-action="agent-design"]').first.click()
+    # 助教设计快捷条：与设置中心共享同一配置（TR-3.1），入口在“＋”菜单内
+    page.locator('[data-action="chat-menu"]').first.click()
+    page.locator('#popover [data-action="agent-design"]').click()
     check('design_popover_open', page.locator('#popover .design-pop').is_visible())
     check('design_three_rows', page.locator('#popover [data-limit]').count() == 3)
     page.evaluate('''()=>{const el=document.querySelector('#popover [data-limit="maxHoldSeconds"]');el.value=20;el.dispatchEvent(new Event('input',{bubbles:true}));}''')
@@ -140,7 +171,8 @@ with sync_playwright() as p:
     page.screenshot(path=str(OUT / 'agent_stream_mobile.png'))
     check('mobile_no_overflow', page.evaluate('document.querySelector(".md-body").scrollWidth <= document.querySelector(".agent-panel").clientWidth + 8'))
     check('mobile_composer_visible', page.locator('.composer-pill').is_visible())
-    check('mobile_perm_visible', page.locator('#chat-form [data-perm="smart"]').is_visible())
+    page.locator('[data-action="chat-menu"]').first.click()
+    check('mobile_perm_visible', page.locator('#popover [data-perm="smart"]').is_visible())
     browser.close()
 
 print('FAILED' if fails else 'ALL PASSED', fails)

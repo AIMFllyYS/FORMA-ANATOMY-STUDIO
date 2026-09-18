@@ -22,6 +22,8 @@ function loadToolDefinitions(){
 }
 const DEFINITIONS=loadToolDefinitions();
 const TOOL=Object.fromEntries(DEFINITIONS.map(d=>[d[0],{desc:d[1],schema:d[2],write:d[3],zh:d[4],ico:d[5]}]));
+// 工具清单每轮请求都要序列化，构建一次即可（内容来自内嵌的 agent-tools.json，运行时不变）。
+const TOOL_SCHEMA=DEFINITIONS.map(([name,description,parameters])=>({type:'function',function:{name,description,parameters}}));
 // 最小 JSON Schema 校验：覆盖共享工具清单使用的全部关键字。
 // 校验在审批与执行之前发生；失败只回送错误给模型，不触碰画布。
 function jsonType(v){if(Array.isArray(v))return'array';if(v===null)return'null';return typeof v;}
@@ -167,6 +169,8 @@ class Agent{
   this.follow=window.FormaFollow?new window.FormaFollow.Follow({timeline:()=>this.app.timeline}):null;
   // 生成进行中发送的消息进入 FIFO 队列，当前轮次结束后自动依次执行；可随时撤销。
   this.queue=[];this._running=false;
+  // 代理不可用时的回退原因（状态行据此显示“回退直连”）。
+  this._relayFallback='';
   // 对话线程：本机持久化，默认恢复上次；从不进入学习记录与离线导出。
   this._memThreads=null;
   this.threads=this.loadThreads();
@@ -209,14 +213,16 @@ class Agent{
    b.classList.toggle('active',on);
    b.setAttribute('aria-checked',on?'true':'false');
   }
-  const dot=$('perm-dot');if(dot)dot.dataset.mode=mode;
-  const label=$('perm-current');if(label)label.textContent=(CFG.PERM_ZH||{smart:'智能批准',allow:'所有权限',ask:'请求批准'})[mode]||mode;
  }
  updateCounter(){
   const el=$('chat-count'),input=$('chat-input');if(!el||!input)return;
   const n=(input.value||'').length,max=Number(input.getAttribute('maxlength'))||12000;
+  // 字数只在写得比较多时才浮出，平时完全隐藏，把空间留给输入本身。
+  const show=n>=10;
   el.textContent=n+' / '+max;el.classList.toggle('near-limit',n>max*0.9);
- }
+  el.classList.toggle('is-on',show);
+  el.closest('.composer-field')?.classList.toggle('is-on',show);
+}
  updateThreadUI(){
   const cur=this.currentThread();
   const titleEl=$('agent-thread-title');if(titleEl)titleEl.textContent=cur?cur.title:'新的对话';
@@ -367,11 +373,16 @@ class Agent{
    this.syncPermission();this.syncScrollUI();
   }
  }
+ // 输入区高度：空时一行，随内容长高，4 行封顶后内部滚动（滚动条隐藏）。
  resizeComposer(){
-  const el=$('chat-input');if(!el)return;
-  el.style.height='auto';
-  el.style.height=Math.min(Math.max(el.scrollHeight,22),120)+'px';
- }
+  // 输入框空时一行，随内容长高；到 max-height 封顶（= 上内边距 + 4 行整行高，见样式注释）
+  // 后转为框内滚动。先置 auto 再读 scrollHeight，才能量到真实内容高度。
+  const input=$('chat-input');if(!input)return;
+  const cap=Number.parseFloat(getComputedStyle(input).maxHeight)||83;
+  input.style.height='auto';
+  input.style.height=Math.min(input.scrollHeight,cap)+'px';
+  this.updateCounter();
+}
  bind(){
   $('chat-form').addEventListener('submit',e=>{e.preventDefault();this.send($('chat-input').value);});
   const input=$('chat-input');
@@ -388,6 +399,15 @@ class Agent{
    const turnCopy=e.target.closest('[data-turn-copy]');
    if(turnCopy){const tEl=turnCopy.closest('.agent-turn');const body=[...tEl.querySelectorAll('.answer-slot')].filter(s=>!s.classList.contains('is-empty')).map(s=>s.textContent).join('\n\n');navigator.clipboard?.writeText(body).then(()=>{toast('回答已复制');}).catch(()=>toast('当前浏览器未允许自动复制'));return;}
    const tab=e.target.closest('[data-settings-tab]');if(tab){this.switchSettingsTab(tab.dataset.settingsTab);return;}
+   // 连接设置：连接方式 / 配置档 / 模型 chips 都是即改即存，无需再点“保存”。
+   const cm=e.target.closest('[data-agent-mode]');if(cm){this.setConnectMode(cm.dataset.agentMode);return;}
+   const cp=e.target.closest('[data-agent-profile]');if(cp){this.switchProfile(cp.dataset.agentProfile);return;}
+   if(e.target.closest('[data-agent-profile-add]')){this.addProfile();return;}
+   if(e.target.closest('[data-agent-profile-del]')){this.removeProfile();return;}
+   const mx=e.target.closest('[data-agent-model-remove]');if(mx){this.removeModel(mx.dataset.agentModelRemove);return;}
+   const mp=e.target.closest('[data-agent-model]');if(mp){this.pickModel(mp.dataset.agentModel);return;}
+   if(e.target.closest('[data-agent-model-add]')){this.addModelFromInput();return;}
+   if(e.target.closest('[data-agent-fetch-models]')){this.fetchModels();return;}
    if(e.target.closest('[data-action="agent-limits-default"]')){this.resetLimitInputs();return;}
    const perm=e.target.closest('[data-perm]');if(perm){this.setPermission(perm.dataset.perm);this.refreshHistoryPopover();this.refreshComposeMenu();return;}
    const to=e.target.closest('[data-thread-open]');if(to){this.switchThread(to.dataset.threadOpen);return;}
@@ -398,6 +418,8 @@ class Agent{
    const a=e.target.closest('[data-agent-approval]');if(a&&this.pendingApproval){if(a.dataset.agentApproval==='session')this.allowSession=true;const ok=a.dataset.agentApproval!=='deny';this.pendingApproval(ok);this.pendingApproval=null;$('tool-approval').hidden=true;}
   });
   document.addEventListener('input',e=>{
+   // 换了接口地址：旧的发送同意不再有效，必须重新确认。
+   if(e.target?.id==='agent-url'){const c=$('agent-consent');if(c)c.checked=false;}
    const inp=e.target.closest?.('[data-limit]');if(!inp)return;
    const key=inp.dataset.limit,spec=CFG.LIMIT_SPECS[key];if(!spec)return;
    const n=CFG.clampSpec(inp.value,spec);inp.value=n;
@@ -453,15 +475,7 @@ class Agent{
  settings(tab='connection'){if(this.busy){toast('请先停止当前生成，再修改连接设置');return;}const cfg=this.config;
   const TABS=[['connection','助教连接'],['limits','行为限额'],['sources','模型源'],['display','显示'],['about','关于与许可']];
   const nav=`<div class="settings-tabs" role="tablist">${TABS.map(([id,zh],i)=>`<button type="button" role="tab" data-settings-tab="${id}" class="${i===0?'active':''}">${zh}</button>`).join('')}</div>`;
-  const connection=`<div data-settings-panel="connection">
-   <div class="info-callout">独立 HTML 使用兼容 OpenAI 的 Chat Completions 工具协议，并请求流式输出。浏览器直连需要服务端允许 CORS。公开部署请使用工程包中的服务器代理，密钥留在服务器。</div>
-   <div class="form-grid"><label class="form-field full"><span>接口 URL</span><input id="agent-url" type="url" spellcheck="false" placeholder="https://your-endpoint.example/v1" value="${esc(cfg.url)}"><small>支持 /v1 基地址、完整 /chat/completions，或本机代理 /agent。优先流式；若接口返回整段 JSON 会自动回退。</small></label>
-   <label class="form-field full"><span>API Key / 代理访问令牌</span><input id="agent-key" type="password" autocomplete="off" spellcheck="false" placeholder="${cfg.key?'已保存在本机，留空则保持原密钥':'本地无鉴权服务可留空'}" value=""><small>${cfg.key?'密钥已保存在本机浏览器。留空保持不变；“清除配置”可删除。':'将保存在本机浏览器，不会写入导出的 HTML 或学习记录。'}</small></label>
-   <label class="form-field full"><span>Model ID</span><input id="agent-model" spellcheck="false" placeholder="填写服务商提供的模型 ID" value="${esc(cfg.model)}"></label></div>
-   <label class="check-row"><input id="agent-consent" type="checkbox" ${cfg.consent?'checked':''}>我同意将对话、已选结构名称和所请求的本地学习内容发送到上述地址。网格、笔记及测验记录不会自动发送。</label>
-   <label class="check-row" title="仅在确认该 Model ID 支持图像输入时勾选"><input id="agent-vision" type="checkbox" ${cfg.vision?'checked':''}>该模型支持图像输入（视觉/多模态）——允许 Agent 用截图工具“看见”三维画布</label>
-   <div class="row wrap"><button class="btn primary" data-action="agent-save">保存连接</button></div>
-   <p class="subtle-note">配置保存在当前浏览器（forma-agent-config-v4）。导出的离线 HTML 和学习记录不含密钥。设置新地址后会清空旧会话和画布操作授权。</p></div>`;
+  const connection=`<div data-settings-panel="connection" id="agent-conn">${this.connectionHTML()}</div>`;
   const limits=`<div data-settings-panel="limits" hidden>
    <p class="subtle-note">上限用于防止 Agent 无限循环或长时间占用。越界值会被钳制在安全区间；调小上限立即对下一轮对话生效。</p>
    <div class="limit-list">
@@ -482,17 +496,182 @@ class Agent{
    <section class="article-section"><h3>Forma · 解剖学习工作台</h3><p class="subtle-note">真实源网格驱动的本地学习工作台。模型源自 BodyParts3D / Z-Anatomy 等开放数据（CC BY / CC BY-SA），代码 MIT；教学演示不构成医学诊断依据。</p><div class="row wrap"><button class="btn" data-action="agent-open-licenses">${icon('book')}来源与许可</button><button class="btn" data-action="agent-forget">清除 Agent 配置</button></div></section></div>`;
   this.app.modal('设置中心',nav+connection+limits+sources+display+about,`<span class="grow"></span><button class="btn primary" data-action="modal-close">完成</button>`,true);
   this.switchSettingsTab(tab);this.setLimitValues();this.syncPermission();
-  $('agent-url')?.addEventListener('input',()=>{$('agent-consent').checked=false;});
  }
- saveSettings(){const raw=$('agent-url').value.trim(),url=endpoint(raw),model=$('agent-model').value.trim();if(!model)throw Error('请填写 Model ID');if(model.length>200)throw Error('Model ID 过长');if(!$('agent-consent').checked)throw Error('请先确认发送目标与数据范围');const typed=$('agent-key').value.trim();const sameOrigin=this.config.url&&(()=>{try{return new URL(this.config.url).origin===new URL(url).origin;}catch{return false;}})();const changed=this.config.url!==url||this.config.model!==model;this.config={url,key:typed||(sameOrigin?this.config.key:''),model,consent:true,proxy:false,vision:$('agent-vision')?.checked===true,permissionMode:this.permissionMode(),limits:this.limits()};if(changed){this.clearQueue();this.stop();this.messages=[];this.view=[];this.turns=0;this.allowSession=false;this.persistThreads();this.clearLog();}const saved=persistConfig(this.config);this.config=saved||this.config;this.app.closeModal();this.status();toast(saved?'连接配置已保存在本机浏览器':'本机存储不可用，本次会话仍可使用');}
+ // ---- 连接设置：一个 URL 可挂多个模型，多个配置档一键切换 ----
+ // 面板刻意保持精简：连接方式一行、配置档 chips 一行、模型 chips 一行；
+ // 长说明折进 <details>，避免把设置中心堆成一堵墙。
+ activeProfile(){const list=Array.isArray(this.config.profiles)?this.config.profiles:[];return list.find(p=>p.id===this.config.activeProfile)||list[0]||null;}
+ persist(){
+  // url/key/model 是活动配置档的投影：即使本机存储不可用（无痕 / 文件源），也要把投影同步到内存，
+  // 否则 ready() 读到的 model 仍是旧值，本轮会话会误判为“尚未配置”。
+  this.config=persistConfig(this.config)||CFG.normalizeConfig(this.config);
+  return this.config;
+ }
+ targetLabel(){if(CFG.normalizeMode(this.config.mode)!=='direct'&&this.config.relayUrl)return'本机代理';try{return new URL(this.config.url).host;}catch{return'接口';}}
+ ready(){const c=this.config;if(!c.model||!c.consent)return false;return CFG.normalizeMode(c.mode)==='direct'?!!c.url:true;}
+ relayURL(kind){
+  const raw=String(this.config.relayUrl||'').replace(/\/+$/,'');
+  if(!raw)return'';
+  return kind==='models'?raw+'/models':raw;
+ }
+ connectionHTML(){
+  const mode=CFG.normalizeMode(this.config.mode),act=this.activeProfile();
+  const profiles=Array.isArray(this.config.profiles)?this.config.profiles:[];
+  const name=act?.name||'',url=act?.url||'',model=act?.model||'',models=act?.models||[];
+  const modeSeg=CFG.MODES.map(m=>`<button type="button" role="radio" data-agent-mode="${m}" class="${m===mode?'active':''}" aria-checked="${m===mode}">${esc(CFG.MODE_ZH[m])}</button>`).join('');
+  const profileTabs=profiles.map(p=>`<button type="button" role="tab" class="profile-tab ${p.id===this.config.activeProfile?'active':''}" data-agent-profile="${esc(p.id)}" title="${esc(p.url||'尚未填写接口 URL')}" aria-selected="${p.id===this.config.activeProfile}"><b>${esc(p.name||'配置')}</b><small>${esc(p.model||'未选模型')}</small></button>`).join('');
+  const chips=models.length?models.map(m=>`<span class="model-chip ${m===model?'active':''}"><button type="button" class="model-pick" data-agent-model="${esc(m)}" title="切换到 ${esc(m)}">${esc(m)}</button><button type="button" class="model-x" data-agent-model-remove="${esc(m)}" title="从本配置档移除 ${esc(m)}" aria-label="移除 ${esc(m)}">×</button></span>`).join(''):'<span class="micro-note">尚未添加模型：点“拉取列表”自动获取，或在下方手动填写。</span>';
+  const relay=mode==='direct'?'':`<details class="conn-relay"${this.config.relayToken?'':' open'}><summary>本机代理 <small>${this.config.relayToken?'已配置访问令牌':'尚未配置访问令牌，代理会拒绝请求'}</small></summary>
+   <label class="form-field full"><span>代理地址</span><input id="agent-relay-url" spellcheck="false" placeholder="${esc(CFG.DEFAULT_RELAY_URL)}" value="${esc(this.config.relayUrl||'')}"></label>
+   <label class="form-field full"><span>代理访问令牌（PROXY_TOKEN）</span><input id="agent-relay-token" type="password" autocomplete="off" spellcheck="false" placeholder="${this.config.relayToken?'已保存在本机，留空保持不变':'agent-server 启动时设置的 PROXY_TOKEN'}" value=""></label>
+   <p class="micro-note">在 agent-server 目录执行 <code>npm start</code> 后即可用。代理只做同源透传，上游真实错误会原文返回；密钥与提示词不写日志。以文件方式打开 HTML 时，服务端还需 <code>ALLOW_FILE_ORIGIN=true</code>。</p></details>`;
+  return `
+  <div class="conn-row"><span class="conn-label">连接方式</span><div class="perm-seg" role="radiogroup" aria-label="连接方式">${modeSeg}</div></div>
+  <p class="conn-hint">${esc(CFG.MODE_HINT[mode])}</p>
+  ${relay}
+  <div class="conn-row"><span class="conn-label">配置档</span><small class="micro-note">${profiles.length} / ${CFG.MAX_PROFILES}</small><span class="grow"></span><button type="button" class="text-btn" data-agent-profile-add>＋ 新建</button></div>
+  <div class="profile-tabs" role="tablist">${profileTabs}</div>
+  <div class="profile-card">
+   <label class="form-field full"><span>名称</span><input id="agent-profile-name" maxlength="40" spellcheck="false" placeholder="例如：中转站 A" value="${esc(name)}"></label>
+   <label class="form-field full"><span>接口 URL</span><input id="agent-url" type="url" spellcheck="false" placeholder="https://your-endpoint.example/v1" value="${esc(url)}"></label>
+   <label class="form-field full"><span>API Key</span><input id="agent-key" type="password" autocomplete="off" spellcheck="false" placeholder="${act?.key?'已保存在本机，留空保持不变':'本地无鉴权服务可留空'}" value=""></label>
+   <div class="conn-row"><span class="conn-label">模型</span><small class="micro-note">${models.length} 个 · 点选即切换</small><span class="grow"></span><button type="button" class="text-btn" id="agent-fetch" data-agent-fetch-models>拉取列表</button></div>
+   <div class="model-chips">${chips}</div>
+   <div class="model-add"><input id="agent-model" spellcheck="false" maxlength="200" placeholder="手动填写 Model ID" value="${esc(model)}"><button type="button" class="btn compact" data-agent-model-add>设为当前</button></div>
+   <div class="row wrap conn-foot"><button class="btn primary" data-action="agent-save">保存连接</button><button class="btn" data-agent-profile-del ${profiles.length<=1?'disabled':''}>删除此配置档</button></div>
+  </div>
+  <label class="check-row"><input id="agent-consent" type="checkbox" ${this.config.consent?'checked':''}>同意把对话、已选结构名称与所请求的本地学习内容发送到以上地址；网格、笔记与测验记录不会发送。</label>
+  <label class="check-row" title="仅在确认该 Model ID 支持图像输入时勾选"><input id="agent-vision" type="checkbox" ${this.config.vision?'checked':''}>该模型支持图像输入（多模态），允许截图工具读取画布。</label>`;
+ }
+ renderConnection(){const el=$('agent-conn');if(el)el.innerHTML=this.connectionHTML();}
+ // 表单 → 活动配置档：模型 chips 是「即改即存」，切换前先把已输入内容收进来，避免丢字。
+ applyFormToProfile(){
+  const act=this.activeProfile();if(!act)return null;
+  const nameEl=$('agent-profile-name'),urlEl=$('agent-url'),keyEl=$('agent-key'),modelEl=$('agent-model');
+  if(nameEl&&nameEl.value.trim())act.name=nameEl.value.trim().slice(0,40);
+  if(urlEl){const raw=urlEl.value.trim();if(!raw)act.url='';else try{act.url=endpoint(raw);}catch{}}
+  if(keyEl&&keyEl.value.trim())act.key=keyEl.value.trim();
+  if(modelEl&&modelEl.value.trim())act.model=modelEl.value.trim().slice(0,200);
+  const relayUrl=$('agent-relay-url'),relayToken=$('agent-relay-token'),vision=$('agent-vision');
+  if(relayUrl)this.config.relayUrl=relayUrl.value.trim();
+  if(relayToken&&relayToken.value.trim())this.config.relayToken=relayToken.value.trim();
+  if(vision)this.config.vision=vision.checked;
+  this.persist();return this.activeProfile();
+ }
+ setConnectMode(m){if(!CFG.MODES.includes(m))return;this.applyFormToProfile();this.config.mode=m;this.persist();this.renderConnection();this.status();}
+ switchProfile(id){
+  if(id===this.config.activeProfile)return;
+  this.applyFormToProfile();
+  if(!this.activeProfileList().some(p=>p.id===id))return;
+  this.config.activeProfile=id;this.persist();this.renderConnection();this.status();
+ }
+ activeProfileList(){return Array.isArray(this.config.profiles)?this.config.profiles:[];}
+ addProfile(){
+  this.applyFormToProfile();
+  const list=this.activeProfileList();
+  if(list.length>=CFG.MAX_PROFILES){toast('最多 '+CFG.MAX_PROFILES+' 个配置档');return;}
+  const p=CFG.newProfile(list);
+  this.config.profiles=[...list,p];this.config.activeProfile=p.id;
+  this.persist();this.renderConnection();toast('已新建 '+p.name+'，可分别填写 URL 与模型');
+ }
+ removeProfile(){
+  const list=this.activeProfileList();
+  if(list.length<=1){toast('至少保留一个配置档');return;}
+  const id=this.config.activeProfile,i=Math.max(0,list.findIndex(p=>p.id===id));
+  this.config.profiles=list.filter(p=>p.id!==id);
+  this.config.activeProfile=this.config.profiles[Math.max(0,i-1)].id;
+  this.persist();this.renderConnection();this.status();toast('已删除该配置档（本机密钥一并删除）');
+ }
+ pickModel(m){
+  m=String(m||'').trim();if(!m)return;
+  const act=this.applyFormToProfile();if(!act)return;
+  act.model=m.slice(0,200);
+  if(!(act.models||[]).includes(act.model))act.models=[act.model,...(act.models||[])].slice(0,CFG.MAX_MODELS_PER_PROFILE);
+  this.persist();this.renderConnection();this.status();toast('当前模型：'+act.model);
+ }
+ addModelFromInput(){
+  const el=$('agent-model'),m=el?.value.trim();if(!m){toast('先填写 Model ID');el?.focus();return;}
+  this.pickModel(m);
+ }
+ removeModel(m){
+  const act=this.applyFormToProfile();if(!act)return;
+  act.models=(act.models||[]).filter(x=>x!==m);
+  if(act.model===m)act.model=act.models[0]||'';
+  this.persist();this.renderConnection();this.status();
+ }
+ // 拉取模型列表：代理可用时同源请求，否则浏览器直连（可能被 CORS 拦截）。
+ async listModels(act){
+  const base=String(act.url||'').replace(/\/chat\/completions\/?$/,'').replace(/\/+$/,'');
+  if(!base)throw Error('先填写接口 URL');
+  const mode=CFG.normalizeMode(this.config.mode),relay=this.relayURL('models');
+  let res=null;
+  if(mode!=='direct'&&relay){
+   try{
+    res=await fetch(relay,{method:'POST',headers:{'Content-Type':'application/json',...(this.config.relayToken?{Authorization:'Bearer '+this.config.relayToken}:{})},body:JSON.stringify({upstream:{base_url:base,...(this.config.key?{api_key:this.config.key}:{})}}),credentials:'omit',referrerPolicy:'no-referrer'});
+   }catch(e){if(mode==='relay')throw Error('本机代理未启动：'+this.targetLabel()+'（'+(e.message||e)+'）');res=null;}
+  }
+  if(!res)res=await fetch(base+'/models',{headers:this.config.key?{Authorization:'Bearer '+this.config.key}:{},credentials:'omit',referrerPolicy:'no-referrer'});
+  const raw=await res.text();
+  if(!res.ok){let msg='HTTP '+res.status;try{const d=JSON.parse(raw);msg+='：'+String(d.error?.message||d.error||'').slice(0,300);}catch{msg+='：'+raw.slice(0,200);}throw Error(msg);}
+  let data;try{data=JSON.parse(raw);}catch{throw Error('接口没有返回 JSON 模型列表');}
+  const arr=Array.isArray(data)?data:Array.isArray(data?.data)?data.data:[];
+  return arr.map(x=>(typeof x==='string'?x:x?.id||'').trim()).filter(Boolean).slice(0,CFG.MAX_MODELS_PER_PROFILE);
+ }
+ async fetchModels(){
+  const btn=$('agent-fetch');if(btn)btn.disabled=true;
+  try{
+   const act=this.applyFormToProfile();if(!act)throw Error('没有可用配置档');
+   const list=await this.listModels(act);
+   if(!list.length)throw Error('接口没有返回可用模型');
+   const fresh=this.activeProfile();
+   fresh.models=[...new Set([...list,...(fresh.models||[])])].slice(0,CFG.MAX_MODELS_PER_PROFILE);
+   if(!fresh.model)fresh.model=fresh.models[0];
+   this.persist();this.renderConnection();this.status();
+   toast('已拉取 '+list.length+' 个模型，点选即切换');
+  }catch(e){toast('拉取失败：'+(e?.message||String(e)));}
+  finally{const b=$('agent-fetch');if(b)b.disabled=false;}
+ }
+ saveSettings(){
+  const prevMode=CFG.normalizeMode(this.config.mode);
+  const act=this.activeProfile();if(!act)throw Error('没有可用配置档');
+  const mode=prevMode;
+  const rawUrl=($('agent-url')?.value||'').trim(),model=($('agent-model')?.value||'').trim(),name=($('agent-profile-name')?.value||'').trim(),key=($('agent-key')?.value||'').trim();
+  const prevUrl=act.url,prevModel=act.model;
+  if(model.length>200)throw Error('Model ID 过长');
+  if(!model)throw Error('请填写或选择一个 Model ID');
+  if(rawUrl)act.url=endpoint(rawUrl);else act.url='';
+  if(name)act.name=name.slice(0,40);
+  if(key)act.key=key;
+  act.model=model;
+  const relayUrl=($('agent-relay-url')?.value||'').trim(),relayToken=($('agent-relay-token')?.value||'').trim();
+  if(mode==='direct'&&!act.url)throw Error('浏览器直连需要填写接口 URL');
+  if(mode==='relay'&&!this.config.relayUrl)throw Error('仅本机代理模式需要填写代理地址');
+  if(!$('agent-consent')?.checked)throw Error('请先确认数据发送范围');
+  this.config.mode=mode;
+  if(relayUrl||!this.config.relayUrl)this.config.relayUrl=relayUrl;
+  if(relayToken)this.config.relayToken=relayToken;
+  this.config.consent=true;this.config.vision=$('agent-vision')?.checked===true;
+  this.config.permissionMode=this.permissionMode();this.config.limits=this.limits();
+  // 只换模型不动对话；换地址或换连接方式才重置会话（旧上下文对不上新的上游）。
+  const endpointChanged=prevUrl!==act.url||prevMode!==mode;
+  if(endpointChanged){this.clearQueue();this.stop();this.messages=[];this.view=[];this.turns=0;this.allowSession=false;this.persistThreads();this.clearLog();}
+  const saved=persistConfig(this.config);this.config=saved||CFG.normalizeConfig(this.config);
+  this.app.closeModal();this.status();
+  toast(saved?'连接配置已保存在本机浏览器':'本机存储不可用，本次会话仍可使用');
+  if(prevModel!==act.model)toast('当前模型：'+act.model);
+ }
  configureForTest(cfg){this.config={...this.config,...cfg};if(cfg.permissionMode)this.syncPermission();this.status();}
  forget(){this.clearQueue();this.stop();forgetConfig();try{CFG.forgetThreads(this.store());}catch{}this.config=emptyConfig();this.messages=[];this.view=[];this.turns=0;this.allowSession=false;this.viewHoldUntil=0;this.threads=CFG.emptyThreads();this.clearLog();this.syncPermission();this.app.closeModal();this.updateThreadUI();toast('本机配置、密钥、对话与授权已清除');}
  status(){
-  const configured=!!(this.config.url&&this.config.model&&this.config.consent),sel=this.app.selectedObject?.();
-  const cur=this.currentThread?.();
-  let host='';try{host=configured?new URL(this.config.url).host:'';}catch{host='';}
-  $('agent-context').innerHTML=`<span class="status-dot ${configured?'':'muted'}"></span><span class="agent-status-main">${configured?esc(host)+' · '+esc(this.config.model):'尚未配置模型'}${sel?' / '+esc(FormaKnowledge.title(sel)):''}</span>${cur?`<button class="agent-thread-btn" data-action="chat-history" title="对话历史（${this.threads.threads.length} 个，仅存本机）"><span id="agent-thread-title">${esc(cur.title||'新的对话')}</span><span id="agent-thread-count" class="thread-count">${this.threads.threads.length?this.threads.threads.length+' 个对话':''}</span></button>`:''}<button type="button" class="ib xs" data-action="chat-new" title="新建对话" aria-label="新建对话">${icon('plus')}</button><button data-action="agent-settings">设置</button>`;
- }
+  const cfg=this.config,configured=this.ready(),sel=this.app.selectedObject?.(),cur=this.currentThread?.();
+  const mode=CFG.normalizeMode(cfg.mode);
+  let host='';try{host=cfg.url?new URL(cfg.url).host:'';}catch{host='';}
+  const where=host||(mode==='direct'?'未填写地址':'本机代理');
+  const label=configured?where+' · '+cfg.model:'尚未配置模型';
+  // 状态行本身就是设置入口（减少一个“设置”按钮）；代理/回退用一个小徽标说明当前链路。
+  const via=configured&&mode!=='direct'?`<span class="agent-status-mode${this._relayFallback?' is-warn':''}" title="${esc(this._relayFallback?'本机代理不可用，已回退浏览器直连：'+this._relayFallback:CFG.MODE_ZH[mode])}">${this._relayFallback?'回退直连':'代理'}</span>`:'';
+  $('agent-context').innerHTML=`<span class="status-dot ${configured?'':'muted'}"></span><button type="button" class="agent-status-main" data-action="agent-settings" title="打开设置中心：连接方式 / 配置档 / 模型"><span class="agent-status-text">${esc(label)}${sel?' / '+esc(FormaKnowledge.title(sel)):''}</span>${via}</button>${cur?`<button class="agent-thread-btn" data-action="chat-history" title="对话历史（${this.threads.threads.length} 个，仅存本机）"><span id="agent-thread-title">${esc(cur.title||'新的对话')}</span><span id="agent-thread-count" class="thread-count">${this.threads.threads.length?this.threads.threads.length+' 个对话':''}</span></button>`:''}<button type="button" class="ib xs" data-action="chat-new" title="新建对话" aria-label="新建对话">${icon('plus')}</button>`;
+}
  log(){return $('chat-messages');}
  // 精准跟随：仅在“贴底/强制”时滚动。用 rAF 等浏览器完成本帧排版后再定位，
  // 避免 Markdown/思考文本刚插入、高度尚未稳定导致停在偏上位置需手动再滑。
@@ -549,11 +728,11 @@ class Agent{
   });
   this.updateQueueState();this.scroll(true);
  }
- updateQueueState(){
+ updateQueueState(label){
   const n=this.queue.length,send=$('chat-send'),stop=$('chat-stop');
   if(send){send.setAttribute('aria-label',n?`发送（队列中还有 ${n} 条）`:'发送');send.title=n?`当前生成结束后自动发送，队列 ${n} 条`:'';}
-  if(stop){stop.dataset.queue=n?String(n):'';stop.title=n?'停止当前生成（排队消息将继续）':'停止';}
- }
+  if(stop){stop.dataset.queue=n?String(n):'';stop.title=n?'停止当前生成（排队消息将继续）':label?'停止 · '+label:'停止';}
+}
  enqueue(text){
   this.ensureThread();
   const item={id:'q'+Date.now()+'-'+Math.random().toString(36).slice(2,7),text};
@@ -763,10 +942,7 @@ class Agent{
   $('chat-send').disabled=false;
   $('chat-stop').hidden=!b;
   const mb=$('chat-menu-btn');if(mb)mb.disabled=b;
-  const state=$('chat-state');
-  if(!b)state.textContent=this.config.consent?'连接配置已保存在本机 · 对话仅存本机':'配置将保存在本机浏览器';
-  else state.textContent=this.queue.length?`生成中 · ${this.queue.length} 条消息排队等待，可随时停止或撤销`:label;
-  this.updateQueueState();
+  this.updateQueueState(b?label:'');
   this.resizeComposer();
  }
 
@@ -805,29 +981,61 @@ class Agent{
    return[{type:'text',text:JSON.stringify({...rest,note:'下方 image_url 即当前三维画布截图 PNG'})},{type:'image_url',image_url:{url:data_url}}];
   }
 
+ // 请求体只组装一次：工具清单是内嵌常量，不再每轮重建。
+ requestBody(messages){return{model:this.config.model,messages,tools:TOOL_SCHEMA,tool_choice:'auto',stream:true};}
+ // 代理优先：浏览器只与本机代理同源通信，绕开 CORS，上游的真实错误也能原文回传。
+ // auto 模式下代理不可用（未启动 / 未配置令牌）才回退浏览器直连；上游自身报错不回退，
+ // 否则会把“密钥错误”这类明确原因再次变成浏览器含糊的 TypeError。
  async request(messages,signal,hooks){
-  const cfg=this.config,timer=setTimeout(()=>this.controller?.abort(),this.limits().requestTimeoutSeconds*1000);
+  const cfg=this.config,mode=CFG.normalizeMode(cfg.mode);
+  const timer=setTimeout(()=>this.controller?.abort(),this.limits().requestTimeoutSeconds*1000);
+  const body=this.requestBody(messages);
   try{
-   const res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json',...(cfg.key?{Authorization:'Bearer '+cfg.key}:{})},body:JSON.stringify({model:cfg.model,messages,tools:DEFINITIONS.map(([name,description,parameters])=>({type:'function',function:{name,description,parameters}})),tool_choice:'auto',stream:true}),signal,credentials:'omit',referrerPolicy:'no-referrer'});
-   const ct=(res.headers.get('content-type')||'').toLowerCase();
-   if(!res.ok){const raw=await res.text();let msg='HTTP '+res.status;try{const data=JSON.parse(raw);msg+='：'+String(data.error?.message||data.error||'请求失败').slice(0,500);}catch{msg+='：'+raw.slice(0,240);}throw Error(msg);}
-   if(ct.includes('text/event-stream')||ct.includes('ndjson'))return await this.readSSE(res,signal,hooks);
-   const raw=await res.text();if(raw.length>2e6)throw Error('接口响应过大');
-   let data;try{data=JSON.parse(raw);}catch{throw Error('接口没有返回 JSON 或事件流。请核对 URL 是否为 Chat Completions 接口。');}
-   const m=data.choices?.[0]?.message;if(!m)throw Error('没有找到 choices[0].message；请使用兼容 Chat Completions 的端点');
-   let content=typeof m.content==='string'?m.content:'';const split=MD.splitThink(content);content=split.content;
-   const reasoning=deltaReason({},m)||split.reasoning;
-   if(reasoning)hooks.onReasoning?.(reasoning,false);
-   if(content)hooks.onContent?.(content,false);
-   return{content,reasoning,tool_calls:m.tool_calls||[],finish_reason:data.choices?.[0]?.finish_reason||(m.tool_calls?.length?'tool_calls':'stop')};
-  }catch(e){if(e.name==='TypeError')throw Error('浏览器无法访问接口。可能是 CORS、网络或 TLS 限制；使用工程包的服务器代理，不要关闭浏览器安全策略。');throw e;}
-  finally{clearTimeout(timer);}
+   const relay=this.relayURL('chat');
+   if(mode!=='direct'&&relay){
+    try{
+     const headers={'Content-Type':'application/json',...(cfg.relayToken?{Authorization:'Bearer '+cfg.relayToken}:{})};
+     const payload={...body,timeout_seconds:this.limits().requestTimeoutSeconds};
+     if(cfg.url)payload.upstream={base_url:cfg.url,...(cfg.key?{api_key:cfg.key}:{})};
+     const res=await fetch(relay,{method:'POST',headers,body:JSON.stringify(payload),signal,credentials:'omit',referrerPolicy:'no-referrer'});
+     const out=await this.consume(res,signal,hooks);
+     if(this._relayFallback){this._relayFallback='';this.status();}
+     return out;
+    }catch(e){
+     if(signal?.aborted||e?.name==='AbortError')throw e;
+     const unavailable=e?.name==='TypeError'||e?.status===401;
+     if(mode==='relay'||!unavailable)throw e;
+     this._relayFallback=e?.message||'本机代理未启动';
+     this.status();
+    }
+   }
+   const res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json',...(cfg.key?{Authorization:'Bearer '+cfg.key}:{})},body:JSON.stringify(body),signal,credentials:'omit',referrerPolicy:'no-referrer'});
+   return await this.consume(res,signal,hooks);
+  }catch(e){
+   if(e?.name==='AbortError')throw e;
+   if(e?.name==='TypeError')throw Error(this._relayFallback?'本机代理与浏览器直连都不可用。代理：'+this._relayFallback+'；直连：浏览器可能因 CORS、网络或 TLS 限制拒绝访问。':'浏览器无法访问接口。可能是 CORS、网络或 TLS 限制；使用工程包的服务器代理，不要关闭浏览器安全策略。');
+   throw e;
+  }finally{clearTimeout(timer);}
+ }
+ // 读取一次响应：事件流原样解析；整段 JSON 自动回退；非 2xx 带上游原文。
+ async consume(res,signal,hooks){
+  const ct=(res.headers.get('content-type')||'').toLowerCase();
+  if(!res.ok){const raw=await res.text();let msg='HTTP '+res.status;try{const data=JSON.parse(raw);msg+='：'+String(data.error?.message||data.error||'请求失败').slice(0,500);}catch{msg+='：'+raw.slice(0,240);}const err=Error(msg);err.status=res.status;throw err;}
+  if(ct.includes('text/event-stream')||ct.includes('ndjson'))return await this.readSSE(res,signal,hooks);
+  const raw=await res.text();if(raw.length>2e6)throw Error('接口响应过大');
+  let data;try{data=JSON.parse(raw);}catch{throw Error('接口没有返回 JSON 或事件流。请核对 URL 是否为 Chat Completions 接口。');}
+  const m=data.choices?.[0]?.message;if(!m)throw Error('没有找到 choices[0].message；请使用兼容 Chat Completions 的端点');
+  let content=typeof m.content==='string'?m.content:'';const split=MD.splitThink(content);content=split.content;
+  const reasoning=deltaReason({},m)||split.reasoning;
+  if(reasoning)hooks.onReasoning?.(reasoning,false);
+  if(content)hooks.onContent?.(content,false);
+  return{content,reasoning,tool_calls:m.tool_calls||[],finish_reason:data.choices?.[0]?.finish_reason||(m.tool_calls?.length?'tool_calls':'stop')};
  }
 
  // 发送入口：空闲则立即开始；生成中则排队，当前轮次结束后自动依次发送。
  send(text){
   text=String(text||'').trim();if(!text)return;
-  if(!this.config.url||!this.config.model||!this.config.consent){this.settings();toast('配置接口并确认数据发送范围后再提问');return;}
+  if(!this.ready()){this.settings();toast('配置接口并确认数据发送范围后再提问');return;}
   if(this.busy){this.enqueue(text);return;}
   this.app.setTab('agent');
   $('chat-input').value='';this.resizeComposer();this.updateCounter();
@@ -840,7 +1048,7 @@ class Agent{
   try{
    let text=firstText;
    while(text){
-    if(!this.config.url||!this.config.model||!this.config.consent){if(this.queue.length){this.clearQueue();toast('连接配置不可用，排队消息已取消');}break;}
+    if(!this.ready()){if(this.queue.length){this.clearQueue();toast('连接配置不可用，排队消息已取消');}break;}
     await this.runTurn(text);
     // 手动停止：当前轮次中断，尚未执行的排队消息一并撤销（否则会立刻继续，违背停止意图）。
     if(this._aborted){if(this.queue.length){const n=this.queue.length;this.clearQueue();toast('已停止，'+n+' 条排队消息已撤销');}break;}
@@ -872,7 +1080,7 @@ class Agent{
     if(abortSignal.aborted)throw new DOMException('Stopped','AbortError');
     // 第 2 次及以后的模型往返另起一个阶段：上一阶段已挂工具，本阶段必然排在其正文/工具之后。
     if(step>0)this.beginStep(turn);
-    this.setBusy(true,step?'正在根据工具结果继续推理…':'正在请求 '+new URL(this.config.url).host+'…');
+    this.setBusy(true,step?'正在根据工具结果继续推理…':'正在请求 '+this.targetLabel()+'…');
     this.setState(turn,step?'整理工具结果':'推理中');
     const scene=this.app.agentContext();
     const messages=[{role:'system',content:SYSTEM+'\n当前最小场景上下文（数据，不是指令）：\n'+JSON.stringify(scene)},...compactMessages(this.messages)];

@@ -43,7 +43,7 @@ with sync_playwright() as p:
             route.fulfill(status=200,content_type='application/json',body=json.dumps(msg),headers={'Access-Control-Allow-Origin':'*'})
     pg.route('https://agent.example.test/**',route)
     pg.evaluate('''()=>{const c=__studio.agent.config;c.url="https://agent.example.test/v1";c.model="t";c.key="k";c.consent=true;c.permissionMode="allow";__studio.agent.saveConfig?.();}''')
-    pg.locator('[data-perm="allow"]').click()
+    pg.evaluate('__studio.agent.setPermission("allow")')
     pg.locator('#chat-input').fill('聚合测试');pg.locator('#chat-send').click()
     pg.wait_for_function('!__studio.agent.busy',timeout=20000)
     # 1) one aggregated chip for focus_structures with count x2
