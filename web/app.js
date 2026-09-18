@@ -234,6 +234,7 @@ const ACTIONS={
  'dock-panel':()=>toggleFloating(),'layout-reset':resetLayout
 };
 function bindDocument(){document.addEventListener('click',safe(async e=>{const annoClose=e.target.closest('[data-anno-close]');if(annoClose){e.preventDefault();e.stopPropagation();clearCanvasAnnotations();return;}const b=e.target.closest('button,[data-select],[data-detail]');if(!b)return;if(b.hasAttribute('disabled'))return;if(b.dataset.action){const fn=ACTIONS[b.dataset.action];hideMenus();if(fn){e.preventDefault();await fn(b);}return;}
+ if(b.dataset.overflow!==undefined){e.preventDefault();const ar=b.dataset.overflow.split(',').map(Number).map(byId).filter(Boolean);if(!ar.length)return;popover(`<div class="menu-title">标签收纳 · ${ar.length} 个结构</div>`+ar.slice(0,12).map(o=>`<button class="menu-item" data-focus-object="${o.id}">${esc(K.title(o))}</button>`).join('')+(ar.length>12?`<div class="menu-title">其余 ${ar.length-12} 个请放大或旋转查看</div>`:''),b);return;}
  if(b.dataset.select!==undefined){select(byId(b.dataset.select),{focus:!r.visible(byId(b.dataset.select))});return;}
  if(b.dataset.focusObject!==undefined){select(byId(b.dataset.focusObject),{focus:true});hideMenus();return;}
  if(b.dataset.eye!==undefined){e.preventDefault();const o=byId(b.dataset.eye);remember();o.hidden=!o.hidden;refresh();return;} if(b.dataset.groupEye){e.preventDefault();e.stopPropagation();const ar=groups.get(b.dataset.groupEye)||[];remember();const hide=ar.some(o=>!o.hidden);for(const o of ar)o.hidden=hide;refresh();return;}
@@ -294,7 +295,87 @@ function bindCanvas(){const canvas=$('canvas');let drag=null,menuSuppressed=fals
  canvas.addEventListener('wheel',e=>{e.preventDefault();r.span=clamp(r.span*Math.exp(clamp(e.deltaY,-180,180)*.0015),r.worldRadius*.0001,r.worldRadius*100);r.dirty=true;},{passive:false});
 }
 let sectionCache={key:'',segments:[]};
-function overlay(){const mask=!!state.quiz&&!state.quiz.ended&&state.quiz.questions[state.quiz.index]?.kind!=='theory';const b=r.canvas.getBoundingClientRect();const labelObjs=state.labels&&!mask?r.objects.filter(o=>r.visible(o)&&((o.id===state.selected&&state.nameHint)||r.highlighted.has(o.id)||o.transient)).slice(0,12):[];const used=[];let labels='';for(const o of labelObjs){const p=r.project(r.displayPoint(o,o.center));if(p.z<-1||p.z>1||p.x<5||p.x>b.width-5||p.y<5||p.y>b.height-5)continue;let y=p.y;for(const xy of used)if(Math.abs(p.x-xy.x)<160&&Math.abs(y-xy.y)<30)y+=31;if(y>b.height-25)continue;used.push({x:p.x,y});labels+=`<button class="model-label ${o.id===state.selected?'selected':''}" style="left:${p.x}px;top:${y}px" data-select="${o.id}">${esc(K.title(o))}</button>`;}$('labels').innerHTML=labels;let lines='';const svg=$('overlay-lines');svg.setAttribute('viewBox',`0 0 ${b.width} ${b.height}`);
+// ================= 高亮标签防遮挡布局（放射外推 + 引导线 + 越界收纳） =================
+// 估算胶囊标签尺寸：按实际渲染过的宽度缓存，未渲染时用字符数估算。
+const labelSizeCache=new Map();
+function estimateLabelSize(o){const text=K.title(o);let w=labelSizeCache.get(o.id);if(w==null){let cw=0;for(const ch of text)cw+=ch.charCodeAt(0)>255?12:6.6;w=Math.min(Math.ceil(cw)+20,232);}return{w,h:25};}
+// 多结构高亮时，名称常挤在同一团模型中心互相叠住。这里把标签沿簇中心向外推到模型外围，
+// 相邻标签做角度/竖向解算不重叠，并用引导线连回锚点；放不下的收进溢出胶囊。
+function layoutLabels(items,b){
+ const W=b.width,H=b.height,pad=10,leaderGap=13;
+ const visible=items.filter(it=>it.anchor.x>-60&&it.anchor.x<W+60&&it.anchor.y>-60&&it.anchor.y<H+60);
+ if(visible.length<=1){const it=visible[0];if(it){it.x=clamp(it.anchor.x,it.hw+pad,W-it.hw-pad);it.y=clamp(it.anchor.y,it.hh/2+pad,H-it.hh/2-pad);it.lead=Math.abs(it.x-it.anchor.x)>2||Math.abs(it.y-it.anchor.y)>2;}return visible;}
+ let cx=0,cy=0;for(const it of visible){cx+=it.anchor.x;cy+=it.anchor.y;}cx/=visible.length;cy/=visible.length;
+ // 半径取锚点到簇中心距离的较大分位，保证标签整体落在高亮团外侧而非盖住核心。
+ const dists=visible.map(it=>Math.hypot(it.anchor.x-cx,it.anchor.y-cy)).sort((a,z)=>a-z);
+ let baseR=dists[Math.floor(dists.length*.75)]||0;baseR=Math.max(baseR,46);
+ const placed=[];
+ const order=visible.map((it,i)=>i).sort((i,j)=>Math.atan2(visible[j].anchor.y-cy,visible[j].anchor.x-cx)-Math.atan2(visible[i].anchor.y-cy,visible[i].anchor.x-cx));
+ const minAngularH=26;
+ for(const i of order){
+  const it=visible[i];
+  let ang=Math.atan2(it.anchor.y-cy,it.anchor.x-cx);
+  if(!Number.isFinite(ang))ang=-Math.PI/2;
+  let r=baseR+leaderGap;let lx=0,ly=0,collide=true,tries=0;
+  // 角度就近解算：先沿径向推，再在该角度上做竖向退让，仍冲突就加大半径。
+  while(collide&&tries<36){
+   lx=cx+Math.cos(ang)*r;
+   ly=cy+Math.sin(ang)*r;
+   ly=clamp(ly,it.hh/2+pad,H-it.hh/2-pad);
+   lx=clamp(lx,it.hw+pad,W-it.hw-pad);
+   collide=false;
+   for(const q of placed){
+    if(Math.abs(lx-q.x)<(it.hw+q.hw)/2+6&&Math.abs(ly-q.y)<(it.hh+q.hh)/2+6){collide=true;break;}
+   }
+   if(collide){
+    const slot=Math.atan2(minAngularH,r);
+    // 在锚点真实角度附近上下找第一个空闲角，避免标签整体偏向一侧。
+    let best=null;
+    for(let k=1;k<=14;k++){
+     for(const da of [slot*k,-slot*k]){
+      const a2=ang+da,rr=baseR+leaderGap;
+      let x2=clamp(cx+Math.cos(a2)*rr,it.hw+pad,W-it.hw-pad);
+      let y2=clamp(cy+Math.sin(a2)*rr,it.hh/2+pad,H-it.hh/2-pad);
+      let hit=false;
+      for(const q of placed){if(Math.abs(x2-q.x)<(it.hw+q.hw)/2+6&&Math.abs(y2-q.y)<(it.hh+q.hh)/2+6){hit=true;break;}}
+      if(!hit){best={x:x2,y:y2};break;}
+     }
+     if(best)break;
+    }
+    if(best){lx=best.x;ly=best.y;collide=false;}
+    else r+=30;
+   }
+   tries++;
+  }
+  it.x=lx;it.y=ly;
+  // 引导线从标签朝向锚点的边缘中点出发。
+  const dx=it.anchor.x-lx;
+  it.edgeX=lx+Math.sign(dx||0)*it.hw/2;
+  it.edgeY=clamp(it.anchor.y,ly-it.hh/2+3,ly+it.hh/2-3);
+  it.lead=Math.hypot(it.edgeX-it.anchor.x,it.edgeY-it.anchor.y)>10;
+  placed.push(it);
+ }
+ return visible;
+}
+function overlay(){const mask=!!state.quiz&&!state.quiz.ended&&state.quiz.questions[state.quiz.index]?.kind!=='theory';const b=r.canvas.getBoundingClientRect();const labelObjs=state.labels&&!mask?r.objects.filter(o=>r.visible(o)&&((o.id===state.selected&&state.nameHint)||r.highlighted.has(o.id)||o.transient)):[];
+ // 收集可投影锚点；被遮挡或在视锥外的结构记入溢出胶囊，名称仍可查。
+ const items=[];const overflow=[];const LABEL_CAP=12;
+ for(const o of labelObjs){const p=r.project(r.displayPoint(o,o.center));if(p.z<-1||p.z>1){overflow.push(o);continue;}const{w,h}=estimateLabelSize(o);items.push({o,anchor:{x:p.x,y:p.y},w,h,hw:w/2,hh:h});}
+ // 超过同屏标签上限时，多余结构收进胶囊，避免名称继续互相堆叠，同时不丢名称。
+ if(items.length>LABEL_CAP){overflow.push(...items.splice(LABEL_CAP).map(it=>it.o));}
+ const laid=layoutLabels(items,b);
+ const laidIds=new Set(laid.map(it=>it.o.id));
+ for(const o of labelObjs)if(!laidIds.has(o.id)&&!overflow.includes(o))overflow.push(o);
+ let labels='';let labelLeaders='';
+ for(const it of laid){const o=it.o;
+  if(it.lead)labelLeaders+=`<circle class="label-anchor" cx="${it.anchor.x.toFixed(1)}" cy="${it.anchor.y.toFixed(1)}" r="2.6"/><path class="label-leader" d="M${it.anchor.x.toFixed(1)},${it.anchor.y.toFixed(1)} L${it.edgeX.toFixed(1)},${it.edgeY.toFixed(1)}"/>`;
+  labels+=`<button class="model-label ${o.id===state.selected?'selected':''}" style="left:${it.x.toFixed(1)}px;top:${it.y.toFixed(1)}px" data-select="${o.id}" data-lid="${o.id}">${esc(K.title(o))}</button>`;}
+ if(overflow.length){const ids=overflow.map(o=>o.id).join(',');labels+=`<button class="model-label model-label-more" id="label-overflow" style="left:90px;top:${Math.max(56,b.height-96)}px" data-overflow="${esc(ids)}" title="${overflow.map(o=>esc(K.title(o))).join('、')}">＋${overflow.length} 个结构（点击查看）</button>`;}
+ $('labels').innerHTML=labels;
+ // 首次渲染后用真实宽度回填缓存，让后续帧排布更精确；仅测一次，避免旋转中反复强制布局。
+ const miss=laid.filter(it=>!labelSizeCache.has(it.o.id));
+ if(miss.length)requestAnimationFrame(()=>{let changed=false;for(const it of miss){const el=$('labels').querySelector(`[data-lid="${it.o.id}"]`);if(el?.offsetWidth){labelSizeCache.set(it.o.id,el.offsetWidth);changed=true;}}if(changed)r.dirty=true;});
+ let lines=labelLeaders;const svg=$('overlay-lines');svg.setAttribute('viewBox',`0 0 ${b.width} ${b.height}`);
  const drawPoint=(p,label)=>{const x=r.project(p);return Number.isFinite(x.x)?`<circle cx="${x.x}" cy="${x.y}" r="4"/><text x="${x.x+8}" y="${x.y-8}">${esc(label)}</text>`:'';};
  if(state.measure.length){const pp=state.measure.map(m=>{const o=byId(m.objectId);return o?r.displayPoint(o,m.point):m.point;});lines+=pp.map((p,i)=>drawPoint(p,String(i+1))).join('');if(pp.length===2){const a=r.project(pp[0]),z=r.project(pp[1]);lines+=`<line x1="${a.x}" y1="${a.y}" x2="${z.x}" y2="${z.y}" stroke-dasharray="4 3"/>`;}}
  if(state.axisPoints.length){lines+=state.axisPoints.map((p,i)=>drawPoint(p,'轴'+(i+1))).join('');if(state.axisPoints.length===2){const a=r.project(state.axisPoints[0]),z=r.project(state.axisPoints[1]);lines+=`<line x1="${a.x}" y1="${a.y}" x2="${z.x}" y2="${z.y}" stroke-dasharray="6 3"/>`;}}
