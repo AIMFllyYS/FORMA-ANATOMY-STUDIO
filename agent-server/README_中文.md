@@ -64,6 +64,25 @@ HTML 内的 Agent 会话
 
 工具不在服务器直接执行：真实模型存在浏览器中。工具定义只有一份事实源 `../web/agent-tools.json`（浏览器经构建器内嵌为 `#agent-tools-data`，服务端直接读取，`tools-sync.test.mjs` 断言两端一致）。服务用 `stopWhen: stepCountIs(1)` 完成一次模型回合；前端管理外层有界循环和工具批准。不能在后台“假执行”画布工具然后告诉用户已经聚焦。
 
+## 通用中转透传（/relay）
+
+除了上面的 SDK 分支，服务还提供一条**零依赖透传分支**，用于把任意 OpenAI 兼容中转站（例如 Sub2API）经本机代理转发，不经过 SDK、不新增 npm 依赖。
+
+契约（复用现有 `Origin` 校验、`PROXY_TOKEN` Bearer 鉴权、2MB 体限与限流）：
+
+- `POST /relay`，体：`{ "upstream": { "base_url": "https://host/v1", "api_key": "sk-..." }, "timeout_seconds": 120, "model": "...", "messages": [...], "tools": [...], "tool_choice": "auto", "stream": true }`。除 `upstream`、`timeout_seconds` 外的字段**原样透传**给上游：`system` 角色与多模态 content 数组都保留，不做剥离或改写。`upstream.api_key` 可省略（省略则用 `MODEL_API_KEY`）。
+- 上游 URL 由 `base_url` 去掉结尾 `/` 后计算：已是 `/chat/completions` 不再追加，否则追加 `/chat/completions`。协议必须是 `https:`，或 `http:` 且主机为回环（`localhost`/`127.0.0.1`/`[::1]`），否则 400。
+- `stream: true` 时把上游响应体逐块原样管道回客户端，状态码与 `Content-Type` 沿用上游；上游非 2xx 时读取响应体（最多 8KB）并以 502 返回 `{"error":{"message":"上游 <status>：<前 800 字符>"}}`；连接失败（DNS/TLS/拒绝连接）返回 502，message 前缀“上游连接失败：”并带 `ECONNREFUSED` 等错误码；超时（`timeout_seconds` 默认 120，钳制 10–300）返回 504，message 含“上游请求超时”。
+- `POST /relay/models`，体：`{ "upstream": { "base_url": "...", "api_key": "..." } }`，请求上游 `GET <base_url>/models` 并把结果原样回传，超时 20 秒。
+- 模型白名单**只在使用服务端默认上游、且 `ALLOWED_MODELS` 非空时**才校验；客户端自带 `upstream` 时不校验模型。
+
+`ALLOWED_UPSTREAM_HOSTS`（逗号分隔主机名）约束客户端自带的 `upstream`：
+
+- 非空时，`upstream.base_url` 主机必须在内，否则 403 `Upstream host not allowed`。
+- 留空时，绑定回环（`HOST` 为 `localhost`/`127.0.0.1`/`::1`）允许任意主机；绑定非回环则拒绝客户端自带 `upstream`（403，提示需配置 `ALLOWED_UPSTREAM_HOSTS`）。
+
+意义：浏览器只访问同源的本机代理，**彻底规避浏览器 CORS**；同时上游的真实错误会**明文回传**（上游可能不带 CORS 头），便于定位问题。透传分支不使用 SDK、不记录 Key 或令牌，异常文本与请求体中的 `upstream.api_key` 都会替换为 `[REDACTED]`。已由 `tests/relay_proxy_test.py` 用本机假中转站覆盖（未联系真实提供方）。
+
 ## 安全和运行边界
 
 - 提供方 Key 只从环境变量读取；HTML 只持有本次会话的代理令牌。

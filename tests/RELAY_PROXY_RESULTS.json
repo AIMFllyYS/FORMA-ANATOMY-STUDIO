@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "health_has_relay_true": true,
+    "relay_requires_token_401": true,
+    "relay_stream_status_200": true,
+    "relay_stream_body_identical": true,
+    "relay_stream_content_type_event_stream": true,
+    "relay_models_passthrough": true,
+    "relay_upstream_401_surfaced_502": true,
+    "relay_error_has_cors": true,
+    "relay_error_no_key_leak": true,
+    "relay_bad_protocol_400": true,
+    "relay_default_model_allowlist_400": true,
+    "relay_client_upstream_skips_model_allowlist": true,
+    "relay_client_host_not_allowed_403": true
+  },
+  "provider_contacted": false,
+  "note": "仅使用本机 http.server 假中转站；未联系任何真实提供方，未安装任何依赖"
+}
