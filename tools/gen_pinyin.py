@@ -20,6 +20,7 @@ CHAR_FIX = {
     '肋': 'lèi',   # rib, not lē
     '长': 'cháng', # longus / long muscles
     '骰': 'shǎi',  # cuboid
+    '踇': 'mǔ',    # hallux; same reading as 拇, distinct character
 }
 
 

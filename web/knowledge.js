@@ -43,8 +43,10 @@ function names(o){
  let en=ident?.en||(o._knowledgeMatch==='exact'?c?.en:null);
  const la=ident?.la||'';
  if(!zh){const legacy=LEGACY_TERMS.find(([e])=>cleanName(e)===n);if(legacy){zh=legacy[1];if(!en)en=legacy[0];}}
- const sd=ident?.side||side(o),zhSide=sd==='L'?'左侧 · ':sd==='R'?'右侧 · ':'',enSide=sd==='L'?'Left ':sd==='R'?'Right ':'';
- if(zh){const full=zhSide+zh;return{zh:full,en:prettyEn((enSide+prettyEn(en||'')).trim()),la,py:pinyin(full),matched:true,status:ident?.status||'pending',id:ident?.id||null,group:ident?.group||'',subgroup:ident?.subgroup||''};}
+ const sd=ident?.side||side(o),enSide=sd==='L'?'Left ':sd==='R'?'Right ':'';
+ // 教材语序是「右肺尖段动脉」，不是「右侧 · 肺尖段动脉」。名称本身已含左/右时不再叠加。
+ const withSide=label=>!label||!sd||/^[左右]/.test(label)?label:(sd==='L'?'左':'右')+label;
+ if(zh){const full=withSide(zh);const baseEn=prettyEn(en||'');const showEn=/\b(left|right)\b/i.test(baseEn)?baseEn:prettyEn((enSide+baseEn).trim());return{zh:full,en:showEn,la,py:pinyin(full),matched:true,status:ident?.status||'pending',id:ident?.id||null,group:ident?.group||'',subgroup:ident?.subgroup||''};}
  return{zh:raw,en:prettyEn(raw),la:'',py:'',matched:false,status:'unmatched',id:null,group:'',subgroup:''};
 }
 function title(o){return names(o).zh;}

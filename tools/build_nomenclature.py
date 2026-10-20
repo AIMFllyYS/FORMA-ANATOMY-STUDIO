@@ -7,13 +7,15 @@ Pipeline (all network responses cached under tools/data/cache, reruns offline):
   3. Wikidata SPARQL (CC0)                   — zh/la labels, FMA/TA98/TA2 ids
   4. web/knowledge.json cards                — existing zh names (bridge)
   5. tools/data/nomenclature_review_zh.csv   — manual zh names + functional groups
+  6. tools/data/zh_proofread.json            — curated zh (wins over Wikidata and the CSV)
 
 Outputs:
   web/nomenclature.json                      — runtime identity records + assignments
   tools/data/nomenclature_coverage.json/.md  — coverage report
 
-Auto-derived zh is always status=pending. The review CSV is the only reviewed
-source. Unmatched nodes stay unmatched (runtime keeps the source name).
+Auto-derived zh is always status=pending. The review CSV and
+tools/data/zh_proofread.json are the reviewed sources; the proof table wins
+on the Chinese name. Unmatched nodes stay unmatched (runtime keeps the source name).
 """
 from __future__ import annotations
 import argparse, csv, io, json, re, time, urllib.parse, urllib.request
@@ -30,6 +32,7 @@ DATA = ROOT / 'tools' / 'data'
 CACHE = DATA / 'cache'
 CORPUS = DATA / 'node_corpus.json'
 REVIEW_CSV = DATA / 'nomenclature_review_zh.csv'
+PROOF_JSON = DATA / 'zh_proofread.json'
 TA2_URL = 'https://raw.githubusercontent.com/Z-Anatomy/Models-of-human-anatomy/master/TA2.csv'
 UA = 'FormaAnatomyBuilder/4.0 (open-source educational anatomy workbench)'
 SPARQL = 'https://query.wikidata.org/sparql'
@@ -168,6 +171,19 @@ def pick_candidate(rows: list[dict]) -> dict | None:
 
 
 # ---------- manual review ----------
+def load_proof() -> dict[str, dict]:
+    """Curated zh keyed by normalised English. Applied last so rebuilds keep it."""
+    if not PROOF_JSON.exists():
+        return {}
+    data = json.loads(PROOF_JSON.read_text(encoding='utf-8'))
+    out = {}
+    for row in data.get('entries', []):
+        key = norm(row.get('en', ''))
+        if key and (row.get('zh') or '').strip():
+            out[key] = row
+    return out
+
+
 def load_review() -> dict[str, dict]:
     if not REVIEW_CSV.exists():
         return {}
@@ -310,6 +326,7 @@ def main():
     corpus = json.loads(CORPUS.read_text(encoding='utf-8'))['systems']
     ta2 = load_ta2()
     review = load_review()
+    proof = load_proof()
     cards = json.loads((ROOT / 'web' / 'knowledge.json').read_text(encoding='utf-8'))['cards']
     card_zh = {}
     for c in cards:
@@ -404,6 +421,13 @@ def main():
                     rec['region'] = tax_region
         if not rec['region']:
             rec['region'] = guess_region(en_name)
+        # Curated proof table wins over Wikidata, cards and the older review CSV
+        # for the Chinese name. Groups from the CSV are left in place.
+        pv = proof.get(key)
+        if pv and pv.get('zh'):
+            rec['zh'] = pv['zh'].strip()
+            rec['method'] = 'manual'
+            rec['status'] = 'reviewed' if pv.get('status') == 'reviewed' else 'pending'
         records[rid] = rec
         return rid
 

@@ -20,6 +20,20 @@ class NomenclatureTests(unittest.TestCase):
         cls.records = cls.nom['records']
         cls.assignments = cls.nom['assignments']
 
+    def test_every_record_has_chinese_name(self):
+        empty = [r['en'] for r in self.records.values() if not (r.get('zh') or '').strip()]
+        self.assertEqual(empty, [])
+
+    def test_known_standard_names(self):
+        by_en = {r['en']: r['zh'] for r in self.records.values()}
+        self.assertEqual(by_en['Vastus lateralis muscle'], '股外侧肌')
+        self.assertEqual(by_en['Putamen'], '壳')
+        self.assertEqual(by_en['Deep fibular nerve'], '腓深神经')
+        self.assertEqual(by_en['Apical segmental artery of right lung'], '右肺尖段动脉')
+        self.assertEqual(by_en['Sesamoid bones of foot'], '足籽骨')
+        self.assertEqual(by_en['Anterior cruciate ligament'], '前交叉韧带')
+        self.assertNotEqual(by_en.get('Olive'), '油橄榄')
+
     def test_record_ids_unique(self):
         ids = list(self.records)
         self.assertEqual(len(ids), len(set(ids)))

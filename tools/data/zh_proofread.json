@@ -1,0 +1,10117 @@
+{
+ "version": 1,
+ "standard": "人卫《系统解剖学》《局部解剖学》与全国科学技术名词审定委员会《人体解剖学名词》。足大趾用「踇」、拇指用「拇」，避免同屏重名。",
+ "generatedFrom": "curated proofread of web/nomenclature.json English names",
+ "entries": [
+  {
+   "en": "(Abdominal part of pectoralis major muscle)",
+   "zh": "胸大肌腹部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "(Accessory parotid gland)",
+   "zh": "副腮腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "(Adductor minimus)",
+   "zh": "小收肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "(Anterior tibial node)",
+   "zh": "胫前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Anteromedial basal segmental bronchus of left lung)",
+   "zh": "左肺前内侧底段支气管（BⅦ+Ⅷ）",
+   "status": "reviewed",
+   "note": "保留 BⅦ+Ⅷ 合并概念。基底段改为底段，前内补作前内侧。"
+  },
+  {
+   "en": "(Communicating branch of median nerve with ulnar nerve)",
+   "zh": "正中神经与尺神经交通支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Deep branch of transverse cervical artery)",
+   "zh": "颈横动脉深支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Fibular node)",
+   "zh": "腓淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Iliopectineal bursa)",
+   "zh": "髂耻滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "(Intermediate deep inguinal node)",
+   "zh": "中间腹股沟深淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Intermediate lacunar node)",
+   "zh": "中间腔隙淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Lateral lacunar node)",
+   "zh": "外侧腔隙淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Medial lacunar node)",
+   "zh": "内侧腔隙淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Opponens digiti minimi muscle of foot)",
+   "zh": "小趾对跖肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "(Posterior tibial node)",
+   "zh": "胫后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Proximal deep inguinal node)",
+   "zh": "近侧腹股沟深淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Retropyloric nodes)",
+   "zh": "幽门后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Subpyloric nodes)",
+   "zh": "幽门下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Superficial branch of transverse cervical artery)",
+   "zh": "颈横动脉浅支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Suprapyloric node)",
+   "zh": "幽门上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "(Ulnar recurrent artery)",
+   "zh": "尺侧返动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "????????",
+   "zh": "未识别结构（源名称损坏）",
+   "status": "pending",
+   "note": "源名称损坏，不能编造解剖名"
+  },
+  {
+   "en": "?x",
+   "zh": "未识别结构（源名称损坏）",
+   "status": "pending",
+   "note": "源名称损坏，不能编造解剖名"
+  },
+  {
+   "en": "Abdominal aorta",
+   "zh": "腹主动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Abducens nerve (VI)",
+   "zh": "展神经（VI）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Abductor digiti minimi of foot",
+   "zh": "小趾展肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Abductor digiti minimi of hand",
+   "zh": "小指展肌",
+   "status": "reviewed",
+   "note": "与小趾展肌、拇展肌同一语序，动作不前置。"
+  },
+  {
+   "en": "Abductor hallucis",
+   "zh": "踇展肌",
+   "status": "reviewed",
+   "note": "足踇趾用踇，拇专指拇指。原译与拇短展肌等拇指肌相混。"
+  },
+  {
+   "en": "Abductor pollicis brevis",
+   "zh": "拇短展肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Abductor pollicis longus",
+   "zh": "拇长展肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Accessory branch of middle meningeal artery",
+   "zh": "脑膜中动脉副支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Accessory hemi-azygos vein",
+   "zh": "副半奇静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Accessory nerve (XI)",
+   "zh": "副神经（XI）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Accessory nucleus of oculomotor nerve",
+   "zh": "动眼神经副核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Accessory pancreatic duct",
+   "zh": "副胰管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Acetabular labrum",
+   "zh": "髋臼唇",
+   "status": "reviewed",
+   "note": "原译「髋关节唇」误，名词委与人卫作髋臼唇。"
+  },
+  {
+   "en": "Acromial part of deltoid muscle",
+   "zh": "三角肌肩峰部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Acromioclavicular ligament",
+   "zh": "肩锁韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Adductor brevis",
+   "zh": "短收肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Adductor longus",
+   "zh": "长收肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Adductor magnus",
+   "zh": "大收肌",
+   "status": "reviewed",
+   "note": "与长收肌、短收肌一致，标准名大收肌。"
+  },
+  {
+   "en": "Adenohypophysis",
+   "zh": "腺垂体",
+   "status": "reviewed",
+   "note": "标准名腺垂体，脑下垂体前叶为旧称。"
+  },
+  {
+   "en": "Ampulla of lacrimal canaliculus",
+   "zh": "泪小管壶腹",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Amygdaloid body",
+   "zh": "杏仁体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anconeus muscle",
+   "zh": "肘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Angular artery",
+   "zh": "内眦动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Angular gyrus",
+   "zh": "角回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Angular vein",
+   "zh": "内眦静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Annular ligament of radius",
+   "zh": "桡骨环状韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anserine bursa",
+   "zh": "鹅足滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Antebrachial fascia",
+   "zh": "前臂筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior axillary nodes",
+   "zh": "胸肌淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior basal segmental artery of left lung",
+   "zh": "左肺前底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior basal segmental artery of right lung",
+   "zh": "右肺前底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior basal segmental bronchus of left lung (BVIII)",
+   "zh": "左肺前底段支气管（BⅧ）",
+   "status": "reviewed",
+   "note": "单独 BⅧ 为前底段，不与 BⅦ+Ⅷ 的前内侧底段或 BⅦ 的内侧底段混称。"
+  },
+  {
+   "en": "Anterior basal segmental bronchus of right lung (BVIII)",
+   "zh": "右肺前底段支气管（BⅧ）",
+   "status": "reviewed",
+   "note": "用底段，不用基底段。"
+  },
+  {
+   "en": "Anterior belly of digastric muscle",
+   "zh": "二腹肌前腹",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior branch of medial antebrachial cutaneous nerve",
+   "zh": "前臂内侧皮神经前支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior branch of obturator nerve",
+   "zh": "闭孔神经前支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior branch of renal artery",
+   "zh": "肾动脉前支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior cells of ethmoid bone",
+   "zh": "前筛小房",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior cerebral artery",
+   "zh": "大脑前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior chamber of eyeball",
+   "zh": "眼前房",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior circumflex humeral artery",
+   "zh": "旋肱前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior circumflex humeral vein",
+   "zh": "旋肱前静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior cochlear nucleus",
+   "zh": "蜗神经前核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior commissure",
+   "zh": "前连合",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior communicating artery",
+   "zh": "前交通动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior corticospinal tract",
+   "zh": "皮质脊髓前束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior cruciate ligament",
+   "zh": "前交叉韧带",
+   "status": "reviewed",
+   "note": "原译「前十字韧带」为旧称，名词委与人卫作前交叉韧带。"
+  },
+  {
+   "en": "Anterior cutaneous branches of femoral nerve",
+   "zh": "股神经前皮支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior deep temporal artery",
+   "zh": "颞深前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior division of inferior trunk of brachial plexus",
+   "zh": "臂丛下干前股",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior division of internal iliac artery",
+   "zh": "髂内动脉前干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior division of mandibular nerve",
+   "zh": "下颌神经前干",
+   "status": "reviewed",
+   "note": "下颌神经的division规范称前干，与臂丛的股不同。"
+  },
+  {
+   "en": "Anterior division of middle trunk of brachial plexus",
+   "zh": "臂丛中干前股",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior division of retromandibular vein",
+   "zh": "下颌后静脉前支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior division of superior trunk of brachial plexus",
+   "zh": "臂丛上干前股",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior ethmoidal artery",
+   "zh": "筛前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior fasciculus proprius",
+   "zh": "前固有束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior horn of spinal cord",
+   "zh": "脊髓前角",
+   "status": "reviewed",
+   "note": "改正「前灰质柱」。"
+  },
+  {
+   "en": "Anterior inferior cerebellar artery",
+   "zh": "小脑下前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior inferior jugular nodes",
+   "zh": "颈内静脉下前淋巴结",
+   "status": "pending",
+   "note": "Nodi jugulares inferiores anteriores，属颈外侧下深淋巴结，位于颈内静脉下段前方。e-Anatomy 中文或标作颈前淋巴结，易与颈前淋巴结相混，暂作颈内静脉下前淋巴结。"
+  },
+  {
+   "en": "Anterior inferior pancreaticoduodenal artery",
+   "zh": "胰十二指肠下前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior intercavernous sinus",
+   "zh": "海绵间前窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior intermuscular septum of leg",
+   "zh": "小腿前肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior interosseous nerve of forearm",
+   "zh": "骨间前神经",
+   "status": "reviewed",
+   "note": "前臂正中神经的分支。"
+  },
+  {
+   "en": "Anterior interventricular artery",
+   "zh": "前室间支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior jugular vein",
+   "zh": "颈前静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior lateral segment of liver (VI)",
+   "zh": "肝右后叶下段（Ⅵ段）",
+   "status": "pending",
+   "note": "英文 Anterior lateral 与 Couinaud Ⅵ段不一致。Ⅵ段标准名为右后叶下段；右前叶下段属Ⅴ段。按段号校正。"
+  },
+  {
+   "en": "Anterior layer of thoracolumbar fascia",
+   "zh": "胸腰筋膜前层",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior ligament of fibular head",
+   "zh": "腓骨头前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior longitudinal ligament",
+   "zh": "前纵韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior medial segment of liver (V)",
+   "zh": "肝右前叶下段（Ⅴ段）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior meniscotibial ligament (Lateral meniscus)",
+   "zh": "外侧半月板胫骨前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior meniscotibial ligament (Medial meniscus)",
+   "zh": "内侧半月板胫骨前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior occipital sulcus*",
+   "zh": "枕前沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior papillary muscle of right ventricle",
+   "zh": "右心室前乳头肌",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior quadrangular lobule",
+   "zh": "方叶前部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior root of posterior femoral cutaneous nerve",
+   "zh": "股后皮神经前根",
+   "status": "reviewed",
+   "note": "起自骶丛前股的根，不是脊神经前根。"
+  },
+  {
+   "en": "Anterior root of spinal nerve",
+   "zh": "脊神经前根",
+   "status": "reviewed",
+   "note": "改正「脊神经腹根」。"
+  },
+  {
+   "en": "Anterior sacro-iliac ligament",
+   "zh": "骶髂前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior segment of eyeball",
+   "zh": "眼球前段",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior segmental artery of left lung",
+   "zh": "左肺前段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior segmental artery of right lung",
+   "zh": "右肺前段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior segmental bronchus of left lung (BIII)",
+   "zh": "左肺前段支气管（BⅢ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior segmental bronchus of right lung (BIII)",
+   "zh": "右肺前段支气管（BⅢ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Anterior semilunar leaflet of pulmonary valve",
+   "zh": "肺动脉瓣前瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior septal branches of anterior ethmoidal artery",
+   "zh": "筛前动脉鼻中隔前支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior spinal artery",
+   "zh": "脊髓前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior spinocerebellar tract",
+   "zh": "脊髓小脑前束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior spinothalamic tract",
+   "zh": "脊髓丘脑前束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior sternoclavicular ligament",
+   "zh": "胸锁前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior talocalcaneal ligament",
+   "zh": "距跟前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior talofibular ligament",
+   "zh": "距腓前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior temporal branch",
+   "zh": "颞叶前动脉",
+   "status": "pending",
+   "note": "未标明母干；大脑中动脉名词作颞叶前动脉，大脑后动脉作颞叶前支"
+  },
+  {
+   "en": "Anterior tibial artery",
+   "zh": "胫前动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior tibial veins",
+   "zh": "胫前静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior tibiofibular ligament",
+   "zh": "胫腓前韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior vein of left lung",
+   "zh": "左肺前段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Anterior vein of right lung",
+   "zh": "右肺前段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Aortic arch",
+   "zh": "主动脉弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Apical axillary nodes",
+   "zh": "腋尖淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Apical segmental artery of left lung",
+   "zh": "左肺尖段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Apical segmental artery of right lung",
+   "zh": "右肺尖段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Apical segmental bronchus of right lung (BI)",
+   "zh": "右肺尖段支气管（BⅠ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Apical vein of right lung",
+   "zh": "右肺尖段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Apicoposterior segmental bronchus of left lung (BI+BII)",
+   "zh": "左肺尖后段支气管（BⅠ+Ⅱ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Apicoposterior vein of left lung",
+   "zh": "左肺尖后段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Appendicular artery",
+   "zh": "阑尾动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Appendicular nodes",
+   "zh": "阑尾淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Aqueduct of midbrain",
+   "zh": "中脑水管",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Arcuate artery",
+   "zh": "弓状动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Arcuate popliteal ligament",
+   "zh": "腘弓状韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Artery of central sulcus",
+   "zh": "中央沟动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Artery of precentral sulcus",
+   "zh": "中央前沟动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Artery of pterygoid canal",
+   "zh": "翼管动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of acromioclavicular joint",
+   "zh": "肩锁关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of elbow joint",
+   "zh": "肘关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of glenohumeral joint",
+   "zh": "肩关节囊",
+   "status": "reviewed",
+   "note": "英文 glenohumeral joint，人卫称肩关节。"
+  },
+  {
+   "en": "Articular capsule of hip joint",
+   "zh": "髋关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of interphalangeal joint of great toe",
+   "zh": "踇趾趾间关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of knee joint",
+   "zh": "膝关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of radiocarpal joint",
+   "zh": "桡腕关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of sternoclavicular joint",
+   "zh": "胸锁关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of superior tibiofibular joint",
+   "zh": "上胫腓关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsule of temporomandibular joint",
+   "zh": "颞下颌关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsules of distal interphalangeal joints",
+   "zh": "远侧指间关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsules of distal interphalangeal joints of foot",
+   "zh": "远侧趾间关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsules of metacarpophalangeal joints",
+   "zh": "掌指关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsules of metatarsophalangeal joints",
+   "zh": "跖趾关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsules of proximal interphalangeal joints",
+   "zh": "近侧指间关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular capsules of proximal interphalangeal joints of foot",
+   "zh": "近侧趾间关节囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular disc of acromioclavicular joint",
+   "zh": "肩锁关节盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular disc of distal radio-ulnar joint",
+   "zh": "桡尺远侧关节盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular disc of sternoclavicular joint",
+   "zh": "胸锁关节盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Articular disc of temporomandibular joint",
+   "zh": "颞下颌关节盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ary-epiglottic part of oblique arytenoid muscle",
+   "zh": "杓斜肌杓会厌部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Arytenoid cartilage",
+   "zh": "杓状软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ascending aorta",
+   "zh": "升主动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ascending branch of left colic artery",
+   "zh": "左结肠动脉升支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ascending colon",
+   "zh": "升结肠",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ascending part of trapezius muscle",
+   "zh": "斜方肌升部（下部）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ascending pharyngeal artery",
+   "zh": "咽升动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Atlas (C1)",
+   "zh": "寰椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Auditory tube",
+   "zh": "咽鼓管",
+   "status": "reviewed",
+   "note": "改正「耳咽管」。"
+  },
+  {
+   "en": "Axillary artery",
+   "zh": "腋动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Axillary nerve",
+   "zh": "腋神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Axillary vein",
+   "zh": "腋静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Axis (C2)",
+   "zh": "枢椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Azygos vein",
+   "zh": "奇静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Base of peduncle",
+   "zh": "大脑脚底",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Basilar artery",
+   "zh": "基底动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Basilar venous plexus",
+   "zh": "基底静脉丛",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Basilic vein",
+   "zh": "贵要静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Bicipitoradial bursa",
+   "zh": "肱二头肌桡骨滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Bifurcation of pulmonary trunk",
+   "zh": "肺动脉杈",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Bile duct",
+   "zh": "胆总管",
+   "status": "pending",
+   "note": "TA 的 ductus biliaris 即胆总管，但英文源名未写 common。"
+  },
+  {
+   "en": "Biventral lobule",
+   "zh": "二腹小叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Body of sternum",
+   "zh": "胸骨体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Brachial artery",
+   "zh": "肱动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Brachial fascia",
+   "zh": "臂筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Brachial nodes",
+   "zh": "臂淋巴结",
+   "status": "pending",
+   "note": "Nodi brachiales。沿肱血管配布，教材常不单列，需与肘淋巴结及腋淋巴结外侧群区分，暂作臂淋巴结。"
+  },
+  {
+   "en": "Brachial veins",
+   "zh": "肱静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Brachialis muscle",
+   "zh": "肱肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Brachiocephalic nodes",
+   "zh": "头臂淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Brachiocephalic trunk",
+   "zh": "头臂干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Brachioradialis muscle",
+   "zh": "肱桡肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Branch to angular gyrus",
+   "zh": "角回动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Buccal artery",
+   "zh": "颊动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Buccal nerve",
+   "zh": "颊神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Bucinator",
+   "zh": "颊肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Bucinator node",
+   "zh": "颊肌淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Bursa of piriformis muscle",
+   "zh": "梨状肌滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Calcaneal branches of fibular artery",
+   "zh": "腓动脉跟支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Calcaneal branches of posterior tibial artery",
+   "zh": "胫后动脉跟支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Calcaneal tendon",
+   "zh": "跟腱",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Calcaneocuboid ligament",
+   "zh": "跟骰韧带",
+   "status": "reviewed",
+   "note": "分歧韧带外侧部；跟骰足底韧带、跟骰背侧韧带另列。"
+  },
+  {
+   "en": "Calcaneofibular ligament",
+   "zh": "跟腓韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Calcaneonavicular ligament",
+   "zh": "跟舟韧带",
+   "status": "reviewed",
+   "note": "分歧韧带内侧部；跟舟足底韧带另列。"
+  },
+  {
+   "en": "Calcaneus",
+   "zh": "跟骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Calcarine sulcus",
+   "zh": "距状沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Callosomarginal artery",
+   "zh": "胼胝体缘动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Capitate bone",
+   "zh": "头状骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Capitohamate interosseous ligament",
+   "zh": "头钩骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cauda equina",
+   "zh": "马尾",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Caudate nucleus",
+   "zh": "尾状核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cavernous sinus",
+   "zh": "海绵窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Central axillary nodes",
+   "zh": "腋中央淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Central canal",
+   "zh": "中央管",
+   "status": "reviewed",
+   "note": "脊髓中央管。"
+  },
+  {
+   "en": "Central lobule",
+   "zh": "中央小叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Central retinal artery",
+   "zh": "视网膜中央动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Central sulcus",
+   "zh": "中央沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Central superior mesenteric nodes",
+   "zh": "肠系膜上中央淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cephalic vein",
+   "zh": "头静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Chorda tympani",
+   "zh": "鼓索",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Choroid plexus",
+   "zh": "脉络丛",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cingulate gyrus (Posteroventral part*)",
+   "zh": "扣带回（后腹侧部）",
+   "status": "reviewed",
+   "note": "约相当于扣带峡。"
+  },
+  {
+   "en": "Cingulate gyrus and sulcus (Middle anterior part)",
+   "zh": "扣带回和扣带沟（中前部）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cingulate gyrus and sulcus (Middle posterior part)",
+   "zh": "扣带回和扣带沟（中后部）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cingulate gyrus and sulcus (Posterior dorsal part)",
+   "zh": "扣带回和扣带沟（后背部）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cingulate sulcus (Marginal part*)",
+   "zh": "扣带沟缘支",
+   "status": "reviewed",
+   "note": "源名作缘部，规范称缘支。"
+  },
+  {
+   "en": "Circular sulcus of insula",
+   "zh": "岛叶环状沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Circumflex artery of heart",
+   "zh": "旋支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Circumflex scapular artery",
+   "zh": "旋肩胛动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Circumflex scapular vein",
+   "zh": "旋肩胛静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Clavicle",
+   "zh": "锁骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Clavicular head of pectoralis major muscle",
+   "zh": "胸大肌锁骨部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Clavicular part of deltoid muscle",
+   "zh": "三角肌锁骨部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Clavipectoral fascia",
+   "zh": "锁胸筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Coccygeus muscle",
+   "zh": "尾骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Coccyx",
+   "zh": "尾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cochlea",
+   "zh": "耳蜗",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cochlear nerve",
+   "zh": "蜗神经",
+   "status": "reviewed",
+   "note": "改正「耳蜗神经」。"
+  },
+  {
+   "en": "Coeliac nodes",
+   "zh": "腹腔淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Coeliac trunk",
+   "zh": "腹腔干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Colic branch of ileocolic artery",
+   "zh": "回结肠动脉结肠支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Collateral interphalangeal ligaments of foot",
+   "zh": "趾间关节侧副韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Collateral interphalangeal ligaments of hand",
+   "zh": "指间关节侧副韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Collateral metacarpophalangeal ligaments",
+   "zh": "掌指关节侧副韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Collateral metatarsophalangeal ligaments",
+   "zh": "跖趾关节侧副韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Collateral sulcus",
+   "zh": "侧副沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common facial vein",
+   "zh": "面总静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common fibular nerve",
+   "zh": "腓总神经",
+   "status": "reviewed",
+   "note": "改正「总腓神经」。"
+  },
+  {
+   "en": "Common flexor tendon sheath",
+   "zh": "屈肌总腱鞘（尺侧囊）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Common hepatic artery",
+   "zh": "肝总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common iliac artery",
+   "zh": "髂总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common iliac vein",
+   "zh": "髂总静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common interosseous artery",
+   "zh": "骨间总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common palmar digital arteries",
+   "zh": "指掌侧总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common palmar digital branches of median nerve",
+   "zh": "正中神经的指掌侧总神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common palmar digital branches of ulnar nerve",
+   "zh": "尺神经的指掌侧总神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common plantar digital arteries",
+   "zh": "趾足底总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common plantar digital branches of lateral plantar nerve",
+   "zh": "足底外侧神经的趾足底总神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common plantar digital branches of medial plantar nerve",
+   "zh": "足底内侧神经的趾足底总神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Common tendinous ring",
+   "zh": "总腱环",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Common tendon sheath of fibularis muscles",
+   "zh": "腓骨肌总腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Conoid ligament",
+   "zh": "锥状韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Coraco-acromial ligament",
+   "zh": "喙肩韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Coracobrachial bursa",
+   "zh": "喙肱肌滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Coracobrachialis muscle",
+   "zh": "喙肱肌",
+   "status": "reviewed",
+   "note": "标准名喙肱肌。喙突是起点，不入肌名。同表喙肱肌滑膜囊已用喙肱肌。"
+  },
+  {
+   "en": "Coracohumeral ligament",
+   "zh": "喙肱韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cornea",
+   "zh": "角膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Corniculate cartilage",
+   "zh": "小角软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Coronary sinus",
+   "zh": "冠状窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Corpus callosum",
+   "zh": "胼胝体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Corpus cavernosum of penis",
+   "zh": "阴茎海绵体",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Corpus spongiosum of penis",
+   "zh": "尿道海绵体",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Corrugator supercilii",
+   "zh": "皱眉肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Costal cartilage of eighth rib",
+   "zh": "第8肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of fifth rib",
+   "zh": "第5肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of first rib",
+   "zh": "第1肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of fourth rib",
+   "zh": "第4肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of ninth rib",
+   "zh": "第9肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of second rib",
+   "zh": "第2肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of seventh rib",
+   "zh": "第7肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of sixth rib",
+   "zh": "第6肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of tenth rib",
+   "zh": "第10肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costal cartilage of third rib",
+   "zh": "第3肋软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costocervical trunk",
+   "zh": "肋颈干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costoclavicular ligament",
+   "zh": "肋锁韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Costotransverse ligament",
+   "zh": "肋横突韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cricoid cartilage",
+   "zh": "环状软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cricopharyngeal ligament",
+   "zh": "环咽韧带",
+   "status": "pending",
+   "note": "拉丁名 ligamentum cricopharyngeum，连环状软骨与咽壁（或小角软骨），亦称 Luschka 韧带。人卫《系统解剖学》未单列；IMAIOS 作环状软骨咽韧带。"
+  },
+  {
+   "en": "Cruciform part of fibrous sheath of digit of hand",
+   "zh": "指纤维鞘交叉部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Crural fascia",
+   "zh": "小腿筋膜",
+   "status": "reviewed",
+   "note": "fascia cruris 的标准名是小腿筋膜。"
+  },
+  {
+   "en": "Cubital nodes",
+   "zh": "肘淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cuboid bone",
+   "zh": "骰骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Culmen",
+   "zh": "山顶",
+   "status": "reviewed",
+   "note": "改正原长描述。"
+  },
+  {
+   "en": "Cuneate fasciculus",
+   "zh": "楔束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cuneocuboid interosseous ligament",
+   "zh": "楔骰骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cuneometatarsal interosseous ligaments",
+   "zh": "楔跖骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cuneus",
+   "zh": "楔叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Cystic node",
+   "zh": "胆囊淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Declive",
+   "zh": "山坡",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep artery of penis",
+   "zh": "阴茎深动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep brachial artery",
+   "zh": "肱深动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep branch of radial nerve",
+   "zh": "桡神经深支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep branch of ulnar nerve",
+   "zh": "尺神经深支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep cervical artery",
+   "zh": "颈深动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep dorsal vein of penis",
+   "zh": "阴茎背深静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep external pudendal artery",
+   "zh": "阴部外深动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep femoral artery",
+   "zh": "股深动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep femoral vein",
+   "zh": "股深静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep fibular nerve",
+   "zh": "腓深神经",
+   "status": "reviewed",
+   "note": "改正「深腓动脉」。"
+  },
+  {
+   "en": "Deep head of flexor pollicis brevis",
+   "zh": "拇短屈肌深头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Deep head of pronator teres",
+   "zh": "旋前圆肌深头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Deep infrapatellar bursa",
+   "zh": "髌下深滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Deep palmar arch",
+   "zh": "掌深弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep part of masseter",
+   "zh": "咬肌深部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Deep part of tibial collateral ligament",
+   "zh": "胫侧副韧带深部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep plantar artery",
+   "zh": "足底深动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep popliteal nodes",
+   "zh": "腘深淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep transverse metacarpal ligament",
+   "zh": "掌骨深横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep transverse metatarsal ligament",
+   "zh": "跖骨深横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deep venous palmar arch",
+   "zh": "掌深静脉弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Deltoid fascia",
+   "zh": "三角肌筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Depressor anguli oris",
+   "zh": "降口角肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Depressor labii inferioris",
+   "zh": "降下唇肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Depressor septi nasi",
+   "zh": "降鼻中隔肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Descending branch of lateral circumflex femoral artery",
+   "zh": "旋股外侧动脉降支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Descending branch of left colic artery",
+   "zh": "左结肠动脉降支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Descending colon",
+   "zh": "降结肠",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Descending palatine artery",
+   "zh": "腭降动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Descending part of iliofemoral ligament",
+   "zh": "髂股韧带降部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Descending part of trapezius muscle",
+   "zh": "斜方肌降部（上部）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Diaphragm",
+   "zh": "膈",
+   "status": "reviewed",
+   "note": "标准名膈，横膈膜为俗称。"
+  },
+  {
+   "en": "Diaphragmatic fascia",
+   "zh": "膈筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Distal lateral striate branches",
+   "zh": "前外侧中央动脉远侧支",
+   "status": "pending",
+   "note": "名词统称前外侧中央动脉（教材多称外侧豆纹动脉）；远侧分组不是独立标准词"
+  },
+  {
+   "en": "Distal phalanx of fifth finger of foot",
+   "zh": "小趾远节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of fifth finger of hand",
+   "zh": "小指远节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of first finger of foot",
+   "zh": "踇趾远节趾骨",
+   "status": "reviewed",
+   "note": "名词委足大趾作踇，与拇指的拇区分"
+  },
+  {
+   "en": "Distal phalanx of first finger of hand",
+   "zh": "拇指远节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of fourth finger of foot",
+   "zh": "第4趾远节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of fourth finger of hand",
+   "zh": "环指远节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of second finger of foot",
+   "zh": "第2趾远节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of second finger of hand",
+   "zh": "示指远节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of third finger of foot",
+   "zh": "第3趾远节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Distal phalanx of third finger of hand",
+   "zh": "中指远节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal artery of penis",
+   "zh": "阴茎背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal branch of ulnar nerve",
+   "zh": "尺神经手背支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal calcaneocuboid ligament",
+   "zh": "跟骰背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal carpal anastomosis",
+   "zh": "腕背网",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal carpal branch of ulnar artery",
+   "zh": "尺动脉腕背支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal carpometacarpal ligaments",
+   "zh": "腕掌背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal cuboideonavicular ligament",
+   "zh": "骰舟背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal cuneocuboid ligament",
+   "zh": "楔骰背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal cuneonavicular ligaments",
+   "zh": "楔舟背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal digital arteries of foot",
+   "zh": "趾背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal digital arteries of hand",
+   "zh": "指背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal digital branches of deep fibular nerve",
+   "zh": "腓深神经的趾背神经",
+   "status": "reviewed",
+   "note": "分布于足，称趾背神经。"
+  },
+  {
+   "en": "Dorsal digital branches of radial nerve",
+   "zh": "桡神经的指背神经",
+   "status": "reviewed",
+   "note": "分布于手，称指背神经。"
+  },
+  {
+   "en": "Dorsal digital branches of superficial fibular nerve",
+   "zh": "腓浅神经的趾背神经",
+   "status": "reviewed",
+   "note": "分布于足，称趾背神经。"
+  },
+  {
+   "en": "Dorsal digital branches of ulnar nerve",
+   "zh": "尺神经的指背神经",
+   "status": "reviewed",
+   "note": "分布于手，称指背神经。"
+  },
+  {
+   "en": "Dorsal digital veins of foot",
+   "zh": "趾背静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal digital veins of hand",
+   "zh": "指背静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal fascia of hand",
+   "zh": "手背筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Dorsal intercarpal ligaments",
+   "zh": "腕骨间背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal intercuneiform ligaments",
+   "zh": "楔间背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal interossei muscles of foot",
+   "zh": "足骨间背侧肌",
+   "status": "reviewed",
+   "note": "标准语序为骨间背侧肌，与骨间跖侧肌一致。"
+  },
+  {
+   "en": "Dorsal interossei muscles of hand",
+   "zh": "骨间背侧肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Dorsal metacarpal arteries",
+   "zh": "掌背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal metacarpal ligaments",
+   "zh": "掌骨背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal metatarsal arteries",
+   "zh": "跖背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal metatarsal ligaments",
+   "zh": "跖骨背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal metatarsal veins",
+   "zh": "跖背静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal parts of lateral intertransversarii lumborum muscles",
+   "zh": "腰外侧横突间肌背侧部",
+   "status": "reviewed",
+   "note": "标准名腰外侧横突间肌，背侧部保留。"
+  },
+  {
+   "en": "Dorsal radio-ulnar ligament",
+   "zh": "桡尺背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal radiocarpal ligament",
+   "zh": "桡腕背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal scaphotriquetral ligament",
+   "zh": "舟三角背侧韧带",
+   "status": "pending",
+   "note": "按 scapho-triquetral 作舟三角，不作三角舟。人卫未单列此小韧带，骨名次序待核。"
+  },
+  {
+   "en": "Dorsal scapular nerve",
+   "zh": "肩胛背神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal tarsometatarsal ligaments",
+   "zh": "跗跖背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal ulnocarpal ligament",
+   "zh": "尺腕背侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal venous arch of foot",
+   "zh": "足背静脉弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsal venous network of hand",
+   "zh": "手背静脉网",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Dorsalis pedis artery",
+   "zh": "足背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ductus deferens",
+   "zh": "输精管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Duodenum",
+   "zh": "十二指肠",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Eighth rib",
+   "zh": "第8肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ejaculatory duct",
+   "zh": "射精管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Eleventh rib",
+   "zh": "第11肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Epicranial aponeurosis",
+   "zh": "帽状腱膜（颅顶腱膜）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Epididymis",
+   "zh": "附睾",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Epiglottis",
+   "zh": "会厌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ethmoid bone",
+   "zh": "筛骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Extensor carpi radialis brevis",
+   "zh": "桡侧腕短伸肌",
+   "status": "reviewed",
+   "note": "与桡侧腕长伸肌同一语序，作桡侧腕短伸肌。"
+  },
+  {
+   "en": "Extensor carpi radialis longus",
+   "zh": "桡侧腕长伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor digiti minimi",
+   "zh": "小指伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor digitorum",
+   "zh": "指伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor digitorum brevis",
+   "zh": "趾短伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor digitorum longus",
+   "zh": "趾长伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor hallucis brevis",
+   "zh": "踇短伸肌",
+   "status": "reviewed",
+   "note": "足踇趾用踇。原译与拇短伸肌（extensor pollicis brevis）同名。"
+  },
+  {
+   "en": "Extensor hallucis longus",
+   "zh": "踇长伸肌",
+   "status": "reviewed",
+   "note": "足踇趾用踇。原译与拇长伸肌（extensor pollicis longus）同名。"
+  },
+  {
+   "en": "Extensor indicis",
+   "zh": "示指伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor pollicis brevis",
+   "zh": "拇短伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor pollicis longus",
+   "zh": "拇长伸肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Extensor retinaculum of wrist",
+   "zh": "伸肌支持带",
+   "status": "reviewed",
+   "note": "腕部标准名伸肌支持带，不冠手。"
+  },
+  {
+   "en": "External abdominal oblique muscle",
+   "zh": "腹外斜肌",
+   "status": "reviewed",
+   "note": "须标明腹，以免与眼的斜肌相混。"
+  },
+  {
+   "en": "External anal sphincter",
+   "zh": "肛门外括约肌",
+   "status": "reviewed",
+   "note": "标准语序为肛门外括约肌。"
+  },
+  {
+   "en": "External carotid artery",
+   "zh": "颈外动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "External iliac artery",
+   "zh": "髂外动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "External iliac vein",
+   "zh": "髂外静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "External intercostal membrane",
+   "zh": "肋间外膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "External intercostal muscles",
+   "zh": "肋间外肌",
+   "status": "reviewed",
+   "note": "与肋间内肌、肋间最内肌一致，作肋间外肌。"
+  },
+  {
+   "en": "External jugular vein",
+   "zh": "颈外静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "External part of thyro-arytenoid muscle",
+   "zh": "甲杓肌外侧部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "External pudendal veins",
+   "zh": "阴部外静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Facial artery",
+   "zh": "面动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Facial nerve (VII)",
+   "zh": "面神经（VII）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Facial vein",
+   "zh": "面静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Falx cerebri",
+   "zh": "大脑镰",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fascia lata",
+   "zh": "阔筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Femoral artery",
+   "zh": "股动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Femoral branch of genitofemoral nerve",
+   "zh": "生殖股神经股支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Femoral nerve",
+   "zh": "股神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Femoral vein",
+   "zh": "股静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Femur",
+   "zh": "股骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fibula",
+   "zh": "腓骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fibular artery",
+   "zh": "腓动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fibular collateral ligament",
+   "zh": "腓侧副韧带",
+   "status": "reviewed",
+   "note": "原译「腓侧 副韧带」中间多空格。"
+  },
+  {
+   "en": "Fibular veins",
+   "zh": "腓静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fibularis brevis muscle",
+   "zh": "腓骨短肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Fibularis longus muscle",
+   "zh": "腓骨长肌",
+   "status": "reviewed",
+   "note": "教材与名词委作腓骨长肌，与同表腓骨短肌、第三腓骨肌一致。"
+  },
+  {
+   "en": "Fibularis tertius muscle",
+   "zh": "第三腓骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Fifth metacarpal bone",
+   "zh": "第五掌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fifth metatarsal bone",
+   "zh": "第五跖骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fifth rib",
+   "zh": "第5肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "First metacarpal bone",
+   "zh": "第一掌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "First metatarsal bone",
+   "zh": "第一跖骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "First posterior intercostal artery",
+   "zh": "第一肋间后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "First rib",
+   "zh": "第1肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Flexor carpi radialis",
+   "zh": "桡侧腕屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor digiti minimi of foot",
+   "zh": "小趾短屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor digiti minimi of hand",
+   "zh": "小指短屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor digitorum brevis",
+   "zh": "趾短屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor digitorum longus",
+   "zh": "趾长屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor digitorum profundus",
+   "zh": "指深屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor hallucis longus",
+   "zh": "踇长屈肌",
+   "status": "reviewed",
+   "note": "足踇趾用踇。原译与拇长屈肌（flexor pollicis longus）同名。"
+  },
+  {
+   "en": "Flexor pollicis longus",
+   "zh": "拇长屈肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor retinaculum of ankle",
+   "zh": "足屈肌支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Flexor retinaculum of wrist",
+   "zh": "屈肌支持带",
+   "status": "reviewed",
+   "note": "腕部标准名屈肌支持带，不冠手。"
+  },
+  {
+   "en": "Flocculus",
+   "zh": "小脑绒球",
+   "status": "reviewed",
+   "note": "改正「小脑侧叶窝」。"
+  },
+  {
+   "en": "Folium of vermis",
+   "zh": "蚓叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fornix",
+   "zh": "穹窿",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fourth metacarpal bone",
+   "zh": "第四掌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fourth metatarsal bone",
+   "zh": "第四跖骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fourth rib",
+   "zh": "第4肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Fourth ventricle",
+   "zh": "第四脑室",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Free taenia",
+   "zh": "独立带",
+   "status": "reviewed",
+   "note": "三条结肠带的标准名是独立带、系膜带、网膜带"
+  },
+  {
+   "en": "Frenula capsulae",
+   "zh": "关节囊系带",
+   "status": "pending",
+   "note": "拉丁名，非全国名词委正式词条。指关节囊滑膜系带，人卫教材多不单列。"
+  },
+  {
+   "en": "Frontal bone",
+   "zh": "额骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Frontal branch of superficial temporal artery",
+   "zh": "颞浅动脉额支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Frontal branches of callosomarginal artery",
+   "zh": "胼胝体缘动脉额支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Frontalis muscle",
+   "zh": "额肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Gallbladder",
+   "zh": "胆囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ganglia of sympathetic trunk",
+   "zh": "交感干神经节",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Gastroduodenal artery",
+   "zh": "胃十二指肠动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Genicular veins",
+   "zh": "膝静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Genioglossus muscle",
+   "zh": "颏舌肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Geniohyoid muscle",
+   "zh": "颏舌骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Genital branch of genitofemoral nerve",
+   "zh": "生殖股神经生殖支",
+   "status": "reviewed",
+   "note": "改正「生殖股神经生殖器分支」。"
+  },
+  {
+   "en": "Genitofemoral nerve",
+   "zh": "生殖股神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Gingiva",
+   "zh": "牙龈",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Glans penis",
+   "zh": "阴茎头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Glenoid labrum",
+   "zh": "关节盂唇",
+   "status": "reviewed",
+   "note": "原译「盂唇」过简，名词委与人卫作关节盂唇。"
+  },
+  {
+   "en": "Globus pallidus",
+   "zh": "苍白球",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Glossopharyngeal nerve (IX)",
+   "zh": "舌咽神经（IX）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Gluteus maximus muscle",
+   "zh": "臀大肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Gluteus medius muscle",
+   "zh": "臀中肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Gluteus minimus muscle",
+   "zh": "臀小肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Gracile fasciculus",
+   "zh": "薄束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Gracile lobule",
+   "zh": "薄小叶",
+   "status": "pending",
+   "note": "小脑半球小叶，常用分叶表未单列此规范名，暂用薄小叶。"
+  },
+  {
+   "en": "Gracilis muscle",
+   "zh": "股薄肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Great cardiac vein",
+   "zh": "心大静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Great saphenous vein",
+   "zh": "大隐静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Greater omentum",
+   "zh": "大网膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Greater palatine artery",
+   "zh": "腭大动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Habenula",
+   "zh": "缰",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hamate bone",
+   "zh": "钩骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hemi-azygos vein",
+   "zh": "半奇静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hepatic portal vein",
+   "zh": "肝门静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hepatic veins",
+   "zh": "肝静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hip bone",
+   "zh": "髋骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hippocampal commissure",
+   "zh": "海马连合",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hippocampus",
+   "zh": "海马",
+   "status": "reviewed",
+   "note": "改正「海马体」。"
+  },
+  {
+   "en": "Humeral head of extensor carpi ulnaris",
+   "zh": "尺侧腕伸肌肱头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Humeral head of flexor carpi ulnaris",
+   "zh": "尺侧腕屈肌肱头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Humero-ulnar head of flexor digitorum superficialis",
+   "zh": "指浅屈肌肱尺头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Humerus",
+   "zh": "肱骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hyoglossus muscle",
+   "zh": "舌骨舌肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Hyoid bone",
+   "zh": "舌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hypoglossal nerve (XII)",
+   "zh": "舌下神经（XII）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Hypothalamus",
+   "zh": "下丘脑",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ileal branch of ileocolic artery",
+   "zh": "回结肠动脉回肠支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ileocolic artery",
+   "zh": "回结肠动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ileocolic nodes",
+   "zh": "回结肠淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Iliacus branch of iliolumbar artery",
+   "zh": "髂腰动脉髂支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Iliacus muscle",
+   "zh": "髂肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ilio-inguinal nerve",
+   "zh": "髂腹股沟神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Iliococcygeus muscle",
+   "zh": "髂尾肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Iliocostalis colli muscle",
+   "zh": "颈髂肋肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Iliocostalis lumborum muscle",
+   "zh": "腰髂肋肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Iliocostalis thoracis muscle",
+   "zh": "胸髂肋肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Iliohypogastric nerve",
+   "zh": "髂腹下神经",
+   "status": "reviewed",
+   "note": "改正「胯下腹神经」。"
+  },
+  {
+   "en": "Iliolumbar artery",
+   "zh": "髂腰动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Iliolumbar ligament",
+   "zh": "髂腰韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Iliolumbar vein",
+   "zh": "髂腰静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Iliopectineal arch",
+   "zh": "髂耻弓",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Iliopsoas fascia",
+   "zh": "髂腰筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Iliotibial tract",
+   "zh": "髂胫束",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Incus",
+   "zh": "砧骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior alveolar artery",
+   "zh": "下牙槽动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior alveolar nerve",
+   "zh": "下牙槽神经",
+   "status": "reviewed",
+   "note": "改正「下齿槽神经」。"
+  },
+  {
+   "en": "Inferior basal vein of left lung",
+   "zh": "左肺底段下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior basal vein of right lung",
+   "zh": "右肺底段下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior colliculus",
+   "zh": "下丘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior deep lateral cervical nodes",
+   "zh": "颈外侧下深淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior diaphragmatic nodes",
+   "zh": "膈下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior epigastric artery",
+   "zh": "腹壁下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior epigastric nodes",
+   "zh": "腹壁下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior epigastric vein",
+   "zh": "腹壁下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior extensor retinaculum of ankle",
+   "zh": "伸肌下支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior fibular retinaculum",
+   "zh": "腓骨肌下支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior frontal sulcus",
+   "zh": "额下沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior gemellus muscle",
+   "zh": "下孖肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior glenohumeral ligament",
+   "zh": "盂肱下韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior gluteal artery",
+   "zh": "臀下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior gluteal nodes",
+   "zh": "臀下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior gluteal veins",
+   "zh": "臀下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior head of lateral pterygoid muscle",
+   "zh": "翼外肌下头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior labial artery",
+   "zh": "下唇动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior labial veins",
+   "zh": "下唇静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior lateral brachial cutaneous nerve",
+   "zh": "臂外侧下皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior lateral genicular artery",
+   "zh": "膝下外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior leaflet of right atrioventricular valve",
+   "zh": "三尖瓣后瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior lingular artery of left lung",
+   "zh": "左肺下舌段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior lingular segmental bronchus of left lung (BV)",
+   "zh": "左肺下舌段支气管（BⅤ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior lingular vein of left lung",
+   "zh": "左肺下舌段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior lobar artery of right lung",
+   "zh": "右肺下叶动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior lobe of left lung",
+   "zh": "左肺下叶",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior lobe of right lung",
+   "zh": "右肺下叶",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior medial genicular artery",
+   "zh": "膝下内侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior mesenteric artery",
+   "zh": "肠系膜下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior mesenteric vein",
+   "zh": "肠系膜下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior nasal concha bone",
+   "zh": "下鼻甲",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior oblique muscle",
+   "zh": "下斜肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior occipital gyrus and sulcus*",
+   "zh": "枕下回和枕下沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior ophthalmic vein",
+   "zh": "眼下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior pancreatic nodes",
+   "zh": "胰下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior pancreaticoduodenal artery",
+   "zh": "胰十二指肠下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior papillary muscle of left ventricle",
+   "zh": "左心室后乳头肌",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior papillary muscle of right ventricle",
+   "zh": "右心室后乳头肌",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior parathyroid gland",
+   "zh": "下甲状旁腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior petrosal sinus",
+   "zh": "岩下窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior pharyngeal constrictor",
+   "zh": "咽下缩肌",
+   "status": "reviewed",
+   "note": "标准语序咽下缩肌。下咽缩肌易与喉咽（下咽）相混。"
+  },
+  {
+   "en": "Inferior phrenic artery",
+   "zh": "膈下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior pubic ligament",
+   "zh": "耻骨下韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior rectus muscle",
+   "zh": "下直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior sagittal sinus",
+   "zh": "下矢状窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior salivatory nucleus",
+   "zh": "下泌涎核",
+   "status": "reviewed",
+   "note": "改正「下涎核」。"
+  },
+  {
+   "en": "Inferior semilunar lobule",
+   "zh": "下半月小叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior subscapular nerve",
+   "zh": "下肩胛下神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior subtendinous bursa of biceps femoris muscle",
+   "zh": "股二头肌下腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior superficial inguinal nodes",
+   "zh": "腹股沟浅淋巴结下组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior suprarenal artery",
+   "zh": "肾上腺下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior tarsus",
+   "zh": "下睑板",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Inferior temporal gyrus",
+   "zh": "颞下回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior temporal sulcus",
+   "zh": "颞下沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior thyroid artery",
+   "zh": "甲状腺下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior tracheobronchial nodes",
+   "zh": "气管支气管下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior transverse scapular ligament",
+   "zh": "肩胛下横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior trunk of brachial plexus",
+   "zh": "臂丛下干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior ulnar collateral artery",
+   "zh": "尺侧下副动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior vein of left ventricle",
+   "zh": "左心室下静脉",
+   "status": "pending",
+   "note": "名词无左心室下静脉，标准心静脉为左心室后静脉；源拉丁作 vena inferior ventriculi sinistri"
+  },
+  {
+   "en": "Inferior vein of left ventricle (//Posterior '')",
+   "zh": "左心室下静脉",
+   "status": "pending",
+   "note": "源名括号附注损坏，不能据此改判结构；可读部分同左心室下静脉，可能与左心室后静脉重复"
+  },
+  {
+   "en": "Inferior vena cava (abdominal part)",
+   "zh": "下腔静脉腹部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Inferior vena cava (thoracic part)",
+   "zh": "下腔静脉胸部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Infra-auricular nodes",
+   "zh": "耳下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Infra-orbital artery",
+   "zh": "眶下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Infraclavicular nodes",
+   "zh": "锁骨下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Infrapatellar branch of saphenous nerve",
+   "zh": "隐神经髌下支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Infrapatellar fat pad",
+   "zh": "髌下脂体",
+   "status": "reviewed",
+   "note": "原译「髌骨下脂肪垫」非名词，人卫作髌下脂体。"
+  },
+  {
+   "en": "Infraspinatus muscle",
+   "zh": "冈下肌",
+   "status": "reviewed",
+   "note": "肩胛冈用冈，棘指椎骨棘突。同表冈下肌腱下囊已用冈。"
+  },
+  {
+   "en": "Inguinal ligament",
+   "zh": "腹股沟韧带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Innermost intercostal muscles",
+   "zh": "肋间最内肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Insula (Subcentral gyrus and ant. and post. sulci*)",
+   "zh": "岛叶（中央下回及前、后沟）",
+   "status": "pending",
+   "note": "中央下回属中央盖，不是岛叶本体；源名将二者并称，按字面暂译。"
+  },
+  {
+   "en": "Insular branches of middle cerebral artery (M2)",
+   "zh": "大脑中动脉岛动脉（M2）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Insular branches of middle cerebral artery (M2-segment)",
+   "zh": "大脑中动脉岛动脉（M2段）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intercapitular veins of foot",
+   "zh": "跖骨头间静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interclavicular ligament",
+   "zh": "锁骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intercornual ligament",
+   "zh": "角间韧带",
+   "status": "pending",
+   "note": "关节学中多指骶骨角与尾骨角之间的连结；喉小角软骨之间亦有同名纤维。人卫未用此英文专名，近义结构归入骶尾连结。"
+  },
+  {
+   "en": "Intercostal nerves",
+   "zh": "肋间神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intercostal nodes",
+   "zh": "肋间淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intercuneiform interosseous ligaments",
+   "zh": "楔间骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediate bronchus",
+   "zh": "中间支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Intermediate common iliac nodes",
+   "zh": "髂总淋巴结中间组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediate cuneiform bone",
+   "zh": "中间楔骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediate dorsal cutaneous nerve of foot",
+   "zh": "足背中间皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediate external iliac nodes",
+   "zh": "髂外淋巴结中间组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediate lumbar nodes",
+   "zh": "腰中间淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediate tendon of digastric muscle",
+   "zh": "二腹肌中间腱",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Intermediolateral nucleus",
+   "zh": "中间外侧核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermediomedial nucleus",
+   "zh": "中间内侧核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intermuscular gluteal bursae",
+   "zh": "臀肌间滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Internal abdominal oblique muscle",
+   "zh": "腹内斜肌",
+   "status": "reviewed",
+   "note": "须标明腹。"
+  },
+  {
+   "en": "Internal carotid artery",
+   "zh": "颈内动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal iliac artery",
+   "zh": "髂内动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal iliac vein",
+   "zh": "髂内静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal intercostal membrane",
+   "zh": "肋间内膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal intercostal muscles",
+   "zh": "肋间内肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Internal jugular vein",
+   "zh": "颈内静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal pudendal artery",
+   "zh": "阴部内动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal pudendal vein",
+   "zh": "阴部内静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal thoracic artery",
+   "zh": "胸廓内动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Internal thoracic veins",
+   "zh": "胸廓内静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interosseous membrane of forearm",
+   "zh": "前臂骨间膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interosseous membrane of leg",
+   "zh": "小腿骨间膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interosseous metacarpal ligaments",
+   "zh": "掌骨骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interosseous sacro-iliac ligament",
+   "zh": "骶髂骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interpectoral nodes",
+   "zh": "胸肌间淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interpeduncular fossa",
+   "zh": "脚间窝",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interpubic disc",
+   "zh": "耻骨间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intersesamoid ligament",
+   "zh": "籽骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Interspinales colli muscles",
+   "zh": "颈棘间肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Interspinales lumborum muscles",
+   "zh": "腰棘间肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Interspinales thoracis muscles",
+   "zh": "胸棘间肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Interspinous ligaments",
+   "zh": "棘间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intertransverse ligaments",
+   "zh": "横突间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intertubercular tendon sheath",
+   "zh": "结节间腱鞘（肱二头肌长头腱鞘）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Intervertebral disc C2-C3",
+   "zh": "第2–3颈椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc C3-C4",
+   "zh": "第3–4颈椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc C4-C5",
+   "zh": "第4–5颈椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc C5-C6",
+   "zh": "第5–6颈椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc C6-C7",
+   "zh": "第6–7颈椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc C7-T1",
+   "zh": "第7颈椎–第1胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc L1-L2",
+   "zh": "第1–2腰椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc L2-L3",
+   "zh": "第2–3腰椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc L3-L4",
+   "zh": "第3–4腰椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc L4-L5",
+   "zh": "第4–5腰椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc L5-S1",
+   "zh": "第5腰椎–第1骶椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T1-T2",
+   "zh": "第1–2胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T10-T11",
+   "zh": "第10–11胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T11-T12",
+   "zh": "第11–12胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T12-L1",
+   "zh": "第12胸椎–第1腰椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T2-T3",
+   "zh": "第2–3胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T3-T4",
+   "zh": "第3–4胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T4-T5",
+   "zh": "第4–5胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T5-T6",
+   "zh": "第5–6胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T6-T7",
+   "zh": "第6–7胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T7-T8",
+   "zh": "第7–8胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T8-T9",
+   "zh": "第8–9胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intervertebral disc T9-T10",
+   "zh": "第9–10胸椎间盘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intra-articular ligament of head of rib",
+   "zh": "肋头关节内韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intraglandular parotid nodes",
+   "zh": "腮腺深淋巴结（腺内）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intraparietal sulcus",
+   "zh": "顶内沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intrapulmonary nodes",
+   "zh": "肺内淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intrarenal arteries of left kidney",
+   "zh": "左肾内动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intrarenal arteries of right kidney",
+   "zh": "右肾内动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intrarenal veins of left kidney",
+   "zh": "左肾内静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Intrarenal veins of right kidney",
+   "zh": "右肾内静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Investing abdominal fascia",
+   "zh": "腹壁固有筋膜",
+   "status": "pending",
+   "note": "TA 的 fascia investiens abdominis 指包被腹壁肌的固有筋膜，不同于腹横筋膜。现译不成词。暂定腹壁固有筋膜，名词委定名待核。"
+  },
+  {
+   "en": "Iris",
+   "zh": "虹膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ischiofemoral ligament",
+   "zh": "坐股韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Jejunum",
+   "zh": "空肠",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Jugulodigastric node",
+   "zh": "颈内静脉二腹肌淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Juxta-intestinal mesenteric nodes",
+   "zh": "肠管旁淋巴结",
+   "status": "pending",
+   "note": "Nodi juxtaintestinales。e-Anatomy 作肠管旁淋巴结，系统解剖学常称肠旁淋巴结。"
+  },
+  {
+   "en": "Juxta-oesophageal nodes",
+   "zh": "食管旁淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Kidney",
+   "zh": "肾",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lacrimal artery",
+   "zh": "泪腺动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lacrimal bone",
+   "zh": "泪骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lacrimal canaliculus",
+   "zh": "泪小管",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lacrimal gland",
+   "zh": "泪腺",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lacrimal sac",
+   "zh": "泪囊",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Laryngopharynx",
+   "zh": "喉咽",
+   "status": "reviewed",
+   "note": "标准名喉咽。下咽部为旧称，删除括注。"
+  },
+  {
+   "en": "Lat_Fis-ant-Horizont",
+   "zh": "外侧沟前水平支",
+   "status": "reviewed",
+   "note": "缩写，指外侧沟前段水平支。"
+  },
+  {
+   "en": "Lat_Fis-ant-Vertical",
+   "zh": "外侧沟前升支",
+   "status": "reviewed",
+   "note": "缩写作vertical ramus，规范称前升支。"
+  },
+  {
+   "en": "Lat_Fis-post",
+   "zh": "外侧沟后支",
+   "status": "reviewed",
+   "note": "缩写，指外侧沟后支。"
+  },
+  {
+   "en": "Lateral antebrachial cutaneous nerve",
+   "zh": "前臂外侧皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral aortic nodes",
+   "zh": "主动脉外侧淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral axillary nodes",
+   "zh": "腋外侧淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral basal segmental artery of left lung",
+   "zh": "左肺外侧底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral basal segmental artery of right lung",
+   "zh": "右肺外侧底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral basal segmental bronchus of left lung (BIX)",
+   "zh": "左肺外侧底段支气管（BⅨ）",
+   "status": "reviewed",
+   "note": "用底段，不用基底段。"
+  },
+  {
+   "en": "Lateral basal segmental bronchus of right lung (BIX)",
+   "zh": "右肺外侧底段支气管（BⅨ）",
+   "status": "reviewed",
+   "note": "用底段，不用基底段。"
+  },
+  {
+   "en": "Lateral caval nodes",
+   "zh": "腔静脉外侧淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral circumflex femoral artery",
+   "zh": "旋股外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral circumflex femoral veins",
+   "zh": "旋股外侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral common iliac nodes",
+   "zh": "髂总淋巴结外侧组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral corticospinal tract",
+   "zh": "皮质脊髓侧束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral crico-arytenoid muscle",
+   "zh": "环杓侧肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral cuneiform bone",
+   "zh": "外侧楔骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral fasciculus proprius",
+   "zh": "外侧固有束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral femoral cutaneous nerve",
+   "zh": "股外侧皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral femoral intermuscular septum",
+   "zh": "股外侧肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral frontobasal artery",
+   "zh": "额叶底外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral geniculate body",
+   "zh": "外侧膝状体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral head of flexor hallucis brevis",
+   "zh": "踇短屈肌外侧头",
+   "status": "reviewed",
+   "note": "足踇短屈肌用踇，与拇短屈肌（拇指）区分。"
+  },
+  {
+   "en": "Lateral head of gastrocnemius",
+   "zh": "腓肠肌外侧头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral head of triceps brachii",
+   "zh": "肱三头肌外侧头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral intermediate substance",
+   "zh": "外侧中间质",
+   "status": "reviewed",
+   "note": "脊髓中间带外侧部。"
+  },
+  {
+   "en": "Lateral intermuscular septum of arm",
+   "zh": "臂外侧肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral meniscus",
+   "zh": "外侧半月板",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral occipital artery",
+   "zh": "枕叶外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral occipital gyrus (Middle occipital gyrus*)",
+   "zh": "枕外侧回（枕中回）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral occipitotemporal gyrus",
+   "zh": "枕颞外侧回",
+   "status": "reviewed",
+   "note": "亦称梭状回。"
+  },
+  {
+   "en": "Lateral patellar retinaculum",
+   "zh": "髌外侧支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral pectoral nerve",
+   "zh": "胸外侧神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral pericardial nodes",
+   "zh": "心包外侧淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral plantar artery",
+   "zh": "足底外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral plantar nerve",
+   "zh": "足底外侧神经",
+   "status": "reviewed",
+   "note": "改正「外跖神经」。"
+  },
+  {
+   "en": "Lateral plantar veins",
+   "zh": "足底外侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral pontine branches of basilar artery",
+   "zh": "基底动脉脑桥外侧支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral process of nasal septal cartilage",
+   "zh": "鼻中隔软骨外侧突",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral rectus muscle",
+   "zh": "外直肌",
+   "status": "reviewed",
+   "note": "眼直肌是上、下、内、外直肌的总称，本条为外直肌。"
+  },
+  {
+   "en": "Lateral reticulospinal tract",
+   "zh": "外侧网状脊髓束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral sacral nodes",
+   "zh": "骶外侧淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral sacral veins",
+   "zh": "骶外侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral segmental artery of right lung",
+   "zh": "右肺外侧段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral segmental bronchus of right lung (BIV)",
+   "zh": "右肺外侧段支气管（BⅣ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral spinothalamic tract",
+   "zh": "脊髓丘脑外侧束",
+   "status": "reviewed",
+   "note": "标准名脊髓丘脑外侧束，不写作侧束"
+  },
+  {
+   "en": "Lateral subtendinous bursa of gastrocnemius muscle",
+   "zh": "腓肠肌外侧腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lateral superior jugular node",
+   "zh": "颈内静脉上外侧淋巴结",
+   "status": "pending",
+   "note": "Nodus jugularis superior lateralis，属颈外侧上深淋巴结。e-Anatomy 或作颈内静脉外侧淋巴结；为标明 superior，暂作颈内静脉上外侧淋巴结。"
+  },
+  {
+   "en": "Lateral talocalcaneal ligament",
+   "zh": "距跟外侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral tarsal artery",
+   "zh": "跗外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral temporomandibular ligament",
+   "zh": "颞下颌外侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral thoracic artery",
+   "zh": "胸外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral thoracic vein",
+   "zh": "胸外侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral thyrohyoid ligament",
+   "zh": "甲状舌骨外侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral vein of right lung",
+   "zh": "右肺外侧段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral ventricle",
+   "zh": "侧脑室",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral vesical nodes",
+   "zh": "膀胱外侧淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lateral vestibulospinal tract",
+   "zh": "外侧前庭脊髓束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Latissimus dorsi muscle",
+   "zh": "背阔肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left anterior lateral segment of liver (III)",
+   "zh": "肝左外叶下段（Ⅲ段）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left ascending lumbar vein",
+   "zh": "左腰升静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left atrium",
+   "zh": "左心房",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left brachiocephalic vein",
+   "zh": "左头臂静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left colic artery",
+   "zh": "左结肠动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left colic nodes",
+   "zh": "左结肠淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left common carotid artery",
+   "zh": "左颈总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left coronary artery",
+   "zh": "左冠状动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left coronary leaflet",
+   "zh": "左冠瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left gastric artery",
+   "zh": "胃左动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left gastro-omental vein",
+   "zh": "胃网膜左静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left inferior lobar bronchus",
+   "zh": "左肺下叶支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left inferior pulmonary vein",
+   "zh": "左下肺静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left lobe of thymus",
+   "zh": "胸腺左叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left main bronchus",
+   "zh": "左主支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left medial segment of liver (IV)",
+   "zh": "肝左内叶（Ⅳ段）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left posterior lateral segment of liver (II)",
+   "zh": "肝左外叶上段（Ⅱ段）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left pulmonary artery",
+   "zh": "左肺动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left renal artery",
+   "zh": "左肾动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left renal vein",
+   "zh": "左肾静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left semilunar leaflet of pulmonary valve",
+   "zh": "肺动脉瓣左瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left subclavian artery",
+   "zh": "左锁骨下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left subclavian vein",
+   "zh": "左锁骨下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left subcostal vein",
+   "zh": "左肋下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left superior intercostal vein",
+   "zh": "左肋间上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left superior lobar bronchus",
+   "zh": "左肺上叶支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Left superior pulmonary vein",
+   "zh": "左上肺静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left testicular artery",
+   "zh": "左睾丸动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left testicular vein",
+   "zh": "左睾丸静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Left ventricle",
+   "zh": "左心室",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lens",
+   "zh": "晶状体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lentiform nucleus",
+   "zh": "豆状核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lesser omentum",
+   "zh": "小网膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Levator anguli oris",
+   "zh": "提口角肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Levator labii superioris",
+   "zh": "提上唇肌",
+   "status": "reviewed",
+   "note": "标准名提上唇肌。举不是 levator 的术语用字。"
+  },
+  {
+   "en": "Levator nasolabialis",
+   "zh": "提上唇鼻翼肌",
+   "status": "pending",
+   "note": "此英文常作提上唇鼻翼肌（levator labii superioris alaeque nasi）的异名。提鼻唇肌非标准名。若源条目另有所指则待核。"
+  },
+  {
+   "en": "Levator palpebrae superioris",
+   "zh": "上睑提肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Levator scapulae",
+   "zh": "肩胛提肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Levatores breves costarum",
+   "zh": "肋短提肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Levatores longi costarum",
+   "zh": "肋长提肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ligament of head of femur",
+   "zh": "股骨头韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ligamenta flava",
+   "zh": "黄韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Linea alba",
+   "zh": "白线",
+   "status": "reviewed",
+   "note": "标准名白线。"
+  },
+  {
+   "en": "Lingual gyrus",
+   "zh": "舌回",
+   "status": "reviewed",
+   "note": "改正未译的英文。"
+  },
+  {
+   "en": "Lingual nerve",
+   "zh": "舌神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lingual vein",
+   "zh": "舌静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lingula of cerebellum",
+   "zh": "小脑舌",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lingular vein of left lung",
+   "zh": "左肺舌静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Liver",
+   "zh": "肝",
+   "status": "reviewed",
+   "note": "脏器名作肝。"
+  },
+  {
+   "en": "Long head of biceps brachii",
+   "zh": "肱二头肌长头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Long head of biceps femoris",
+   "zh": "股二头肌长头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Long head of triceps brachii",
+   "zh": "肱三头肌长头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Long plantar ligament",
+   "zh": "足底长韧带",
+   "status": "reviewed",
+   "note": "原译「长跖韧带」为旧称，人卫作足底长韧带。"
+  },
+  {
+   "en": "Long posterior ciliary arteries",
+   "zh": "睫状后长动脉",
+   "status": "reviewed",
+   "note": "名词作睫状后长动脉"
+  },
+  {
+   "en": "Long thoracic nerve",
+   "zh": "胸长神经",
+   "status": "reviewed",
+   "note": "改正「长胸神经」。"
+  },
+  {
+   "en": "Longissimus capitis muscle",
+   "zh": "头最长肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Longissimus colli muscle",
+   "zh": "颈最长肌",
+   "status": "reviewed",
+   "note": "括注“颈胸最长肌颈段”非标准名，删除。"
+  },
+  {
+   "en": "Longissimus thoracis muscle",
+   "zh": "胸最长肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Longus capitis muscle",
+   "zh": "头长肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Longus colli muscle",
+   "zh": "颈长肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lower canine",
+   "zh": "下颌尖牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lower first molar tooth",
+   "zh": "下颌第一磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lower first premolar",
+   "zh": "下颌第一前磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lower lateral incisor",
+   "zh": "下颌侧切牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lower medial incisor",
+   "zh": "下颌中切牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lower second molar tooth",
+   "zh": "下颌第二磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lower second premolar",
+   "zh": "下颌第二前磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lumbar arteries",
+   "zh": "腰动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lumbar branch of iliolumbar artery",
+   "zh": "髂腰动脉腰支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lumbar veins",
+   "zh": "腰静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lumbrical muscles of foot",
+   "zh": "足蚓状肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lumbrical muscles of hand",
+   "zh": "手蚓状肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Lunate bone",
+   "zh": "月骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lunate sulcus",
+   "zh": "月状沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Lunotriquetral interosseous ligament",
+   "zh": "月三角骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Major alar cartilage",
+   "zh": "鼻翼大软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Malleus",
+   "zh": "锤骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mamillary body",
+   "zh": "乳头体",
+   "status": "reviewed",
+   "note": "改正「乳头状体」。"
+  },
+  {
+   "en": "Mandible",
+   "zh": "下颌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mandibular node",
+   "zh": "下颌淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Manubrium of sternum",
+   "zh": "胸骨柄",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Marginal artery",
+   "zh": "结肠缘动脉",
+   "status": "pending",
+   "note": "源名未写 colon 或 cardiac marginal，且无左右后缀。暂按结肠缘动脉（Drummond 缘动脉）；若实为心右缘支则应为右缘支。"
+  },
+  {
+   "en": "Masseteric fascia",
+   "zh": "咬肌筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Mastoid nodes",
+   "zh": "乳突淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Maxilla",
+   "zh": "上颌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Maxillary artery",
+   "zh": "上颌动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Maxillary nerve",
+   "zh": "上颌神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Maxillary veins",
+   "zh": "上颌静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial antebrachial cutaneous nerve",
+   "zh": "前臂内侧皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial basal segmental artery of left lung",
+   "zh": "左肺内侧底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial basal segmental artery of right lung",
+   "zh": "右肺内侧底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial basal segmental bronchus of left lung (BVII)",
+   "zh": "左肺内侧底段支气管（BⅦ）",
+   "status": "reviewed",
+   "note": "BⅦ 为内侧底段。用底段，也不称前内底段。"
+  },
+  {
+   "en": "Medial basal segmental bronchus of right lung (BVII)",
+   "zh": "右肺内侧底段支气管（BⅦ）",
+   "status": "reviewed",
+   "note": "BⅦ 为内侧底段。用底段。"
+  },
+  {
+   "en": "Medial brachial cutaneous nerve",
+   "zh": "臂内侧皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial circumflex femoral artery",
+   "zh": "旋股内侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial circumflex femoral veins",
+   "zh": "旋股内侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial common iliac nodes",
+   "zh": "髂总淋巴结内侧组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial crural cutaneous branches of saphenous nerve",
+   "zh": "隐神经小腿内侧皮支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial cuneiform bone",
+   "zh": "内侧楔骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial dorsal cutaneous nerve of foot",
+   "zh": "足背内侧皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial external iliac nodes",
+   "zh": "髂外淋巴结内侧组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial femoral intermuscular septum",
+   "zh": "股内侧肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial geniculate body",
+   "zh": "内侧膝状体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial head of flexor hallucis brevis",
+   "zh": "踇短屈肌内侧头",
+   "status": "reviewed",
+   "note": "足踇短屈肌用踇。"
+  },
+  {
+   "en": "Medial head of gastrocnemius",
+   "zh": "腓肠肌内侧头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial head of triceps brachii",
+   "zh": "肱三头肌内侧头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial intermuscular septum of arm",
+   "zh": "臂内侧肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial meniscus",
+   "zh": "内侧半月板",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial occipital artery",
+   "zh": "枕叶内侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial occipitotemporal gyrus (Parahippocampal*)",
+   "zh": "枕颞内侧回（海马旁回）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial patellar retinaculum",
+   "zh": "髌内侧支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial pectoral nerve",
+   "zh": "胸内侧神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial plantar artery",
+   "zh": "足底内侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial plantar nerve",
+   "zh": "足底内侧神经",
+   "status": "reviewed",
+   "note": "改正「内跖神经」。"
+  },
+  {
+   "en": "Medial plantar veins",
+   "zh": "足底内侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial pontine branches of basilar artery",
+   "zh": "基底动脉脑桥内侧支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial pterygoid muscle",
+   "zh": "翼内肌",
+   "status": "reviewed",
+   "note": "与翼外肌一致，标准名翼内肌。"
+  },
+  {
+   "en": "Medial rectus muscle",
+   "zh": "内直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial reticulospinal tract",
+   "zh": "内侧网状脊髓束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial segmental artery of right lung",
+   "zh": "右肺内侧段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial segmental bronchus of right lung (BV)",
+   "zh": "右肺内侧段支气管（BⅤ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial subtendinous bursa of gastrocnemius muscle",
+   "zh": "腓肠肌内侧腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Medial sural cutaneous nerve",
+   "zh": "腓肠内侧皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial talocalcaneal ligament",
+   "zh": "距跟内侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial vein of right lung",
+   "zh": "右肺内侧段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medial vestibulospinal tract",
+   "zh": "内侧前庭脊髓束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median antebrachial vein",
+   "zh": "前臂正中静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median cricothyroid ligament",
+   "zh": "环甲正中韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median cubital vein",
+   "zh": "肘正中静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median nerve",
+   "zh": "正中神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median sacral artery",
+   "zh": "骶正中动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median sacral nodes",
+   "zh": "骶正中淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Median thyrohyoid ligament",
+   "zh": "甲状舌骨正中韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Medulla oblongata",
+   "zh": "延髓",
+   "status": "reviewed",
+   "note": "改正「延脑」。"
+  },
+  {
+   "en": "Meningeal branch of maxillary nerve",
+   "zh": "上颌神经脑膜支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Meniscopatellar ligament",
+   "zh": "髌半月板韧带",
+   "status": "pending",
+   "note": "英文未分内、外侧。e-Anatomy 指内侧半月板至髌骨下极，临床常称内侧髌半月板韧带。人卫《系统解剖学》未单列。"
+  },
+  {
+   "en": "Mental branch of inferior alveolar artery",
+   "zh": "下牙槽动脉颏支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mental nerve",
+   "zh": "颏神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mentalis muscle",
+   "zh": "颏肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Meso-appendix",
+   "zh": "阑尾系膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Mesocolic taenia",
+   "zh": "系膜带",
+   "status": "reviewed",
+   "note": "标准名系膜带"
+  },
+  {
+   "en": "Mesocolon",
+   "zh": "结肠系膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Metatarsal interosseous ligaments",
+   "zh": "跖骨骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Midbrain",
+   "zh": "中脑",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle cardiac vein",
+   "zh": "心中静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle cells of ethmoid bone",
+   "zh": "中筛小房",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle cerebral artery (M1-segment)",
+   "zh": "大脑中动脉蝶骨部（M1段）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle cerebral artery (M3-segment)",
+   "zh": "大脑中动脉岛盖段（M3段）",
+   "status": "pending",
+   "note": "名词只分蝶骨部与岛部，无M3段；岛盖段为临床分段名"
+  },
+  {
+   "en": "Middle colic artery",
+   "zh": "中结肠动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle colic nodes",
+   "zh": "中结肠淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle colic vein",
+   "zh": "中结肠静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle collateral artery",
+   "zh": "中副动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle frontal gyrus",
+   "zh": "额中回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle genicular artery",
+   "zh": "膝中动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle glenohumeral ligament",
+   "zh": "盂肱中韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle layer of thoracolumbar fascia",
+   "zh": "胸腰筋膜中层",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Middle lobar artery of right lung",
+   "zh": "右肺中叶动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle lobar bronchus",
+   "zh": "中叶支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Middle lobe of right lung",
+   "zh": "右肺中叶",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Middle meningeal artery",
+   "zh": "脑膜中动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of fifth finger of foot",
+   "zh": "小趾中节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of fifth finger of hand",
+   "zh": "小指中节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of fourth finger of foot",
+   "zh": "第4趾中节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of fourth finger of hand",
+   "zh": "环指中节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of second finger of foot",
+   "zh": "第2趾中节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of second finger of hand",
+   "zh": "示指中节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of third finger of foot",
+   "zh": "第3趾中节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle phalanx of third finger of hand",
+   "zh": "中指中节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle pharyngeal constrictor",
+   "zh": "咽中缩肌",
+   "status": "reviewed",
+   "note": "与咽上缩肌一致，标准名咽中缩肌。"
+  },
+  {
+   "en": "Middle temporal gyrus",
+   "zh": "颞中回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Middle trunk of brachial plexus",
+   "zh": "臂丛中干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Motor nucleus of facial nerve",
+   "zh": "面神经核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Motor root of trigeminal nerve",
+   "zh": "三叉神经运动根",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mucosa of nasal cavity",
+   "zh": "鼻腔黏膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Mucosa of stomach",
+   "zh": "胃黏膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Multifidus colli muscle",
+   "zh": "颈多裂肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Multifidus lumborum muscle",
+   "zh": "腰多裂肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Multifidus thoracis muscle",
+   "zh": "胸多裂肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Muscular branches of axillary nerve",
+   "zh": "腋神经肌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Muscular branches of deep fibular nerve",
+   "zh": "腓深神经肌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Muscular branches of median nerve",
+   "zh": "正中神经肌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Muscular branches of radial nerve",
+   "zh": "桡神经肌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Muscular branches of ulnar nerve",
+   "zh": "尺神经肌支",
+   "status": "reviewed",
+   "note": "改正「尺神经肌肉支」。"
+  },
+  {
+   "en": "Musculocutaneous nerve",
+   "zh": "肌皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Musculophrenic artery",
+   "zh": "肌膈动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Musculophrenic veins",
+   "zh": "肌膈静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mylohyoid branch of inferior alveolar artery",
+   "zh": "下牙槽动脉下颌舌骨肌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Mylohyoid muscle",
+   "zh": "下颌舌骨肌",
+   "status": "reviewed",
+   "note": "mylohyoid 为下颌舌骨肌。颏舌肌是 genioglossus，同表已另立条目。"
+  },
+  {
+   "en": "Nasal bone",
+   "zh": "鼻骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nasal septal cartilage",
+   "zh": "鼻中隔软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nasalis muscle",
+   "zh": "鼻肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Nasolabial node",
+   "zh": "鼻唇淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nasolacrimal duct",
+   "zh": "鼻泪管",
+   "status": "reviewed",
+   "note": "改正「泪器」。"
+  },
+  {
+   "en": "Nasopharynx",
+   "zh": "鼻咽",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Navicular bone",
+   "zh": "足舟骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nerve to mylohyoid muscle",
+   "zh": "下颌舌骨肌神经",
+   "status": "reviewed",
+   "note": "改正「颏舌肌神经」。"
+  },
+  {
+   "en": "Nerve to piriformis muscle",
+   "zh": "梨状肌神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nerve to quadratus femoris muscle",
+   "zh": "股方肌神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Neurohypophysis",
+   "zh": "神经垂体",
+   "status": "reviewed",
+   "note": "标准名神经垂体，脑下垂体后叶为旧称。"
+  },
+  {
+   "en": "Ninth rib",
+   "zh": "第9肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Node of arch of azygos vein",
+   "zh": "奇静脉弓淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Node of ligamentum arteriosum",
+   "zh": "动脉韧带淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nodule of vermis",
+   "zh": "小结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Non-coronary leaflet",
+   "zh": "无冠瓣（主动脉瓣）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nuchal ligament",
+   "zh": "项韧带",
+   "status": "reviewed",
+   "note": "原译「颈韧带」误，应为项韧带。"
+  },
+  {
+   "en": "Nucleus ambiguus",
+   "zh": "疑核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus of abducens nerve",
+   "zh": "展神经核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus of accessory nerve",
+   "zh": "副神经核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus of hypoglossal nerve",
+   "zh": "舌下神经核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus of oculomotor nerve",
+   "zh": "动眼神经核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus of solitary tract",
+   "zh": "孤束核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus of trochlear nerve",
+   "zh": "滑车神经核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus proprius",
+   "zh": "后角固有核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus C2-C3",
+   "zh": "第2–3颈椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus C3-C4",
+   "zh": "第3–4颈椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus C4-C5",
+   "zh": "第4–5颈椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus C5-C6",
+   "zh": "第5–6颈椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus C6-C7",
+   "zh": "第6–7颈椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus C7-T1",
+   "zh": "第7颈椎–第1胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus L1-L2",
+   "zh": "第1–2腰椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus L2-L3",
+   "zh": "第2–3腰椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus L3-L4",
+   "zh": "第3–4腰椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus L4-L5",
+   "zh": "第4–5腰椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus L5-S1",
+   "zh": "第5腰椎–第1骶椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T1-T2",
+   "zh": "第1–2胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T10-T11",
+   "zh": "第10–11胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T11-T12",
+   "zh": "第11–12胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T12-L1",
+   "zh": "第12胸椎–第1腰椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T2-T3",
+   "zh": "第2–3胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T3-T4",
+   "zh": "第3–4胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T4-T5",
+   "zh": "第4–5胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T5-T6",
+   "zh": "第5–6胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T6-T7",
+   "zh": "第6–7胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T7-T8",
+   "zh": "第7–8胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T8-T9",
+   "zh": "第8–9胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Nucleus pulposus T9-T10",
+   "zh": "第9–10胸椎间盘髓核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Oblique cord",
+   "zh": "斜索",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Oblique head of adductor hallucis",
+   "zh": "踇收肌斜头",
+   "status": "reviewed",
+   "note": "足踇收肌用踇，与拇收肌（拇指）斜头区分。"
+  },
+  {
+   "en": "Oblique head of adductor pollicis",
+   "zh": "拇收肌斜头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Oblique part of cricothyroid muscle",
+   "zh": "环甲肌斜部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Oblique popliteal ligament",
+   "zh": "腘斜韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Obliquus inferior capitis muscle",
+   "zh": "头下斜肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Obliquus superior capitis muscle",
+   "zh": "头上斜肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Obturator artery",
+   "zh": "闭孔动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Obturator externus",
+   "zh": "闭孔外肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Obturator internus",
+   "zh": "闭孔内肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Obturator membrane",
+   "zh": "闭孔膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Obturator nerve",
+   "zh": "闭孔神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Obturator nodes",
+   "zh": "闭孔淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipital artery",
+   "zh": "枕动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipital bone",
+   "zh": "枕骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipital nodes",
+   "zh": "枕淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipital pole",
+   "zh": "枕极",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipital sinus",
+   "zh": "枕窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipital vein",
+   "zh": "枕静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Occipitalis muscle",
+   "zh": "枕肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Occipitotemporal sulcus (Lateral part*)",
+   "zh": "枕颞外侧沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Oculomotor nerve (III)",
+   "zh": "动眼神经（III）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Oesophagus",
+   "zh": "食管",
+   "status": "reviewed",
+   "note": "标准名食管，食道为旧称。"
+  },
+  {
+   "en": "Olfactory nerve (I)",
+   "zh": "嗅神经（I）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Olfactory sulcus",
+   "zh": "嗅沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Olive",
+   "zh": "橄榄",
+   "status": "reviewed",
+   "note": "改正「油橄榄」；指延髓橄榄。"
+  },
+  {
+   "en": "Omental taenia",
+   "zh": "网膜带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Omohyoid muscle",
+   "zh": "肩胛舌骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Opercular part of inferior frontal gyrus",
+   "zh": "额下回岛盖部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ophthalmic artery",
+   "zh": "眼动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ophthalmic nerve",
+   "zh": "眼神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Opponens digiti minimi muscle of hand",
+   "zh": "小指对掌肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Opponens pollicis muscle",
+   "zh": "拇对掌肌",
+   "status": "reviewed",
+   "note": "与小指对掌肌同一语序，作拇对掌肌。"
+  },
+  {
+   "en": "Optic chiasm",
+   "zh": "视交叉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Optic nerve (II)",
+   "zh": "视神经（II）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Optic tract",
+   "zh": "视束",
+   "status": "reviewed",
+   "note": "改正「视径」。"
+  },
+  {
+   "en": "Orbicularis oris muscle",
+   "zh": "口轮匝肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Orbital gyri",
+   "zh": "眶回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Orbital gyri (Frontomarginal gyrus and sulcus*)",
+   "zh": "眶回（额边缘回及额边缘沟）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Orbital part of  inferior frontal gyrus",
+   "zh": "额下回眶部",
+   "status": "reviewed",
+   "note": "改正「眶部」。"
+  },
+  {
+   "en": "Orbital part of orbicularis oculi",
+   "zh": "眼轮匝肌眶部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Orbital sulci (H-shaped orbital sulci*)",
+   "zh": "H形眶沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Orbital sulci (Lateral Orbital sulcus*)",
+   "zh": "外侧眶沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Orbitofrontal branches of anterior cerebral artery",
+   "zh": "额叶底内侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Oropharynx",
+   "zh": "口咽",
+   "status": "reviewed",
+   "note": "标准名口咽。中咽部为旧称，删除括注。"
+  },
+  {
+   "en": "Palatine bone",
+   "zh": "腭骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palatine tonsil",
+   "zh": "腭扁桃体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palatopharyngeus muscle",
+   "zh": "腭咽肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Palmar aponeurosis",
+   "zh": "掌腱膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Palmar branch of median nerve",
+   "zh": "正中神经掌支",
+   "status": "reviewed",
+   "note": "改正「掌皮支」。"
+  },
+  {
+   "en": "Palmar branch of ulnar nerve",
+   "zh": "尺神经掌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar capitohamate ligament",
+   "zh": "头钩掌侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar carpal branch of radial artery",
+   "zh": "桡动脉腕掌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar carpometacarpal ligaments",
+   "zh": "腕掌掌侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar digital veins",
+   "zh": "指掌侧静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar interossei muscles",
+   "zh": "骨间掌侧肌",
+   "status": "reviewed",
+   "note": "骨间肌不是指间肌，与骨间跖侧肌用字一致。"
+  },
+  {
+   "en": "Palmar interphalangeal ligaments",
+   "zh": "指间关节掌侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar lunotriquetral ligament",
+   "zh": "月三角掌侧韧带",
+   "status": "pending",
+   "note": "可指月三角骨间韧带的掌侧部，也可指独立的掌侧囊韧带。暂按掌侧束译，与月三角骨间韧带分列。"
+  },
+  {
+   "en": "Palmar metacarpal arteries",
+   "zh": "掌心动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar metacarpal ligaments",
+   "zh": "掌骨掌侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar radio-ulnar ligament",
+   "zh": "桡尺掌侧韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Palmar scaphotriquetral ligament",
+   "zh": "舟三角掌侧韧带",
+   "status": "pending",
+   "note": "按 scapho-triquetral 作舟三角，不作三角舟。人卫未单列此小韧带，骨名次序待核。"
+  },
+  {
+   "en": "Palmar trapezoideocapitate ligament",
+   "zh": "小多角头掌侧韧带",
+   "status": "pending",
+   "note": "trapezoid 为小多角骨、capitate 为头状骨。旧译偶把大多角与小多角对调；掌侧束与骨间束的分列待核。"
+  },
+  {
+   "en": "Palmaris longus muscle",
+   "zh": "掌长肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Palpebral part of orbicularis oculi",
+   "zh": "眼轮匝肌睑部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pancreas",
+   "zh": "胰",
+   "status": "reviewed",
+   "note": "脏器名作胰。"
+  },
+  {
+   "en": "Pancreatic duct",
+   "zh": "胰管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Paracentral gyrus and sulcus*",
+   "zh": "中央旁回和中央旁沟",
+   "status": "reviewed",
+   "note": "大脑内侧面，相当于中央旁小叶区域。"
+  },
+  {
+   "en": "Paracentral sulcus",
+   "zh": "中央旁沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Paracolic superior mesenteric nodes",
+   "zh": "结肠旁肠系膜上淋巴结",
+   "status": "pending",
+   "note": "Nodi mesenterici superiores paracolici。与肠系膜下组的结肠旁淋巴结相对；教材多统称结肠旁淋巴结。"
+  },
+  {
+   "en": "Pararectal nodes",
+   "zh": "直肠旁淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Parasternal nodes",
+   "zh": "胸骨旁淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Paratracheal cervical nodes",
+   "zh": "颈段气管旁淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Paratracheal thoracic nodes",
+   "zh": "胸段气管旁淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Parietal bone",
+   "zh": "顶骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Parietal branches of middle cerebral artery",
+   "zh": "大脑中动脉顶叶支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Parieto-occipital artery",
+   "zh": "顶枕动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Parieto-occipital sulcus",
+   "zh": "顶枕沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Parotid duct",
+   "zh": "腮腺管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Parotid gland",
+   "zh": "腮腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Patella",
+   "zh": "髌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Patellar anastomosis",
+   "zh": "髌网",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pectineus muscle",
+   "zh": "耻骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pectoral branches of thoraco-acromial artery",
+   "zh": "胸肩峰动脉胸肌支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pectoral fascia",
+   "zh": "胸筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pectoralis minor muscle",
+   "zh": "胸小肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Peduncle of flocculus",
+   "zh": "绒球脚",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Perforating branches of plantar metatarsal arteries",
+   "zh": "足心动脉穿支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Perforating femoral arteries",
+   "zh": "穿动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Perforating veins",
+   "zh": "穿静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pericallosal artery",
+   "zh": "胼周动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pineal gland",
+   "zh": "松果体",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Piriformis fascia",
+   "zh": "梨状肌筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Piriformis muscle",
+   "zh": "梨状肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pisiform bone",
+   "zh": "豌豆骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pisohamate ligament",
+   "zh": "豆钩韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pisometacarpal ligament",
+   "zh": "豆掌韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pisotriquetral ligament",
+   "zh": "豆三角韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar aponeurosis",
+   "zh": "足底腱膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Plantar arch",
+   "zh": "足底动脉弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar calcaneocuboid ligament",
+   "zh": "跟骰足底韧带",
+   "status": "reviewed",
+   "note": "原译「跖跟骰韧带」词序不符，人卫作跟骰足底韧带。"
+  },
+  {
+   "en": "Plantar calcaneonavicular ligament",
+   "zh": "跟舟足底韧带",
+   "status": "reviewed",
+   "note": "原译「足底跟舟韧带」词序不符，人卫作跟舟足底韧带。"
+  },
+  {
+   "en": "Plantar cuboideonavicular ligament",
+   "zh": "骰舟足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar cuneocuboid ligament",
+   "zh": "楔骰足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar cuneonavicular ligaments",
+   "zh": "楔舟足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar digital veins",
+   "zh": "趾足底静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar intercuneiform ligaments",
+   "zh": "楔间足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar interossei muscles",
+   "zh": "骨间跖侧肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Plantar interphalangeal ligaments",
+   "zh": "趾间关节足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar metatarsal arteries",
+   "zh": "足心动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar metatarsal ligaments",
+   "zh": "跖骨足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar metatarsal veins",
+   "zh": "足心静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar metatarsophalangeal ligaments",
+   "zh": "跖趾关节足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar tarsometatarsal ligaments",
+   "zh": "跗跖足底韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantar tendon sheath of fibularis longus muscle",
+   "zh": "腓骨长肌足底腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Plantar venous arch",
+   "zh": "足底静脉弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Plantaris muscle",
+   "zh": "跖肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Platysma",
+   "zh": "颈阔肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pleura",
+   "zh": "胸膜",
+   "status": "reviewed",
+   "note": "标准名胸膜。胸肋膜为错译，胸肋面另指 sternocostal surface。"
+  },
+  {
+   "en": "Pons",
+   "zh": "脑桥",
+   "status": "reviewed",
+   "note": "改正「桥脑」。"
+  },
+  {
+   "en": "Popliteal artery",
+   "zh": "腘动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Popliteal fascia",
+   "zh": "腘筋膜",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Popliteal vein",
+   "zh": "腘静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Popliteofibular ligament",
+   "zh": "腘腓韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Popliteus muscle",
+   "zh": "腘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Postcentral arterial branch",
+   "zh": "中央后支",
+   "status": "pending",
+   "note": "拉丁名近肋间后动脉的中央后支；若为大脑中动脉皮质支，名词作中央后沟动脉"
+  },
+  {
+   "en": "Postcentral gyrus",
+   "zh": "中央后回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Postcentral sulcus",
+   "zh": "中央后沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior antebrachial cutaneous nerve",
+   "zh": "前臂后皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior auricular vein",
+   "zh": "耳后静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior axillary nodes",
+   "zh": "肩胛下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior basal segmental artery of left lung",
+   "zh": "左肺后底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior basal segmental artery of right lung",
+   "zh": "右肺后底段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior basal segmental bronchus of left lung (BX)",
+   "zh": "左肺后底段支气管（BⅩ）",
+   "status": "reviewed",
+   "note": "用底段，不用基底段。"
+  },
+  {
+   "en": "Posterior basal segmental bronchus of right lung (BX)",
+   "zh": "右肺后底段支气管（BⅩ）",
+   "status": "reviewed",
+   "note": "用底段，不用基底段。"
+  },
+  {
+   "en": "Posterior belly of digastric muscle",
+   "zh": "二腹肌后腹",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior branch of medial antebrachial cutaneous nerve",
+   "zh": "前臂内侧皮神经后支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior branch of obturator nerve",
+   "zh": "闭孔神经后支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior branch of renal artery",
+   "zh": "肾动脉后支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior cells of ethmoid bone",
+   "zh": "后筛小房",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior cerebral artery",
+   "zh": "大脑后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior circumflex humeral artery",
+   "zh": "旋肱后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior circumflex humeral vein",
+   "zh": "旋肱后静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior cochlear nucleus",
+   "zh": "蜗神经后核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior commissure",
+   "zh": "后连合",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior communicating artery",
+   "zh": "后交通动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior cord of brachial plexus",
+   "zh": "臂丛后束",
+   "status": "reviewed",
+   "note": "改正「臂神经丛后索」。"
+  },
+  {
+   "en": "Posterior crico-arytenoid muscle",
+   "zh": "环杓后肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior cruciate ligament",
+   "zh": "后交叉韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior deep temporal artery",
+   "zh": "颞深后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior division of inferior trunk of brachial plexus",
+   "zh": "臂丛下干后股",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior division of internal iliac artery",
+   "zh": "髂内动脉后干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior division of mandibular nerve",
+   "zh": "下颌神经后干",
+   "status": "reviewed",
+   "note": "下颌神经的division规范称后干，与臂丛的股不同。"
+  },
+  {
+   "en": "Posterior division of middle trunk of brachial plexus",
+   "zh": "臂丛中干后股",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior division of retromandibular vein",
+   "zh": "下颌后静脉后支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior division of superior trunk of brachial plexus",
+   "zh": "臂丛上干后股",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior ethmoidal artery",
+   "zh": "筛后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior fasciculus proprius",
+   "zh": "后固有束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior femoral cutaneous nerve",
+   "zh": "股后皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior horn of spinal cord",
+   "zh": "脊髓后角",
+   "status": "reviewed",
+   "note": "改正「脊髓的后角」。"
+  },
+  {
+   "en": "Posterior inferior cerebellar artery",
+   "zh": "小脑下后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior intercavernous sinus",
+   "zh": "海绵间后窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior intercostal arteries",
+   "zh": "肋间后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior intermuscular septum of leg",
+   "zh": "小腿后肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior interosseous artery",
+   "zh": "骨间后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior interosseous nerve of forearm",
+   "zh": "骨间后神经",
+   "status": "reviewed",
+   "note": "前臂桡神经深支的延续。"
+  },
+  {
+   "en": "Posterior lateral nasal branches of sphenopalatine artery",
+   "zh": "鼻后外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior lateral segment of liver (VII)",
+   "zh": "肝右后叶上段（Ⅶ段）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior layer of thoracolumbar fascia",
+   "zh": "胸腰筋膜后层",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior leaflet of left atrioventricular valve",
+   "zh": "二尖瓣后瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior ligament of fibular head",
+   "zh": "腓骨头后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior longitudinal ligament",
+   "zh": "后纵韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior medial segment of liver (VIII)",
+   "zh": "肝右前叶上段（Ⅷ段）",
+   "status": "pending",
+   "note": "英文 Posterior medial 与 Couinaud Ⅷ段不一致。Ⅷ段标准名为右前叶上段；现译右后叶下段实为Ⅵ段。按段号校正。"
+  },
+  {
+   "en": "Posterior meniscotibial ligament (Lateral meniscus)",
+   "zh": "外侧半月板胫骨后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior meniscotibial ligament (Medial meniscus)",
+   "zh": "内侧半月板胫骨后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior nucleus of vagus nerve",
+   "zh": "迷走神经背核",
+   "status": "reviewed",
+   "note": "人卫称迷走神经背核，即该后核。"
+  },
+  {
+   "en": "Posterior parietal artery",
+   "zh": "顶叶后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior quadrangular lobule",
+   "zh": "方叶后部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior root of posterior femoral cutaneous nerve",
+   "zh": "股后皮神经后根",
+   "status": "reviewed",
+   "note": "起自骶丛后股的根，不是脊神经后根。"
+  },
+  {
+   "en": "Posterior root of spinal nerve",
+   "zh": "脊神经后根",
+   "status": "reviewed",
+   "note": "改正「脊神经背根」。"
+  },
+  {
+   "en": "Posterior sacro-iliac ligament",
+   "zh": "骶髂后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior segment of eyeball",
+   "zh": "眼球后段",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior segment of liver (I)",
+   "zh": "肝尾状叶（Ⅰ段）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior segmental artery of left lung",
+   "zh": "左肺后段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior segmental artery of right lung",
+   "zh": "右肺后段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior segmental bronchus of right lung (BII)",
+   "zh": "右肺后段支气管（BⅡ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Posterior septal branches of sphenopalatine artery",
+   "zh": "蝶腭动脉鼻中隔后支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior spinocerebellar tract",
+   "zh": "脊髓小脑后束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior sternoclavicular ligament",
+   "zh": "胸锁后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior superior alveolar artery",
+   "zh": "上牙槽后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior talocalcaneal ligament",
+   "zh": "距跟后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior talofibular ligament",
+   "zh": "距腓后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior temporal branch",
+   "zh": "颞叶后动脉",
+   "status": "pending",
+   "note": "未标明母干；大脑中动脉名词作颞叶后动脉，大脑后动脉作颞叶后支"
+  },
+  {
+   "en": "Posterior tibial artery",
+   "zh": "胫后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior tibial veins",
+   "zh": "胫后静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior tibiofibular ligament",
+   "zh": "胫腓后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior tibiotalar ligament",
+   "zh": "胫距后韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterior transverse collateral sulcus",
+   "zh": "后横侧副沟",
+   "status": "reviewed",
+   "note": "侧副沟在枕颞底面后份的横行段。"
+  },
+  {
+   "en": "Posterior vein of right lung",
+   "zh": "右肺后段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Posterolateral tract",
+   "zh": "背外侧束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Postvesical nodes",
+   "zh": "膀胱后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pre-aortic nodes",
+   "zh": "主动脉前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pre-auricular nodes",
+   "zh": "耳前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Precaecal nodes",
+   "zh": "盲肠前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Precaval nodes",
+   "zh": "腔静脉前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Precentral gyrus",
+   "zh": "中央前回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Precentral sulcus (inferior part)*",
+   "zh": "中央前沟（下部）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Precentral sulcus (Superior part)*",
+   "zh": "中央前沟（上部）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Precuneus",
+   "zh": "楔前叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Prefrontal artery",
+   "zh": "额前动脉",
+   "status": "pending",
+   "note": "名词大脑中动脉皮质支无独立额前动脉词条，神经解剖习称额前动脉"
+  },
+  {
+   "en": "Prepericardial nodes",
+   "zh": "心包前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pretracheal nodes",
+   "zh": "气管前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Prevertebral nodes",
+   "zh": "椎前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Prevesical nodes",
+   "zh": "膀胱前淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Procerus muscle",
+   "zh": "降眉间肌",
+   "status": "reviewed",
+   "note": "鼻锥肌为旧译，标准名降眉间肌。"
+  },
+  {
+   "en": "Pronator quadratus",
+   "zh": "旋前方肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Proper hepatic artery",
+   "zh": "肝固有动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proper palmar digital arteries",
+   "zh": "指掌侧固有动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proper palmar digital branches of median nerve",
+   "zh": "正中神经的指掌侧固有神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proper palmar digital branches of ulnar nerve",
+   "zh": "尺神经的指掌侧固有神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proper plantar digital arteries",
+   "zh": "趾足底固有动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proper plantar digital branches of lateral plantar nerve",
+   "zh": "足底外侧神经的趾足底固有神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proper plantar digital branches of medial plantar nerve",
+   "zh": "足底内侧神经的趾足底固有神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Prostate",
+   "zh": "前列腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Proximal lateral striate branches",
+   "zh": "前外侧中央动脉近侧支",
+   "status": "pending",
+   "note": "名词统称前外侧中央动脉（教材多称外侧豆纹动脉）；近侧分组不是独立标准词"
+  },
+  {
+   "en": "Proximal phalanx of fifth finger of foot",
+   "zh": "小趾近节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of fifth finger of hand",
+   "zh": "小指近节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of first finger of foot",
+   "zh": "踇趾近节趾骨",
+   "status": "reviewed",
+   "note": "名词委足大趾作踇"
+  },
+  {
+   "en": "Proximal phalanx of first finger of hand",
+   "zh": "拇指近节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of fourth finger of foot",
+   "zh": "第4趾近节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of fourth finger of hand",
+   "zh": "环指近节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of second finger of foot",
+   "zh": "第2趾近节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of second finger of hand",
+   "zh": "示指近节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of third finger of foot",
+   "zh": "第3趾近节趾骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Proximal phalanx of third finger of hand",
+   "zh": "中指近节指骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Psoas major",
+   "zh": "腰大肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pterygospinous ligament",
+   "zh": "翼棘韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pubic symphysis",
+   "zh": "耻骨联合",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pubo-analis muscle",
+   "zh": "耻骨肛管肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pubococcygeus muscle",
+   "zh": "耻尾肌",
+   "status": "reviewed",
+   "note": "与髂尾肌同一构词，标准名耻尾肌。"
+  },
+  {
+   "en": "Pubofemoral ligament",
+   "zh": "耻股韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pudendal nerve",
+   "zh": "阴部神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Pulmonary trunk",
+   "zh": "肺动脉干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Putamen",
+   "zh": "壳",
+   "status": "reviewed",
+   "note": "改正「TKO」。"
+  },
+  {
+   "en": "Pyramid of medulla oblongata",
+   "zh": "延髓锥体",
+   "status": "reviewed",
+   "note": "与蚓锥体不同。"
+  },
+  {
+   "en": "Pyramidalis muscle",
+   "zh": "锥状肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Pyramis of vermis",
+   "zh": "蚓锥体",
+   "status": "reviewed",
+   "note": "与延髓锥体不同。"
+  },
+  {
+   "en": "Quadrangular membrane",
+   "zh": "方形膜",
+   "status": "reviewed",
+   "note": "喉部。原译「喉方膜」非名词委用名；方形韧带指肘部另一结构。"
+  },
+  {
+   "en": "Quadrate ligament",
+   "zh": "方形韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Quadratus femoris muscle",
+   "zh": "股方肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Quadratus lumborum muscle",
+   "zh": "腰方肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Quadratus plantae muscle",
+   "zh": "跖方肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Radial artery",
+   "zh": "桡动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radial collateral artery",
+   "zh": "桡侧副动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radial collateral ligament",
+   "zh": "桡侧副韧带",
+   "status": "reviewed",
+   "note": "肘关节。原译「桡副韧带」缺「侧」；腕部另有腕桡侧副韧带。"
+  },
+  {
+   "en": "Radial collateral ligament of wrist joint",
+   "zh": "腕桡侧副韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radial head of flexor digitorum superficialis",
+   "zh": "指浅屈肌桡头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Radial nerve",
+   "zh": "桡神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radial veins",
+   "zh": "桡静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radiate carpal ligament",
+   "zh": "腕辐状韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radiate ligament of head of rib",
+   "zh": "肋头辐状韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radiocapitate ligament",
+   "zh": "桡头韧带",
+   "status": "pending",
+   "note": "手外科文献常把桡头韧带当作桡舟头韧带的旧称。源列表二者分列，故按字面译为桡头韧带，不并入桡舟头韧带，也不作桡舟头月韧带。"
+  },
+  {
+   "en": "Radioscaphocapitate ligament",
+   "zh": "桡舟头韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Radius",
+   "zh": "桡骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Rectus abdominis muscle",
+   "zh": "腹直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Rectus anterior capitis muscle",
+   "zh": "头前直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Rectus femoris muscle",
+   "zh": "股直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Rectus lateralis capitis muscle",
+   "zh": "头外侧直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Rectus posterior major capitis muscle",
+   "zh": "头后大直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Rectus posterior minor capitis muscle",
+   "zh": "头后小直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Recurrent interosseous artery",
+   "zh": "骨间返动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Red nucleus",
+   "zh": "红核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Renal pelvis",
+   "zh": "肾盂",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Retina",
+   "zh": "视网膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Retro-aortic nodes",
+   "zh": "主动脉后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Retrocaecal nodes",
+   "zh": "盲肠后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Retrocaval nodes",
+   "zh": "腔静脉后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Retromandibular vein",
+   "zh": "下颌后静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Retropharyngeal nodes",
+   "zh": "咽后淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Rhomboid major muscle",
+   "zh": "大菱形肌",
+   "status": "reviewed",
+   "note": "标准名大菱形肌，菱肌不成词。"
+  },
+  {
+   "en": "Rhomboid minor muscle",
+   "zh": "小菱形肌",
+   "status": "reviewed",
+   "note": "标准名小菱形肌。"
+  },
+  {
+   "en": "Right ascending lumbar vein",
+   "zh": "右腰升静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right atrium",
+   "zh": "右心房",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right brachiocephalic vein",
+   "zh": "右头臂静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right colic artery",
+   "zh": "右结肠动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right colic nodes",
+   "zh": "右结肠淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right colic vein",
+   "zh": "右结肠静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right common carotid artery",
+   "zh": "右颈总动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right coronary artery",
+   "zh": "右冠状动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right coronary leaflet",
+   "zh": "右冠瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right gastric nodes",
+   "zh": "胃右淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right gastro-omental nodes",
+   "zh": "胃网膜右淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right gastro-omental vein",
+   "zh": "胃网膜右静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right inferior lobar bronchus",
+   "zh": "右肺下叶支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Right inferior pulmonary vein",
+   "zh": "右下肺静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right inferolateral branch of right coronary artery",
+   "zh": "右冠状动脉下外侧支",
+   "status": "pending",
+   "note": "名词右冠状动脉有右后外侧支；源名作 inferolateral，与后外侧支是否同一支不确定"
+  },
+  {
+   "en": "Right lobe of thymus",
+   "zh": "胸腺右叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right main bronchus",
+   "zh": "右主支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Right pulmonary artery",
+   "zh": "右肺动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right renal artery",
+   "zh": "右肾动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right renal vein",
+   "zh": "右肾静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right semilunar leaflet of pulmonary valve",
+   "zh": "肺动脉瓣右瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right subclavian artery",
+   "zh": "右锁骨下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right subclavian vein",
+   "zh": "右锁骨下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right subcostal vein",
+   "zh": "右肋下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right superior intercostal vein",
+   "zh": "右肋间上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right superior lobar bronchus",
+   "zh": "右肺上叶支气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Right superior phrenic vein",
+   "zh": "右膈上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right superior pulmonary vein",
+   "zh": "右上肺静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right testicular artery",
+   "zh": "右睾丸动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right testicular vein",
+   "zh": "右睾丸静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Right ventricle",
+   "zh": "右心室",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Risorius muscle",
+   "zh": "笑肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Roots of brachial plexus",
+   "zh": "臂丛根",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Rotatores",
+   "zh": "回旋肌",
+   "status": "reviewed",
+   "note": "括注把整组回旋肌缩成胸回旋肌。颈、腰回旋肌亦在本组，删除括注。"
+  },
+  {
+   "en": "Rubrospinal tract",
+   "zh": "红核脊髓束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sacrococcygeal symphysis",
+   "zh": "骶尾联合",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sacrospinous ligament",
+   "zh": "骶棘韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sacrotuberous ligament",
+   "zh": "骶结节韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sacrum",
+   "zh": "骶骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Saphenous nerve",
+   "zh": "隐神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sartorius muscle",
+   "zh": "缝匠肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Scalenus anterior muscle",
+   "zh": "前斜角肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Scalenus medius muscle",
+   "zh": "中斜角肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Scalenus posterior muscle",
+   "zh": "后斜角肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Scaphocapitate ligament",
+   "zh": "舟头韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Scaphoid bone",
+   "zh": "手舟骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Scapholunate interosseous ligament",
+   "zh": "舟月骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Scaphotrapeziotrapezoidal ligament",
+   "zh": "舟大多角小多角韧带",
+   "status": "pending",
+   "note": "临床亦简称舟大小多角韧带。舟–大多角–小多角的次序各家不一，待核。"
+  },
+  {
+   "en": "Scapula",
+   "zh": "肩胛骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Scapular spinal part of deltoid muscle",
+   "zh": "三角肌肩胛冈部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sciatic bursa of gluteus maximus muscle",
+   "zh": "臀大肌坐骨滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sciatic bursa of obturator internus",
+   "zh": "闭孔内肌坐骨滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sciatic nerve",
+   "zh": "坐骨神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sclera",
+   "zh": "巩膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Second metacarpal bone",
+   "zh": "第二掌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Second metatarsal bone",
+   "zh": "第二跖骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Second posterior intercostal artery",
+   "zh": "第二肋间后动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Second rib",
+   "zh": "第2肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Semimembranosus bursa",
+   "zh": "半膜肌滑膜囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Semimembranosus muscle",
+   "zh": "半膜肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Seminal gland",
+   "zh": "精囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Semispinalis colli muscle",
+   "zh": "颈半棘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Semispinalis thoracis muscle",
+   "zh": "胸半棘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Semitendinosus muscle",
+   "zh": "半腱肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sensory root of trigeminal nerve",
+   "zh": "三叉神经感觉根",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Septal branches of anterior interventricular artery",
+   "zh": "前室间支室间隔支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Septal branches of posterior ethmoidal artery",
+   "zh": "筛后动脉隔支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Septal leaflet of right atrioventricular valve",
+   "zh": "三尖瓣隔侧瓣",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Septal nuclei",
+   "zh": "隔核",
+   "status": "reviewed",
+   "note": "改正「中隔区」；隔区是另一名称。"
+  },
+  {
+   "en": "Septal papillary muscle of right ventricle",
+   "zh": "右心室隔侧乳头肌",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Septum pellucidum",
+   "zh": "透明隔",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Serratus anterior muscle",
+   "zh": "前锯肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Serratus posterior inferior muscle",
+   "zh": "下后锯肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Serratus posterior superior muscle",
+   "zh": "上后锯肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sesamoid bones of foot",
+   "zh": "足籽骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Seventh rib",
+   "zh": "第7肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Short head of biceps brachii",
+   "zh": "肱二头肌短头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Short head of biceps femoris",
+   "zh": "股二头肌短头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Short posterior ciliary arteries",
+   "zh": "睫状后短动脉",
+   "status": "reviewed",
+   "note": "名词作睫状后短动脉"
+  },
+  {
+   "en": "Sigmoid arteries",
+   "zh": "乙状结肠动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sigmoid colon",
+   "zh": "乙状结肠",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sigmoid nodes",
+   "zh": "乙状结肠淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sigmoid sinus",
+   "zh": "乙状窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sigmoid veins",
+   "zh": "乙状结肠静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sinus of frontal bone",
+   "zh": "额窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sinus of sphenoid bone",
+   "zh": "蝶窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sixth rib",
+   "zh": "第6肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Small saphenous vein",
+   "zh": "小隐静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Soft palate",
+   "zh": "软腭",
+   "status": "reviewed",
+   "note": "腭为软腭用字。颚指颌，软颚为错字。"
+  },
+  {
+   "en": "Soleus muscle",
+   "zh": "比目鱼肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sphenoid bone",
+   "zh": "蝶骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sphenomandibular ligament",
+   "zh": "蝶下颌韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Spinal branch of iliolumbar artery",
+   "zh": "髂腰动脉脊支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Spinal dura",
+   "zh": "硬脊膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Spinal ganglion",
+   "zh": "脊神经节",
+   "status": "reviewed",
+   "note": "改正「背根神经节」。"
+  },
+  {
+   "en": "Spinal reticular process",
+   "zh": "脊髓网状突",
+   "status": "pending",
+   "note": "源名异常，按字面暂译，未比定为其他结构。"
+  },
+  {
+   "en": "Spinalis capitis muscle",
+   "zh": "头棘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Spinalis colli muscle",
+   "zh": "颈棘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Spinalis thoracis muscle",
+   "zh": "胸棘肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Spinotectal tract",
+   "zh": "脊髓顶盖束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Spleen",
+   "zh": "脾",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Splenic artery",
+   "zh": "脾动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Splenic nodes",
+   "zh": "脾淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Splenic vein",
+   "zh": "脾静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Splenius capitis muscle",
+   "zh": "头夹肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Splenius colli muscle",
+   "zh": "颈夹肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Stapes",
+   "zh": "镫骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sternocleidomastoid muscle",
+   "zh": "胸锁乳突肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sternocostal head of pectoralis major muscle",
+   "zh": "胸大肌胸肋部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sternohyoid muscle",
+   "zh": "胸骨舌骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sternothyroid muscle",
+   "zh": "胸骨甲状肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Stomach",
+   "zh": "胃",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Straight gyrus (Gyrus rectus)",
+   "zh": "直回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Straight part of cricothyroid muscle",
+   "zh": "环甲肌直部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Straight sinus",
+   "zh": "直窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Stria medullaris thalami",
+   "zh": "丘脑髓纹",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Stria terminalis",
+   "zh": "终纹",
+   "status": "reviewed",
+   "note": "改正「终纹床核」；床核是另一结构。"
+  },
+  {
+   "en": "Stylohyoid ligament",
+   "zh": "茎突舌骨韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Stylohyoid muscle",
+   "zh": "茎突舌骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Stylomandibular ligament",
+   "zh": "茎突下颌韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Stylopharyngeus muscle",
+   "zh": "茎突咽肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subacromial bursa",
+   "zh": "肩峰下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subaortic nodes",
+   "zh": "主动脉下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subclavian nerve",
+   "zh": "锁骨下肌神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subclavius muscle",
+   "zh": "锁骨下肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcostal artery",
+   "zh": "肋下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subcutaneous acromial bursa",
+   "zh": "肩峰皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous bursa of lateral malleolus",
+   "zh": "外踝皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous bursa of medial malleolus",
+   "zh": "内踝皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous bursa of tuberosity of tibia",
+   "zh": "胫骨粗隆皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous calcaneal bursa",
+   "zh": "跟皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous infrapatellar bursa",
+   "zh": "髌下皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous prepatellar bursa",
+   "zh": "髌前皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subcutaneous trochanteric bursa",
+   "zh": "大转子皮下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subdeltoid bursa",
+   "zh": "三角肌下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subfacial prepatellar bursa",
+   "zh": "髌前筋膜下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sublingual gland",
+   "zh": "舌下腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Submandibular duct",
+   "zh": "下颌下腺管",
+   "status": "reviewed",
+   "note": "删除 Wharton 管括注。"
+  },
+  {
+   "en": "Submandibular gland",
+   "zh": "下颌下腺",
+   "status": "reviewed",
+   "note": "标准名下颌下腺，颌下腺为旧称。"
+  },
+  {
+   "en": "Submandibular nodes",
+   "zh": "下颌下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Submental artery",
+   "zh": "颏下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Submental nodes",
+   "zh": "颏下淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Submental vein",
+   "zh": "颏下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subparietal sulcus",
+   "zh": "顶下沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subscapular artery",
+   "zh": "肩胛下动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subscapular vein",
+   "zh": "肩胛下静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Subscapularis muscle",
+   "zh": "肩胛下肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of iliacus muscle",
+   "zh": "髂肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of infraspinatus muscle",
+   "zh": "冈下肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of obturator internus",
+   "zh": "闭孔内肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of sartorius muscle",
+   "zh": "缝匠肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of teres major muscle",
+   "zh": "大圆肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of tibialis anterior",
+   "zh": "胫骨前肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of trapezius muscle",
+   "zh": "斜方肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous bursa of triceps brachii muscle",
+   "zh": "肱三头肌腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous calcaneal bursa",
+   "zh": "跟腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Subtendinous prepatellar bursa",
+   "zh": "髌前腱下囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Sulcus interm_prim-Jensen",
+   "zh": "第一中间沟",
+   "status": "reviewed",
+   "note": "Jensen沟，分隔缘上回与角回。"
+  },
+  {
+   "en": "Superficial anterior cervical nodes",
+   "zh": "颈前浅淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial branch of medial plantar artery",
+   "zh": "足底内侧动脉浅支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial branch of radial nerve",
+   "zh": "桡神经浅支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial branch of ulnar nerve",
+   "zh": "尺神经浅支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial dorsal veins of penis",
+   "zh": "阴茎背浅静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial epigastric artery",
+   "zh": "腹壁浅动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial epigastric vein",
+   "zh": "腹壁浅静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial external pudendal artery",
+   "zh": "阴部外浅动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial fibular nerve",
+   "zh": "腓浅神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial head of flexor pollicis brevis",
+   "zh": "拇短屈肌浅头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial head of pronator teres",
+   "zh": "旋前圆肌浅头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial investing cervical fascia",
+   "zh": "颈部封套筋膜（颈深筋膜浅层）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial lateral cervical nodes",
+   "zh": "颈外侧浅淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial layer of temporal fascia",
+   "zh": "颞筋膜浅层",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial palmar arch",
+   "zh": "掌浅弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial parotid nodes",
+   "zh": "腮腺浅淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial part of masseter",
+   "zh": "咬肌浅部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial part of tibial collateral ligament",
+   "zh": "胫侧副韧带浅部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial popliteal nodes",
+   "zh": "腘浅淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial temporal artery",
+   "zh": "颞浅动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial temporal veins",
+   "zh": "颞浅静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superficial transverse metacarpal ligament",
+   "zh": "掌浅横韧带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial transverse metatarsal ligament",
+   "zh": "跖浅横韧带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superficial venous palmar arch",
+   "zh": "掌浅静脉弓",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior anorectal artery",
+   "zh": "直肠上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior basal vein of left lung",
+   "zh": "左肺底段上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior basal vein of right lung",
+   "zh": "右肺底段上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior bursa of biceps femoris muscle",
+   "zh": "股二头肌上囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior cerebellar artery",
+   "zh": "小脑上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior cerebellar peduncle",
+   "zh": "小脑上脚",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior colliculus",
+   "zh": "上丘",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior diaphragmatic nodes",
+   "zh": "膈上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior epigastric artery",
+   "zh": "腹壁上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior epigastric veins",
+   "zh": "腹壁上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior extensor retinaculum of ankle",
+   "zh": "伸肌上支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior fibular retinaculum",
+   "zh": "腓骨肌上支持带",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior frontal gyrus",
+   "zh": "额上回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior frontal sulcus",
+   "zh": "额上沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior gemellus muscle",
+   "zh": "上孖肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior glenohumeral ligament",
+   "zh": "盂肱上韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior gluteal artery",
+   "zh": "臀上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior gluteal nerve",
+   "zh": "臀上神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior gluteal nodes",
+   "zh": "臀上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior gluteal veins",
+   "zh": "臀上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior head of lateral pterygoid muscle",
+   "zh": "翼外肌上头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior labial artery",
+   "zh": "上唇动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior labial vein",
+   "zh": "上唇静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior lateral brachial cutaneous nerve",
+   "zh": "臂外侧上皮神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior lateral genicular artery",
+   "zh": "膝上外侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior lingular artery of left lung",
+   "zh": "左肺上舌段动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior lingular segmental bronchus of left lung (BIV)",
+   "zh": "左肺上舌段支气管（BⅣ）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior lingular vein of left lung",
+   "zh": "左肺上舌段静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior lobar artery of right lung",
+   "zh": "右肺上叶动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior lobe of left lung",
+   "zh": "左肺上叶",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior lobe of right lung",
+   "zh": "右肺上叶",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior medial genicular artery",
+   "zh": "膝上内侧动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior mesenteric artery",
+   "zh": "肠系膜上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior mesenteric vein",
+   "zh": "肠系膜上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior oblique muscle",
+   "zh": "上斜肌",
+   "status": "reviewed",
+   "note": "眼斜肌是上、下斜肌的总称，本条为上斜肌。同表上斜肌滑车已用上斜肌。"
+  },
+  {
+   "en": "Superior occipital gyri",
+   "zh": "枕上回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior ophthalmic vein",
+   "zh": "眼上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior pancreatic nodes",
+   "zh": "胰上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior pancreaticoduodenal nodes",
+   "zh": "胰十二指肠上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior parathyroid gland",
+   "zh": "上甲状旁腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior parietal lobule",
+   "zh": "顶上小叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior petrosal sinus",
+   "zh": "岩上窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior pharyngeal constrictor",
+   "zh": "咽上缩肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior phrenic arteries",
+   "zh": "膈上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior pubic ligament",
+   "zh": "耻骨上韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior rectus muscle",
+   "zh": "上直肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior sagittal sinus",
+   "zh": "上矢状窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior salivatory nucleus",
+   "zh": "上泌涎核",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior segmental artery of left lung",
+   "zh": "左肺下叶上段动脉",
+   "status": "reviewed",
+   "note": "下叶上段，避免读成上叶"
+  },
+  {
+   "en": "Superior segmental artery of right lung",
+   "zh": "右肺下叶上段动脉",
+   "status": "reviewed",
+   "note": "下叶上段"
+  },
+  {
+   "en": "Superior segmental bronchus of left lung (BVI)",
+   "zh": "左肺下叶上段支气管（BⅥ）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior segmental bronchus of right lung (BVI)",
+   "zh": "右肺下叶上段支气管（BⅥ）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior semilunar lobule",
+   "zh": "上半月小叶",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior subscapular nerve",
+   "zh": "上肩胛下神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior tarsus",
+   "zh": "上睑板",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Superior temporal gyrus (Lateral part)",
+   "zh": "颞上回（外侧部）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior temporal sulcus",
+   "zh": "颞上沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior thyroid vein",
+   "zh": "甲状腺上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior tracheobronchial nodes",
+   "zh": "气管支气管上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior transverse scapular ligament",
+   "zh": "肩胛上横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior trunk of brachial plexus",
+   "zh": "臂丛上干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior ulnar collateral artery",
+   "zh": "尺侧上副动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superior vein of left lung",
+   "zh": "左肺下叶上段静脉",
+   "status": "reviewed",
+   "note": "下叶上段"
+  },
+  {
+   "en": "Superior vein of right lung",
+   "zh": "右肺下叶上段静脉",
+   "status": "reviewed",
+   "note": "下叶上段"
+  },
+  {
+   "en": "Superior vena cava",
+   "zh": "上腔静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superolateral superficial inguinal nodes",
+   "zh": "腹股沟浅淋巴结上外侧组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Superomedial superficial inguinal nodes",
+   "zh": "腹股沟浅淋巴结上内侧组",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supinator",
+   "zh": "旋后肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Supra-orbital artery",
+   "zh": "眶上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supraclavicular nodes",
+   "zh": "锁骨上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supramarginal gyrus",
+   "zh": "缘上回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Suprapatellar bursa",
+   "zh": "髌上囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Suprarenal gland",
+   "zh": "肾上腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Suprascapular artery",
+   "zh": "肩胛上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Suprascapular nerve",
+   "zh": "肩胛上神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Suprascapular vein",
+   "zh": "肩胛上静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supraspinatus muscle",
+   "zh": "冈上肌",
+   "status": "reviewed",
+   "note": "肩胛冈用冈。棘上韧带才用棘。"
+  },
+  {
+   "en": "Supraspinous ligament",
+   "zh": "棘上韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supratrochlear artery",
+   "zh": "滑车上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supratrochlear nodes",
+   "zh": "滑车上淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Supreme intercostal artery",
+   "zh": "肋间最上动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sural communicating branch of common fibular nerve",
+   "zh": "腓总神经腓肠交通支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sural nerve",
+   "zh": "腓肠神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Suspensory ligament of eyeball",
+   "zh": "眼球悬韧带",
+   "status": "reviewed",
+   "note": "Lockwood韧带，不同于睫状小带。"
+  },
+  {
+   "en": "Sympathetic nerves",
+   "zh": "交感神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Sympathetic trunk",
+   "zh": "交感神经干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Synovial sheaths of digits of hand",
+   "zh": "指滑膜鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Talocalcaneal interosseous ligament",
+   "zh": "距跟骨间韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Talonavicular ligament",
+   "zh": "距舟韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Talus",
+   "zh": "距骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tectospinal tract",
+   "zh": "顶盖脊髓束",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Temporal bone",
+   "zh": "颞骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Temporal branches of middle cerebral artery",
+   "zh": "大脑中动脉颞叶支",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Temporal plane",
+   "zh": "颞平面",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Temporal pole",
+   "zh": "颞极",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Temporalis muscle",
+   "zh": "颞肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Temporo-occipital branch",
+   "zh": "颞枕支",
+   "status": "pending",
+   "note": "未标明母干；大脑中动脉习称颞枕动脉，大脑后动脉名词有枕颞支，二者不混称"
+  },
+  {
+   "en": "Temporoparietalis muscle",
+   "zh": "颞顶肌",
+   "status": "reviewed",
+   "note": "颞顶肌与颞肌（temporalis）不同，原译与颞肌条目重复。"
+  },
+  {
+   "en": "Tendinous arch of levator ani",
+   "zh": "肛提肌腱弓",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon of extensor digitorum longus",
+   "zh": "趾长伸肌腱",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath - abd. pollicis longus - ext. pollicis brevis",
+   "zh": "拇长展肌与拇短伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of extensor carpi ulnaris",
+   "zh": "尺侧腕伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of extensor digiti minimi manus",
+   "zh": "小指伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of extensor digitorum and extensor indicis",
+   "zh": "指伸肌与示指伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of extensor digitorum longus",
+   "zh": "趾长伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of extensor hallucis longus",
+   "zh": "踇长伸肌腱鞘",
+   "status": "reviewed",
+   "note": "踇长伸肌腱鞘，不用拇。"
+  },
+  {
+   "en": "Tendon sheath of extensor pollicis longus",
+   "zh": "拇长伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of extensors carpi radialis",
+   "zh": "桡侧腕伸肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of flexor carpi radialis",
+   "zh": "桡侧腕屈肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of flexor digitorum longus",
+   "zh": "趾长屈肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of flexor hallucis longus",
+   "zh": "踇长屈肌腱鞘",
+   "status": "reviewed",
+   "note": "改为踇后不必再括注足。"
+  },
+  {
+   "en": "Tendon sheath of flexor pollicis longus",
+   "zh": "拇长屈肌腱鞘（手）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of tibialis anterior",
+   "zh": "胫骨前肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tendon sheath of tibialis posterior muscle",
+   "zh": "胫骨后肌腱鞘",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tensor fasciae latae",
+   "zh": "阔筋膜张肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tenth rib",
+   "zh": "第10肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tentorium cerebelli",
+   "zh": "小脑幕",
+   "status": "reviewed",
+   "note": "改正「小脑天幕」。"
+  },
+  {
+   "en": "Teres major muscle",
+   "zh": "大圆肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Teres minor muscle",
+   "zh": "小圆肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Testis",
+   "zh": "睾丸",
+   "status": "reviewed",
+   "note": "睪为繁体，简体作睾。"
+  },
+  {
+   "en": "Thalamus",
+   "zh": "丘脑",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Third metacarpal bone",
+   "zh": "第三掌骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Third metatarsal bone",
+   "zh": "第三跖骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Third rib",
+   "zh": "第3肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Third ventricle",
+   "zh": "第三脑室",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thoracic aorta",
+   "zh": "胸主动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thoraco-acromial artery",
+   "zh": "胸肩峰动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thoracodorsal artery",
+   "zh": "胸背动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thoracodorsal nerve",
+   "zh": "胸背神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thoracodorsal vein",
+   "zh": "胸背静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thyro-epiglottic part of thyro-arytenoid muscle",
+   "zh": "甲杓肌甲状会厌部",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Thyrocervical trunk",
+   "zh": "甲状颈干",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thyrohyoid muscle",
+   "zh": "甲状舌骨肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Thyroid cartilage",
+   "zh": "甲状软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Thyroid gland",
+   "zh": "甲状腺",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Thyroid nodes",
+   "zh": "甲状腺淋巴结",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tibia",
+   "zh": "胫骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tibial nerve",
+   "zh": "胫神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tibialis anterior muscle",
+   "zh": "胫骨前肌",
+   "status": "reviewed",
+   "note": "教材名胫骨前肌。同表胫骨前肌腱鞘已用全称。"
+  },
+  {
+   "en": "Tibialis posterior muscle",
+   "zh": "胫骨后肌",
+   "status": "reviewed",
+   "note": "教材名胫骨后肌。"
+  },
+  {
+   "en": "Tibiocalcaneal ligament",
+   "zh": "胫跟韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tibionavicular ligament",
+   "zh": "胫舟韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tongue",
+   "zh": "舌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Tonsil of cerebellum",
+   "zh": "小脑扁桃体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Trachea",
+   "zh": "气管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Transversalis fascia",
+   "zh": "腹横筋膜",
+   "status": "reviewed",
+   "note": "fascia transversalis 的标准名是腹横筋膜。"
+  },
+  {
+   "en": "Transverse acetabular ligament",
+   "zh": "髋臼横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse arytenoid muscle",
+   "zh": "杓横肌",
+   "status": "reviewed",
+   "note": "杓肌为总称，横部的标准名是杓横肌。"
+  },
+  {
+   "en": "Transverse cervical artery",
+   "zh": "颈横动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse colon",
+   "zh": "横结肠",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Transverse facial artery",
+   "zh": "面横动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse frontopolar gyrus and sulcus*",
+   "zh": "额极横回和额极横沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse head of adductor hallucis",
+   "zh": "踇收肌横头",
+   "status": "reviewed",
+   "note": "足踇收肌用踇，与拇收肌横头区分。"
+  },
+  {
+   "en": "Transverse head of adductor pollicis",
+   "zh": "拇收肌横头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Transverse humeral ligament",
+   "zh": "肱骨横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse intermuscular septum of leg",
+   "zh": "小腿横肌间隔",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Transverse ligament of knee",
+   "zh": "膝横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse occipital sulcus",
+   "zh": "枕横沟",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse part of iliofemoral ligament",
+   "zh": "髂股韧带横部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse part of trapezius muscle",
+   "zh": "斜方肌横部（中部）",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Transverse sinus",
+   "zh": "横窦",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse temporal gyri",
+   "zh": "颞横回",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transverse tibiofibular ligament",
+   "zh": "胫腓横韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Transversus abdominis muscle",
+   "zh": "腹横肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Transversus thoracis muscle",
+   "zh": "胸横肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Trapeziotrapezoidal interosseous ligament",
+   "zh": "大多角小多角骨间韧带",
+   "status": "pending",
+   "note": "trapezium 为大多角骨、trapezoid 为小多角骨，旧译偶互易。骨名次序按英文 trapezio-trapezoid，待核。"
+  },
+  {
+   "en": "Trapezium bone",
+   "zh": "大多角骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Trapezoid bone",
+   "zh": "小多角骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Trapezoid ligament",
+   "zh": "斜方韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Trapezoideocapitate interosseous ligament",
+   "zh": "小多角头骨间韧带",
+   "status": "pending",
+   "note": "小多角骨至头状骨。与大多角骨的对应及骨间/掌侧层次在教材中少单列，次序待核。"
+  },
+  {
+   "en": "Triangular part of inferior frontal gyrus",
+   "zh": "额下回三角部",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Trigeminal nerve (V)",
+   "zh": "三叉神经（V）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Triquetrocapitate ligament",
+   "zh": "三角头韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Triquetrohamate ligament",
+   "zh": "三角钩韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Triquetrum bone",
+   "zh": "三角骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Triradiate cartilage",
+   "zh": "Y形软骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Trochanteric bursa of gluteus maximus muscle",
+   "zh": "臀大肌转子囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Trochanteric bursa of gluteus medius muscle",
+   "zh": "臀中肌转子囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Trochanteric bursa of gluteus minimus muscle",
+   "zh": "臀小肌转子囊",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Trochlea of superior oblique muscle",
+   "zh": "上斜肌滑车",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Trochlear nerve (IV)",
+   "zh": "滑车神经（IV）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tuber of vermis",
+   "zh": "蚓结节",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Twelfth rib",
+   "zh": "第12肋",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Tympanic membrane",
+   "zh": "鼓膜",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulna",
+   "zh": "尺骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnar artery",
+   "zh": "尺动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnar collateral ligament",
+   "zh": "尺侧副韧带",
+   "status": "reviewed",
+   "note": "肘关节尺侧副韧带；腕部另有腕尺侧副韧带。"
+  },
+  {
+   "en": "Ulnar collateral ligament of wrist joint",
+   "zh": "腕尺侧副韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnar head of extensor carpi ulnaris",
+   "zh": "尺侧腕伸肌尺头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ulnar head of flexor carpi ulnaris",
+   "zh": "尺侧腕屈肌尺头",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Ulnar nerve",
+   "zh": "尺神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnar veins",
+   "zh": "尺静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnocapitate ligament",
+   "zh": "尺头韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnolunate ligament",
+   "zh": "尺月韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnopisiform ligament",
+   "zh": "尺豆韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ulnotriquetral ligament",
+   "zh": "尺三角韧带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper canine",
+   "zh": "上颌尖牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper first molar tooth",
+   "zh": "上颌第一磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper first premolar",
+   "zh": "上颌第一前磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper lateral incisor",
+   "zh": "上颌侧切牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper medial incisor",
+   "zh": "上颌中切牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper second molar tooth",
+   "zh": "上颌第二磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Upper second premolar",
+   "zh": "上颌第二前磨牙",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Ureter",
+   "zh": "输尿管",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Urethra",
+   "zh": "尿道",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Urinary bladder",
+   "zh": "膀胱",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Uvula of palate",
+   "zh": "悬雍垂",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Uvula of vermis",
+   "zh": "蚓垂",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vagus nerve (X)",
+   "zh": "迷走神经（X）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vastus intermedius muscle",
+   "zh": "股中间肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Vastus lateralis muscle",
+   "zh": "股外侧肌",
+   "status": "reviewed",
+   "note": "广肌为旧译，标准名股外侧肌。"
+  },
+  {
+   "en": "Vastus medialis muscle",
+   "zh": "股内侧肌",
+   "status": "reviewed",
+   "note": "括注与本名重复，删除。"
+  },
+  {
+   "en": "Ventral parts of lateral intertransversarii lumborum muscles",
+   "zh": "腰外侧横突间肌腹侧部",
+   "status": "reviewed",
+   "note": "标准名腰外侧横突间肌，腹侧部保留。"
+  },
+  {
+   "en": "Vermiform appendix",
+   "zh": "阑尾",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Vertebra C3",
+   "zh": "第3颈椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra C4",
+   "zh": "第4颈椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra C5",
+   "zh": "第5颈椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra C6",
+   "zh": "第6颈椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra C7",
+   "zh": "第7颈椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra L1",
+   "zh": "第1腰椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra L2",
+   "zh": "第2腰椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra L3",
+   "zh": "第3腰椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra L4",
+   "zh": "第4腰椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra L5",
+   "zh": "第5腰椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T1",
+   "zh": "第1胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T10",
+   "zh": "第10胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T11",
+   "zh": "第11胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T12",
+   "zh": "第12胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T2",
+   "zh": "第2胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T3",
+   "zh": "第3胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T4",
+   "zh": "第4胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T5",
+   "zh": "第5胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T6",
+   "zh": "第6胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T7",
+   "zh": "第7胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T8",
+   "zh": "第8胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebra T9",
+   "zh": "第9胸椎",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebral artery",
+   "zh": "椎动脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vertebral vein",
+   "zh": "椎静脉",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vestibular nerve",
+   "zh": "前庭神经",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vestibular nuclei",
+   "zh": "前庭神经核",
+   "status": "reviewed",
+   "note": "改正「前庭核」。"
+  },
+  {
+   "en": "Vestibule",
+   "zh": "前庭",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vestibulocochlear nerve (VIII)",
+   "zh": "前庭蜗神经（VIII）",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vitreous body",
+   "zh": "玻璃体",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Vomer",
+   "zh": "犁骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "White matter of spinal cord",
+   "zh": "脊髓白质",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "White matter of telencephalon",
+   "zh": "端脑白质",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Wing of central lobule",
+   "zh": "中央小叶翼",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Xiphoid process",
+   "zh": "剑突",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Zona orbicularis",
+   "zh": "轮匝带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Zonular fibres",
+   "zh": "睫状小带",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Zygomatic bone",
+   "zh": "颧骨",
+   "status": "reviewed",
+   "note": ""
+  },
+  {
+   "en": "Zygomaticus major muscle",
+   "zh": "颧大肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  },
+  {
+   "en": "Zygomaticus minor muscle",
+   "zh": "颧小肌",
+   "status": "reviewed",
+   "note": "已有中文，校对后沿用"
+  }
+ ]
+}
