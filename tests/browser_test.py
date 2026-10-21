@@ -35,7 +35,7 @@ try:
   test('folder_hierarchy',page.locator('#catalog details').count()>=5)
   test('null_selection_not_object_zero',page.evaluate('__studio.selectedObject()===null && __studio.object(null)===null'))
   test('partial_name_not_whole_bone',page.evaluate('''()=>{const o={sourceName:'Head of left humerus',category:'skeletal'};return FormaKnowledge.title(o)==='Head of left humerus' && o._knowledgeMatch==='related';}'''))
-  test('names_bilingual_pinyin',page.evaluate('''()=>{const o={sourceName:'Left humerus',category:'skeletal'};const n=FormaKnowledge.names(o);return n.zh==='左侧 · 肱骨' && /humerus/i.test(n.en) && n.py.includes('gōng') && n.py.includes('gǔ') && FormaKnowledge.pinyin('切迹')==='qiē jì';}'''))
+  test('names_bilingual_pinyin',page.evaluate('''()=>{const o={sourceName:'Left humerus',category:'skeletal'};const n=FormaKnowledge.names(o);return n.zh==='左肱骨' && /humerus/i.test(n.en) && n.py.includes('gōng') && n.py.includes('gǔ') && FormaKnowledge.pinyin('切迹')==='qiē jì';}'''))
 
   page.locator('#search').fill('肱骨');page.wait_for_timeout(180)
   test('chinese_search',page.locator('#catalog .mesh-row').count()==2)
