@@ -414,4 +414,14 @@ button.send:hover:not(:disabled){color:var(--on-accent);background:var(--accent)
 .anno-arrow{position:absolute;z-index:4;pointer-events:none;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 70%,transparent))}
 .anno-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent),0 0 10px var(--accent);transform:translate(-50%,-50%);z-index:5}
 
+/* 返回完整结构：画布面包屑始终可点；讲解层打开时面板内也有同一入口。 */
+.scene-crumb{pointer-events:auto;z-index:8}
+.scene-crumb button{pointer-events:auto}
+.scene-back-inline{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--panel2);color:var(--accent);font-size:12px}
+.scene-back-inline .ico{width:14px;height:14px}
+@media(max-width:700px){
+ .scene-crumb{left:56px;z-index:8;max-width:calc(100% - 120px)}
+ .scene-back-inline{font-size:13px;padding:8px 12px}
+}
+
 
