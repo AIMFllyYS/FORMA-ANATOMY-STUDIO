@@ -24,7 +24,7 @@ Forma is a browser-based 3D workbench for learning systematic anatomy. Structure
 
 构建后的页面是 `dist/forma_anatomy_studio.html`（`dist/` 不入库，需本地生成）。双击或用浏览器打开。首次载入骨骼会向公开模型地址请求 GLB，失败时页面报错，不会换成假骨架。
 
-常用操作：左键旋转，`G` 平移，滚轮缩放，单击选中，双击放大，右键打开结构菜单。搜索框接受中文、英文、拉丁文和拼音。
+常用操作：左键旋转，`G` 平移，滚轮缩放，单击选中并显示名称，双击进入结构分析，右键打开结构菜单。搜索框接受中文、英文、拉丁文和拼音。
 
 ## 开源素材与许可证
 
